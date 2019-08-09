@@ -59,7 +59,9 @@ def saveToken(request):
         obj.access_token=request.GET.get('access_token')
         obj.refresh_token=request.GET.get('refresh_token')
         obj.save()
-        return HttpResponseRedirect('/test/profile')
+        user1 = authenticate(username = obj.username, password = request.GET.get("pass"))
+        dj_login(request, user1)
+        return HttpResponseRedirect('https://obscure-bayou-10492.herokuapp.com/test/profile')
 
 
 def network(request):

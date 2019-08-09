@@ -301,7 +301,7 @@ $("#myform").submit(function(e){
 				}
 				else{
 					console.log("sd")
-					window.location.href="/test/saveToken?username="+$("#username").val()+"&access_token="+data.token_data.access+"&refresh_token="+data.token_data.refresh;				}
+					window.location.href="https://obscure-bayou-10492.herokuapp.com/test/saveToken?username="+$("#username").val()+"&pass="+$("#pass").val()+"&access_token="+data.token_data.access+"&refresh_token="+data.token_data.refresh;				}
 	})
 })
 signUpButton.addEventListener('click', () => window.location.href='https://obscure-bayou-10492.herokuapp.com/test/signup');

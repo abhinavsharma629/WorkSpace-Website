@@ -126,7 +126,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-LOGIN_REDIRECT_URL='/test/profile'
+LOGIN_REDIRECT_URL='/test/network1'
 LOGOUT_REDIRECT_URL='/'
 
 USER_AGENTS_CACHE = None
