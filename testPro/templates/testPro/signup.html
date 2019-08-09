@@ -468,7 +468,7 @@ $("#msform").submit(function(e){
 				else{
 					//console.log($("#firstname").val()+" "+$("#lastname").val()+" "+$("#pass").val())
 					$.ajax({
-						url:"/test/signUpInCurrentServer/",
+						url:"https://obscure-bayou-10492.herokuapp.com/test/signUpInCurrentServer/",
 						type:"POST",
 						data:{
 							"username":$("#username").val(),
