@@ -92,7 +92,7 @@ flow = OAuth2WebServerFlow(client_id='484263106620-gqflub2lb8d0bvbof404133q236ut
                             'https://www.googleapis.com/auth/drive.appdata'
                             ],
                             
-                            redirect_uri='http://127.0.0.1:8001/test/complete/google-oauth2/')
+                            redirect_uri='https://obscure-bayou-10492.herokuapp.com/test/complete/google-oauth2/')
 
 #JSON OBJECTS ENCODER
 class PythonObjectEncoder(JSONEncoder):
@@ -160,7 +160,7 @@ def gd_oauth2(request):
 
 def dropboxLogin(request):
     clientId="0g2qw3uaxpgwbsf"
-    url="https://www.dropbox.com/oauth2/authorize?client_id="+clientId+"&response_type=code&redirect_uri=http://127.0.0.1:8001/test/complete/dropbox-oauth2"
+    url="https://www.dropbox.com/oauth2/authorize?client_id="+clientId+"&response_type=code&redirect_uri=https://obscure-bayou-10492.herokuapp.com/test/complete/dropbox-oauth2"
     return HttpResponseRedirect(url)
 
 
@@ -171,7 +171,7 @@ def drop_oauth2(request):
     print(code)
     url = "https://api.dropboxapi.com/oauth2/token"
 
-    payload1 = "code="+str(code)+"&grant_type=authorization_code&redirect_uri=http://127.0.0.1:8001/test/complete/dropbox-oauth2"
+    payload1 = "code="+str(code)+"&grant_type=authorization_code&redirect_uri=https://obscure-bayou-10492.herokuapp.com/test/complete/dropbox-oauth2"
     headers1 = {
         'Content-Type': "application/x-www-form-urlencoded",
         'Authorization': "Basic MGcycXczdWF4cGd3YnNmOnl4dHhhMWg0YWU0cDhmMw==",
@@ -269,7 +269,7 @@ def git_complete(request):
         'client_secret':"2513fa09a6a01b3956bc1ace331d0c9325fa2b7e",
         'state':'notifications,user,email,repo',
         'code':code,
-        'redirect_uri':"http://127.0.0.1:8001/test/complete/gitHub-oauth2"
+        'redirect_uri':"https://obscure-bayou-10492.herokuapp.com/test/complete/gitHub-oauth2"
         }
     headers={}
     headers['Accept']="application/json"
