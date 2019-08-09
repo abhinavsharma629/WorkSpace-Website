@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <title>Custom Angular Material Sidenav</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+      <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
+      <link rel='stylesheet' href='https://material.angularjs.org/1.1.1/docs.css'>
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'>
+      <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <script src='https://cdn.quilljs.com/1.2.2/quill.min.js'></script>
+      <script src='https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js'></script>
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+     
+      <style type="text/css">
+         .red { background-color: red;}
+         .blue { background-color: blue;}
+         .lightgreen { background-color: lightgreen;}
+         .section{ 
+           height: 100%;
+         margin-left: -25%;
+         }
+         .locked-sidebar { background-color: #FAFAFA;}
+         .side-button-active{
+         background-color: #69F0AE;
+         }
+         .side-icon-active{
+         color: #FFFFFF;
+         }
+         .side-icon-inactive{
+         color: #000000;
+         }
+         .side-toolbar{
+         background-color: #35A62D;
+         font-color: #FAFAFA;
+         }
+         .md-button.sidebar-button{
+         min-width: 2px;
+         max-width: 100%;
+         min-height: 2px;
+         max-height: 50px;
+         margin-left: 12px;
+         width: 51px;
+         padding-left: 0px;
+         }
+         md-sidenav.locked-sidebar, 
+         md-sidenav.md-locked-open.locked-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.locked-sidebar {
+         min-width: 5em !important;
+         width: 89vw !important;
+         max-width: 5em !important;
+         overflow-x: hidden;
+         }
+         md-sidenav.toggleable-sidebar, 
+         md-sidenav.md-locked-open.toggleable-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.toggleable-sidebar {
+         min-width: 0em !important;
+         width: 85vw !important;
+         max-width: 20em !important;
+         } 
+         * {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: Montserrat,sans-serif;
+         }
+         body > h1 {
+         text-align: center;
+         margin-top: 30px;
+         }
+         .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         width: 90%;
+         margin: 0px auto;
+         }
+         .card-container .card {
+         flex: 1 1 0%;
+         margin: 10px 10px;
+         background-color: #1d54ba;
+         color: #ffffff;
+         padding: 15px;
+         text-align: center;
+         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+         transition: all 0.3s ease-in-out;
+         }
+         .card-container .card .img-container {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 70px;
+         width: 100px;
+         height: 100px;
+         border-radius: 50%;
+         margin: 0px auto;
+         transition: all 0.5s ease-in-out;
+         }
+         @media (max-width: 768px) {
+         .card-container .card {
+         flex: 0 0 100%;
+         margin: 10px 0px;
+         }
+         }
+         .card-container:hover .card {
+         transform: scale(0.9);
+         filter: blur(5px) grayscale(1);
+         }
+         .card-container:hover .card:hover {
+         transform: scale(1.1);
+         filter: blur(0px) grayscale(0);
+         z-index: 999;
+         }
+         .card-container:hover .card:hover .img-container {
+         background-color: #ffffff;
+         transform: scale(1.1);
+         font-size: 50px;
+         }
+         .card-container:hover .card:nth-child(1):hover .img-container {
+         color: #38539b;
+         }
+         .card-container:hover .card:nth-child(2):hover .img-container {
+         color: #d85043;
+         }
+         .card-container:hover .card:nth-child(3):hover .img-container {
+         color: #1c9ce7;
+         }
+         #editor-container {
+         height: 80%;
+         }
+         .container {
+         margin-bottom: 10px;
+         text-align: right;
+         }
+         .container a {
+         font-family: Helvetia, sans-serif;
+         }
+         #counter {
+         border: 1px solid #ccc;
+         border-width: 0px 1px 1px 1px;
+         color: #aaa;
+         padding: 5px 15px;
+         text-align: right;
+         }
+         .container1 {
+         font-family: Sans-serif;
+         display: flex;
+        
+         }
+         .field1 {
+         border-radius: 4px;
+         border-width: .6px;
+         border-color: #43425D;
+         padding: 10px 10px 0 10px;
+         background: #43425D;
+         cursor: pointer;
+         }
+         .legend1 {
+         margin-left: 9px;
+         padding-top: 5px;
+         padding-bottom: 5px;
+         padding-left: 20px;
+         padding-right: 20px;
+         border:.1 solid grey;
+         text-align: left;
+         border-radius: 2px;
+         background: #3B86FF;
+         color: #fff;
+         }
+         .legend2 {
+         margin-left: 9px;
+         padding-top: 5px;
+         padding-bottom: 5px;
+         padding-left: 20px;
+         padding-right: 20px;
+         border:.1 solid grey;
+         text-align: left;
+         border-radius: 2px;
+         background: #3B86FF;
+         color: #fff;
+         }
+         .text1 {
+         display: flex;;
+         padding: 7px;
+         color: white;
+         }
+         .button1 {
+         border: none;
+         background-color: #3B86FF;
+         color: white;
+         text-size: 16px;
+         padding: 9px 15px 9px 15px;
+         margin: 20px 0px 0px 7px;
+         transition-duration: 0.4s;
+         align: right;
+         box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2);
+         }
+         .button1:hover {
+         background-color: #3BB7FF;
+         color: white;
+         }
+
+
+
+
+         .pen body {
+	padding-top:50px;
+}
+
+/* MODAL FADE LEFT RIGHT BOTTOM */
+
+.modal.fade:not(.in).right .modal-dialog {
+	-webkit-transform: translate3d(25%, 0, 0);
+	transform: translate3d(25%, 0, 0);
+}
+.modal.fade:not(.in).bottom .modal-dialog {
+	-webkit-transform: translate3d(0, 25%, 0);
+	transform: translate3d(0, 25%, 0);
+}
+
+.modal.right .modal-dialog {
+	position:absolute;
+	top:0;
+	right:0;
+	margin:0;
+}
+
+.modal.left .modal-dialog {
+	position:absolute;
+	top:0;
+	left:0;
+	margin:0;
+}
+
+.modal.left .modal-dialog.modal-sm {
+	max-width:300px;
+}
+
+.modal.left .modal-content, .modal.right .modal-content {
+	min-height:100vh;
+	border:0;
+}
+      </style>
+   </head>
+   <body>
+      {% include 'testPro/navBar.html' %}
+      <!-- partial:index.partial.html -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+      <div ng-app="myApp" ng-controller="appCtrl" layout="column" class="section" ng-cloak>
+         <div class="container" layout="row" flex id="main-cont" >
+            <md-sidenav md-component-id="l-sidenav" class="locked-sidebar" md-is-locked-open="true" md-whiteframe="4" style="width:30px;">
+               <md-list>
+                  <md-list-item id="notes" ng-click="toggleExpanded(1)" ng-class="{ 'side-button-active': isSelected(1) && isOpen }">
+                     <i ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': true}">assignment</i>
+                  </md-list-item>
+                  <md-list-item id="code" ng-click="toggleExpanded(2)" ng-class="{ 'side-button-active': isSelected(2) && isOpen }">
+                     <i ng-class="{ 'side-icon-active': isSelected(2) && isOpen,'side-icon-inactive': !isSelected(2), 'material-icons': true}">code</i>
+                  </md-list-item>
+               </md-list>
+            </md-sidenav>
+         </div>
+      </div>
+{% comment %} Sharing Modal {% endcomment %}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Friends' List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="mbd">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="mdb_btn" class="btn btn-primary" id="shareto">Share</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input id="currentNote" hidden>
+
+{% comment %} Notes Save Modal {% endcomment %}
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal1Label">Note Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       
+       <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Title</span>
+          </div>
+          <input type="text" class="form-control" placeholder="Title" required aria-label="Title" aria-describedby="basic-addon1" id="title">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon11">Caption</span>
+          </div>
+          <textarea type="text" class="form-control" placeholder="Write Caption" rows="5" aria-label="Caption" id="caption1" aria-describedby="basic-addon1"></textarea>
+        </div>
+
+        
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="submitIt()">Save Note</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% comment %} Note UnShare Modal {% endcomment %}
+
+<div class="modal fade" id="exampleModal11" tabindex="-1" role="dialog" aria-labelledby="exampleModal11Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModal11Label">Friends' List</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="mbd1">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="mdb_btn1" class="btn btn-primary">UnShare</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- partial -->
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+      <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+      <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js'></script>
+      <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script>
+         (function(){
+           
+           var app = angular.module('myApp',['ngMaterial','ngAnimate','myControllers']);
+           
+           app.config(function ($mdThemingProvider) {
+                 $mdThemingProvider
+                     .theme('default')
+                     .primaryPalette('indigo')
+                     .accentPalette('indigo')
+                     .warnPalette('indigo');
+               });
+         })(); // app module
+         
+         //controllers module
+         (function () {
+             
+             var app = angular.module('myControllers', ['ngMaterial']);
+         
+             app.controller('appCtrl', function ($scope, $timeout, $mdSidenav) {
+               $scope.isOpen = false;
+               $scope.menuId = 0;
+               
+               $scope.closeSidenav = function() {
+                 if($scope.isOpen){
+                   $scope.toggleExpanded(0);
+                   $scope.isOpen = false;
+                 }
+               }
+               
+               $scope.toggleExpanded = function(selectedMenuId){
+                   if(!$scope.isOpen){
+                     $scope.isOpen = true;
+                     $scope.menuId = selectedMenuId;
+                   }else{
+                     if($scope.menuId === selectedMenuId){
+                       $scope.isOpen = false;
+                       selectedMenuId = 0;
+                     }
+                     $scope.menuId = selectedMenuId;
+                   }
+               };
+               
+               $scope.isSelected = function(value) {
+                 return $scope.menuId === value;
+               };
+               
+             });
+         })(); //controllers module
+      </script>
+      <script>
+         var data1={};
+         
+         $(function(){
+           
+             var settings = {
+             "async": true,
+             "crossDomain": true,
+             "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/getAllNotes",
+             "method": "GET",
+             "headers": {
+                 "Authorization": "Bearer "+'{{access_token}}'
+                 }
+             }
+         $.ajax(settings).then(function (response) {
+             var data=JSON.parse(response.data);
+             console.log(data);
+             var html="";
+             for(var i=0;i<data.length;i++){
+               data1[data[i]['noteId']]=data[i];
+               var date = moment(data[i]['createdAt']);
+               
+               html+=`
+                           <div class="card" style="width: 40rem; height: 18%;" id="container-`+data[i]['noteId']+`">
+  <div class="card-body">
+    <h5 class="card-title" style="text-align:left;">Card title</h5>
+       <p style="text-align:left;"><small class="text-muted" ><i class="glyphicon glyphicon-time"></i>&nbsp;`+date.fromNow()+`</small></p>
+    <button class="button1" style="font-size:10px" id="show-`+data[i]['noteId']+`"><i class="fa fa-edit"></i></button>
+    <button class="button1" style="font-size:10px" id="delete-`+data[i]['noteId']+`"><i class="fa fa-trash"></i></button>
+  <button class="button1" style="font-size:10px" id="share-`+data[i]['noteId']+`"><i class="fa fa-share"></i></button>
+  <button class="button1" style="font-size:10px" id="unshare-`+data[i]['noteId']+`"><i class="fa fa-undo"></i></button>
+  </div>
+</div>
+    <br>
+   `;
+             }
+              $("#main-cont").append(
+               `<md-content id="notes1" layout-margin layout-padding flex="50" style="width:65%;">
+                   <div id="editor-container" style="background-color:white;">
+                   </div>
+                   <!-- Counter Container -->
+                   <div id="counter"></div>
+                   <!-- Button -->
+                   <br>
+                   <div id="buttons" class="row" style="margin-left:60%;">
+                       <button class="btn btn-primary" id="refresh">Refresh Editor</button> &nbsp; &nbsp; &nbsp;
+                       <button class="btn btn-primary" id="save">Save Note</button>
+                   <div>
+               </md-content>
+                   
+              `);
+              $("#main-cont").append(
+               `<div id="saved" style="width: 50%;" style="margin-left:70%;">
+               </div>
+              `);
+              
+         quill=initializeQuill();
+           $("#saved").html(html);
+         
+         $(".legend1").click(function(){
+                share($(this))
+              })
+         $("#refresh").click(function(){
+            refresh();
+         })
+           $("#save").click(function(){
+               clickme();
+           });
+           $(".button1").click(function(){
+             segregate($(this), data1, quill);
+           })
+           
+           $("#notes").click(function(){
+               console.log("inside")
+               $("#notes1").attr('style', "display:block;");
+               $("#saved").attr('style', "display:block;");
+           })
+           $("#code").click(function(){
+               console.log("inside")
+               $("#notes1").attr('style', "display:none;");
+               $("#saved").attr('style', "display:none;");
+           })
+         })
+           })
+         
+      </script>
+      <script>
+         function segregate(e, data, quill){
+           var type=e.attr('id').split('-');
+           var type1=type[0];
+           var id=type[1];
+           console.log(type1+" "+id);
+           if(type1==="edit"){
+             edit(id);
+           }
+           else if(type1==="show"){
+             show(id, data, quill);
+           }
+           else if(type1==="delete"){
+             deleteIt(id);
+           }
+           else if(type1==="unshare"){
+             unshare(id);
+           }
+           else if(type1==="share"){
+             share(id);
+           }
+         }
+         function show(id, data, quill){
+           console.log("Inside show"+" "+id);
+             $("#editor-container").html(data[id]['noteData']);
+             $("#buttons").html(`
+             <button class="btn btn-primary" id="refresh">Refresh Editor</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+             <button class="btn btn-primary" id="edit1">Update Note</button>
+             `);
+             $("#edit1").click(function(){
+                 edit(id);
+             });
+             $("#refresh").click(function(){
+                refresh();
+                })
+          
+         }
+         var imgData="";
+         function clickme(){
+           console.log("inside")
+                     html2canvas(document.getElementById('editor-container'), {
+                        onrendered: function(canvas) {
+
+                            var screenshot = canvas.toDataURL("image/png");
+                            console.log(screenshot);
+                            imgData=screenshot;
+
+                        }
+                    });
+                    
+           $("#exampleModal1").modal('toggle');
+        
+         }
+         
+         function refresh(){
+           console.log(quill)
+         $("#editor-container").html(`
+         <div class="ql-editor ql-blank" contenteditable="true">
+         </div>
+         <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+         <div class="ql-tooltip ql-hidden"><a class="ql-preview" target="_blank" href="about:blank"></a><input type="text" data-formula="e=mc^2" data-link="quilljs.com" data-video="Embed URL"><a class="ql-action"></a><a class="ql-remove"></a></div>
+         `)
+         
+           $("#buttons").html(`
+                     <button class="btn btn-primary" id="refresh">Refresh Editor</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                     <button class="btn btn-primary" id="save">Save Note</button>
+                     `);
+                     $("#save").click(function(){
+                 clickme();
+             });
+                     $("#refresh").click(function(){
+                      refresh();
+                      })
+         }
+         function edit(id){
+           console.log("Inside Edit"+" "+id);
+            var form = document.getElementById('editor-container');
+            //console.log(form.innerHTML)
+            console.log($("#editor-container").html());
+            var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/saveDeleteNote",
+                   "method": "PUT",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                     "data":{
+                       "noteId":id,
+                       "content": $("#editor-container").html()
+                     }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                 
+                   console.log(response);
+                   if(response.status==="200"){
+                     console.log("Updated!!")
+                     window.location.reload()
+         }
+               })
+         }
+         
+         function deleteIt(id){
+                 var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/saveDeleteNote",
+                   "method": "DELETE",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                     "data":{
+                       "noteId":id 
+                     }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                   console.log(response);
+                   if(response.status==="200"){
+                     $("#container-"+id).next('br').remove();
+                     $("#container-"+id).fadeOut(100, function() { 
+                       $("#container-"+id).remove();
+                     }); 
+                   }
+               })
+         }
+
+         function share(e){
+          var noteId=e;
+          $("#currentNote").val(noteId);
+          var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/getFriends?noteId="+noteId,
+                   "method": "GET",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                   console.log(response)
+                   if(response.status==="200"){
+                     var friends=JSON.parse(response.list);
+                     console.log(friends)
+                     var html=`<select class="selectpicker" multiple data-live-search="true" id="select1">`
+                     
+                     for(var i=0;i<friends.length;i++){
+                       var user;
+                       
+                       if(friends[i]['friends_name']==="{{username}}"){
+                         user=friends[i]['username']
+                       }
+                       else{
+                         user=friends[i]['friends_name']
+                       }
+                       html+=`<option value="`+user+`">`+user+`</option>
+                       `;
+                     }
+                     html+="</select>";
+                     console.log(html);
+
+                     $("#mbd").html(html);
+                     
+                     $("#select1").selectpicker();
+                     $("#exampleModal").modal('toggle');
+         }
+         else{
+           if(confirm("No Friends Yet!! Lets Make Some!!")){
+             window.location.href="/test/network"
+           }
+         }
+               })
+         }
+        
+         function unshare(e){
+         
+           var noteId=e;
+           $("#currentNote").val(noteId);
+           console.log(e)
+         
+         var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/noteSharedTo?noteId="+noteId,
+                   "method": "GET",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                 var friends=JSON.parse(response.sharedTo);
+                 console.log(friends)
+                  var html=`<select class="selectpicker" multiple data-live-search="true" id="select11">`
+                     
+                     for(var i=0;i<friends.length;i++){
+                       html+=`<option value="`+friends[i]['shared_to']+`" selected>`+friends[i]['shared_to']+`</option>
+                       `;
+                     }
+                     html+="</select>";
+                     console.log(html);
+
+                     $("#mbd1").html(html);
+                     
+                     
+                     $("#select11").selectpicker();
+                     $("#exampleModal11").modal('toggle');
+                      
+               })      
+              
+         }
+
+         
+         $("#mdb_btn1").click(function(){
+           console.log("mdb1 clicked")
+            var list=[];
+            $('#select11').find('option').each(function(){
+                        if(! $(this).is(':selected')){
+                          list.push($(this).val())
+                        }
+         })
+         console.log(list);
+         var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/deleteSharedNote/",
+                   "method": "DELETE",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                    "data":{
+                      "list": list,
+                      "noteId":$("#currentNote").val()
+                    }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                   console.log(response)
+                   if(response.status==="200"){
+                    alert("Ok UnShared Successfully!!")
+                     $("#exampleModal11").modal('toggle');
+                   }
+              
+                    })
+
+         })
+
+
+
+
+         $("#mdb_btn").click(function(){
+           
+         var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/shareNote/",
+                   "method": "POST",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                    "data":{
+                      "list": $("#select1").val(),
+                      "noteId":$("#currentNote").val()
+                    }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                   console.log(response)
+                   if(response.status==="201"){
+                    alert("Ok Shared Successfully!!")
+                     $("#exampleModal").modal('toggle');
+                   }
+              
+                    })
+
+         })
+
+
+
+
+function submitIt(){
+var form = document.getElementById('editor-container');
+                 console.log(form.innerHTML);
+                 var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/saveDeleteNote",
+                   "method": "POST",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                     "data":{
+                       "content":form.innerHTML,
+                       "title":$("#title").val(),
+                       "caption":$("#caption1").val(),
+                       "imgData": imgData
+                     }
+                   }
+               $.ajax(settings).then(function (response) {
+                   console.log(response);
+                   if(response.status==="201"){
+                     var date = moment(response.date);
+                    $("#exampleModal1").modal("toggle");
+                     var html=`
+                     <div class="card" style="width: 40rem; height: 18%;" id="container-`+response.id+`">
+  <div class="card-body">
+    <h5 class="card-title" style="text-align:left;">Card title</h5>
+       <p style="text-align:left;"><small class="text-muted" ><i class="glyphicon glyphicon-time"></i>&nbsp;`+date.fromNow()+`</small></p>
+    <button class="button1" style="font-size:10px" id="show-`+response.id+`"><i class="fa fa-edit"></i></button>
+    <button class="button1" style="font-size:10px" id="delete-`+response.id+`"><i class="fa fa-trash"></i></button>
+  <button class="button1" style="font-size:10px" id="share-`+response.id+`"><i class="fa fa-share"></i></button>
+  <button class="button1" style="font-size:10px" id="unshare-`+response.id+`"><i class="fa fa-undo"></i></button>
+  </div>
+</div>
+    <br>
+                   `;
+
+                   
+
+                   $("#saved").append(html);
+                   $(".legend1").click(function(){
+                    share($(this))
+                  })
+
+                   $(".button1").click(function(){
+                       segregate($(this), data1, quill);
+                     })
+                     $("#buttons").html(`
+                     <button class="btn btn-primary" id="refresh">Refresh Editor</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                     <button class="btn btn-primary" id="edit1">Update Note</button>
+                     `);
+                     $("#edit1").click(function(){
+                         edit(response.id);
+                     });
+                     $("#refresh").click(function(){
+                      refresh();
+                      })
+                   }
+                   else{
+                     alert("Sorry Some Error Occured!! Please Try Again Later or Report It!!")
+                   }
+                 });
+
+                 
+}
+
+        $("#shareto").click(function(){
+         
+        console.log("shareto clicked")
+        console.log($("#select1").val());
+        var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/shareNote/",
+                   "method": "POST",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                       },
+                    "data":{
+                      "list": $("#select1").val(),
+                      "noteId":$("#currentNote").val()
+                    }
+                   }
+         
+               $.ajax(settings).then(function (response) {
+                   console.log(response)
+                   if(response.status==="201"){
+                    alert("Ok Shared Successfully!!")
+                   }
+              
+                    })
+        })
+               
+                 
+      </script>
+      {% comment %} Quill Editor Initialization {% endcomment %}
+      <script>
+         function initializeQuill(){
+         
+         // Adding Custom fonts to whitelist
+         var Font = Quill.import('formats/font');
+         // We do not add Aref Ruqaa since it is the default
+         Font.whitelist = [
+         'sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'
+         ];
+         Quill.register(Font, true);
+         
+         
+         //Class and Inline style
+         var BackgroundClass = Quill.import('attributors/class/background');
+         var ColorClass = Quill.import('attributors/class/color');
+         var SizeStyle = Quill.import('attributors/style/size');
+         Quill.register(BackgroundClass, true);
+         Quill.register(ColorClass, true);
+         Quill.register(SizeStyle, true);
+         
+         //Word counter
+         class Counter {
+         constructor(quill, options) {
+             this.quill = quill;
+             this.options = options;
+             this.container = document.querySelector(options.container);
+             quill.on('text-change', this.update.bind(this));
+             this.update(); // Account for initial contents
+         }
+         
+         calculate() {
+             let text = this.quill.getText();
+             if (this.options.unit === 'word') {
+             text = text.trim();
+             // Splitting empty text returns a non-empty array
+             return text.length > 0 ? text.split(/\s+/).length : 0;
+             } else {
+             return text.length;
+             }
+         }
+         
+         update() {
+             var length = this.calculate();
+             var label = this.options.unit;
+             if (length !== 1) {
+             label += 's';
+             }
+             this.container.innerText = length + ' ' + label;
+         }
+         }
+         
+         Quill.register('modules/counter', Counter);
+         
+         //Autosave
+         var Delta = Quill.import('delta');
+         
+         
+         var toolbarOptions = [
+         ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+         ['blockquote', 'code-block'],
+         [{
+             'list': 'ordered'
+         }, {
+             'list': 'bullet'
+         }],
+         [{
+             'script': 'sub'
+         }, {
+             'script': 'super'
+         }], // superscript/subscript
+         [{
+             'indent': '-1'
+         }, {
+             'indent': '+1'
+         }], // outdent/indent
+         [{
+             'direction': 'rtl'
+         }], // text direction
+         
+         [{ 'size': ['small', false, 'large', 'huge'] }],
+         
+         ['link', 'image', 'video'],
+         
+         ];
+         
+         quill = new Quill('#editor-container', {
+         theme: 'snow',
+         modules: {
+             imageResize: {
+               displaySize: true
+             },
+             counter: {
+             container: '#counter',
+             unit: 'word'
+             },
+             toolbar: toolbarOptions
+         },
+         placeholder: 'Whats in your mind??'
+         
+         });
+         
+         
+         
+         //Autosave
+         // Store accumulated changes
+         var change = new Delta();
+         
+         quill.on('text-change', function (delta) {
+         change = change.compose(delta);
+         });
+         
+         // Save periodically
+         setInterval(function () {
+         if (change.length() > 0) {
+             console.log('Saving changes', change);
+             change = new Delta();
+         }
+         }, 5 * 1000);
+         
+         // Check for unsaved data
+         window.onbeforeunload = function () {
+         if (change.length() > 0) {
+             return 'There are unsaved changes. Are you sure you want to leave?';
+         }
+         }
+         return quill;
+         }
+      </script>
+   </body>
+</html>
+
+{% comment %} 
+
+         
+ {% endcomment %}

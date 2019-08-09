@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>Custom Angular Material Sidenav</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
+      <link rel='stylesheet' href='https://material.angularjs.org/1.1.1/docs.css'>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <link rel="stylesheet "type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script src="https://momentjs.com/downloads/moment.min.js"></script>
+      <style type="text/css">
+         html {
+         box-sizing: border-box;
+         }
+         *,
+         *::before,
+         *::after {
+         box-sizing: inherit;
+         }
+         .red { background-color: red;}
+         .blue { background-color: blue;}
+         .lightgreen { background-color: lightgreen;}
+         .locked-sidebar { background-color: #FAFAFA;}
+         .section{ 
+         height: 88%;
+         width:100%;
+         margin-left: -13%;
+         }
+         .side-button-active{
+         background-color: #69F0AE;
+         }
+         .side-icon-active{
+         color: #FFFFFF;
+         }
+         .side-icon-inactive{
+         color: #000000;
+         }
+         .side-toolbar{
+         background-color: #35A62D;
+         font-color: #FAFAFA;
+         }
+         .md-button.sidebar-button{
+         min-width: 2px;
+         max-width: 100%;
+         min-height: 2px;
+         max-height: 50px;
+         margin-left: 12px;
+         width: 51px;
+         padding-left: 0px;
+         }
+         md-sidenav.locked-sidebar, 
+         md-sidenav.md-locked-open.locked-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.locked-sidebar {
+         min-width: 4em !important;
+         width: 85vw !important;
+         max-width: 4em !important;
+         overflow-x: hidden;
+         }
+         md-sidenav.toggleable-sidebar, 
+         md-sidenav.md-locked-open.toggleable-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.toggleable-sidebar {
+         min-width: 0em !important;
+         width: 85vw !important;
+         max-width: 20em !important;
+         } 
+         * {
+         box-sizing: border-box;
+         }
+         body > h1 {
+         text-align: center;
+         margin-top: 30px;
+         }
+         .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         width: 90%;
+         margin: 0px auto;
+         }
+         .card-container .card {
+         flex: 1 1 0%;
+         margin: 10px 10px;
+         background-color: #1d54ba;
+         color: #ffffff;
+         padding: 15px;
+         text-align: center;
+         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+         transition: all 0.3s ease-in-out;
+         }
+         .card-container .card .img-container {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 70px;
+         width: 100px;
+         height: 100px;
+         border-radius: 50%;
+         margin: 0px auto;
+         transition: all 0.5s ease-in-out;
+         }
+         @media (max-width: 768px) {
+         .card-container .card {
+         flex: 0 0 100%;
+         margin: 10px 0px;
+         }
+         }
+         .card-container:hover .card {
+         transform: scale(0.9);
+         filter: blur(5px) grayscale(1);
+         }
+         .card-container:hover .card:hover {
+         transform: scale(1.1);
+         filter: blur(0px) grayscale(0);
+         z-index: 999;
+         }
+         .card-container:hover .card:hover .img-container {
+         background-color: #ffffff;
+         transform: scale(1.1);
+         font-size: 50px;
+         }
+         .card-container:hover .card:nth-child(1):hover .img-container {
+         color: #38539b;
+         }
+         .card-container:hover .card:nth-child(2):hover .img-container {
+         color: #d85043;
+         }
+         .card-container:hover .card:nth-child(3):hover .img-container {
+         color: #1c9ce7;
+         }
+         .links{
+         display:block;
+         width:100%;
+         height:30px;
+         padding:10px 0px;
+         color:red;
+         }
+         #myImg {
+         border-radius: 5px;
+         cursor: pointer;
+         transition: 0.3s;
+         }
+         #myImg:hover {
+         opacity: 0.7;
+         }
+         /* The Modal (background) */
+         .modal1 {
+         display: none;
+         /* Hidden by default */
+         position: fixed;
+         /* Stay in place */
+         z-index: 1;
+         /* Sit on top */
+         padding-top: 100px;
+         /* Location of the box */
+         left: 0;
+         top: 0;
+         width: 100%;
+         /* Full width */
+         height: 100%;
+         /* Full height */
+         overflow: auto;
+         /* Enable scroll if needed */
+         background-color: rgb(0, 0, 0);
+         /* Fallback color */
+         background-color: rgba(0, 0, 0, 0.9);
+         /* Black w/ opacity */
+         }
+         /* Modal Content (image) */
+         .modal-content1 {
+         margin: auto;
+         position:relative;
+         display: block;
+         width: 80%;
+         }
+         /* Caption of Modal Image */
+         #caption {
+         margin: auto;
+         display: block;
+         width: 80%;
+         text-align: center;
+         color: #ccc;
+         padding: 10px 0;
+         height: 150px;
+         }
+         /* Add Animation */
+         .modal-content1,
+         #caption {
+         -webkit-animation-name: zoom;
+         -webkit-animation-duration: 0.6s;
+         animation-name: zoom;
+         animation-duration: 0.6s;
+         background: white;
+         width:80%;
+         }
+         @-webkit-keyframes zoom {
+         from {
+         -webkit-transform: scale(0)
+         }
+         to {
+         -webkit-transform: scale(1)
+         }
+         }
+         @keyframes zoom {
+         from {
+         transform: scale(0)
+         }
+         to {
+         transform: scale(1)
+         }
+         }
+         /* The Close Button */
+         .close {
+         position: absolute;
+         top: 15px;
+         right: 35px;
+         color: #f1f1f1;
+         font-size: 40px;
+         font-weight: bold;
+         transition: 0.3s;
+         }
+         .close:hover,
+         .close:focus {
+         color: #bbb;
+         text-decoration: none;
+         cursor: pointer;
+         }
+         /* 100% Image Width on Smaller Screens */
+         @media only screen and (max-width: 700px) {
+         .modal-content1 {
+         width: 100%;
+         }
+         }
+         ::selection {
+         background: transparent;
+         }
+         ::-moz-selection {
+         background: transparent;
+         }
+         html {
+         box-sizing: border-box;
+         }
+         /* Menu */
+         .menu1 {
+         position: absolute;
+         width: 200px;
+         padding: 2px;
+         margin: 0;
+         border: 1px solid #bbb;
+         background: #eee;
+         background: -webkit-linear-gradient(to bottom, #fff 0%, #e5e5e5 100px, #e5e5e5 100%);
+         background: linear-gradient(to bottom, #fff 0%, #e5e5e5 100px, #e5e5e5 100%);
+         z-index: 100;
+         border-radius: 3px;
+         box-shadow: 1px 1px 4px rgba(0,0,0,.2);
+         opacity: 0;
+         -webkit-transform: translate(0, 15px) scale(.95);
+         transform: translate(0, 15px) scale(.95);
+         transition: transform 0.1s ease-out, opacity 0.1s ease-out;
+         pointer-events: none;
+         }
+         .menu-item1 {
+         display: block;
+         position: relative;
+         margin: 0;
+         padding: 0;
+         white-space: nowrap;
+         }
+         .menu-btn1 { 
+         display: block;
+         color: #444;
+         font-family: 'Roboto', sans-serif;
+         font-size: 13px;
+         cursor: pointer;
+         border: 1px solid transparent;
+         white-space: nowrap;
+         padding: 6px 8px;
+         border-radius: 3px;
+         }
+         button.menu-btn1 {
+         background: none;
+         line-height: normal;
+         overflow: visible;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         width: 100%;
+         text-align: left;
+         }
+         a.menu-btn1 {
+         outline: 0 none;
+         text-decoration: none;
+         }
+         .menu-text1 {
+         margin-left: 25px;
+         }
+         .menu-btn1 .fa {
+         position: absolute;
+         left: 8px;
+         top: 50%;
+         -webkit-transform: translateY(-50%);
+         transform: translateY(-50%);
+         }
+         .menu-item1:hover > .menu-btn1 { 
+         color: #fff; 
+         outline: none; 
+         background-color: #2E3940;
+         background: -webkit-linear-gradient(to bottom, #5D6D79, #2E3940);
+         background: linear-gradient(to bottom, #5D6D79, #2E3940);
+         border: 1px solid #2E3940;
+         }
+         .menu-item-disabled1 {
+         opacity: .5;
+         pointer-events: none;
+         }
+         .menu-item-disabled1 .menu-btn1 {
+         cursor: default;
+         }
+         .menu-separator1 {
+         display:block;
+         margin: 7px 5px;
+         height:1px;
+         border-bottom: 1px solid #fff;
+         background-color: #aaa;
+         }
+         .menu-item-submenu1::after {
+         content: "";
+         position: absolute;
+         right: 6px;
+         top: 50%;
+         -webkit-transform: translateY(-50%);
+         transform: translateY(-50%);
+         border: 5px solid transparent;
+         border-left-color: #808080; 
+         }
+         .menu-item-submenu1:hover::after {
+         border-left-color: #fff;
+         }
+         .menu1 .menu1 {
+         top: 4px;
+         left: 99%;
+         }
+         .menu-show1,
+         .menu-item1:hover > .menu1 {
+         opacity: 1;
+         -webkit-transform: translate(0, 0) scale(1);
+         transform: translate(0, 0) scale(1);
+         pointer-events: auto;
+         }
+         .menu-item1:hover > .menu1 {
+         -webkit-transition-delay: 300ms;
+         transition-delay: 300ms;
+         }
+      </style>
+   </head>
+   <body>
+      {% include 'testPro/navBar.html' %}
+      {% include 'testPro/loader.html' %}
+      <div class="blur" id="main1111">
+      <!-- partial:index.partial.html -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+      <button id="gd" style="margin-left:90%;"><i class="fab fa-github" ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': false}"></i>Logout</button>
+      <div ng-app="myApp" ng-controller="appCtrl" layout="column" class="section" ng-cloak>
+         <div class="container" layout="row" flex id="main-cont" style="width:100%;">
+            <md-sidenav md-component-id="l-sidenav" class="locked-sidebar" md-is-locked-open="true" md-whiteframe="4">
+               <md-list>
+                  <md-list-item id="github1" ng-click="toggleExpanded(1)" ng-class="{ 'side-button-active': isSelected(1) && isOpen }">
+                     <i class="fab fa-github" ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': false}"></i>
+                  </md-list-item>
+                  <md-list-item id="group1" ng-click="toggleExpanded(2)" ng-class="{ 'side-button-active': isSelected(2) && isOpen }">
+                     <i class="fa fa-group" ng-class="{ 'side-icon-active': isSelected(2) && isOpen,'side-icon-inactive': !isSelected(2), 'material-icons': false}"></i>
+                  </md-list-item>
+                  <md-list-item id="assignment1" ng-click="toggleExpanded(3)" ng-class="{ 'side-button-active': isSelected(3) && isOpen }">
+                     <i ng-class="{ 'side-icon-active': isSelected(3) && isOpen,'side-icon-inactive': !isSelected(3), 'material-icons': true}">assignment</i>
+                  </md-list-item>
+               </md-list>
+            </md-sidenav>
+         </div>
+      </div>
+      <ul class="menu1">
+         {% comment %} 
+         <li class="menu-item1" onclick="showTree()">
+            <a href="#" class="menu-btn1">
+            <i class="fa fa-folder-open"></i>
+            <span class="menu-text1">Open</span>
+            </a>
+         </li>
+         {% endcomment %}
+         <li class="menu-item1 menu-item1-submenu" >
+            <button type="button" class="menu-btn1" onclick="share()">
+            <i class="fa fa-share"></i>
+            <span class="menu-text1">Share</span>
+            </button>
+         </li>
+         <li class="menu-item1">
+            <button type="button" class="menu-btn1" onclick="comment()">
+            <i class="fa fa-comment"></i>
+            <span class="menu-text1">Comment</span>
+            </button>
+         </li>
+      </ul>
+      <input id="SHA" hidden>
+      <textarea id="blobData" hidden></textarea>
+      <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModal1Label">Friends' List</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Title</span>
+                     </div>
+                     <input type="text" class="form-control" placeholder="Title" required aria-label="Title" aria-describedby="basic-addon1" id="title">
+                  </div>
+                  <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon11">Caption</span>
+                     </div>
+                     <textarea type="text" class="form-control" placeholder="Write Caption" rows="5" aria-label="Caption" id="caption1" aria-describedby="basic-addon1"></textarea>
+                  </div>
+                  <div id="mbd">
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" id="mdb_btn" class="btn btn-primary" id="shareto">Share</button>
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      <!-- partial -->
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+      <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+      <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js'></script>
+      <script>
+         //app module 
+         
+         (function(){
+           
+           var app = angular.module('myApp',['ngMaterial','ngAnimate','myControllers']);
+           
+           app.config(function ($mdThemingProvider) {
+                 $mdThemingProvider
+                     .theme('default')
+                     .primaryPalette('indigo')
+                     .accentPalette('indigo')
+                     .warnPalette('indigo');
+               });
+         })(); // app module
+         
+         //controllers module
+         (function () {
+             
+             var app = angular.module('myControllers', ['ngMaterial']);
+         
+             app.controller('appCtrl', function ($scope, $timeout, $mdSidenav) {
+               $scope.isOpen = false;
+               $scope.menuId = 0;
+               
+               $scope.closeSidenav = function() {
+                 if($scope.isOpen){
+                   $scope.toggleExpanded(0);
+                   $scope.isOpen = false;
+                 }
+               }
+               
+               $scope.toggleExpanded = function(selectedMenuId){
+                   if(!$scope.isOpen){
+                     $scope.isOpen = true;
+                     $scope.menuId = selectedMenuId;
+                   }else{
+                     if($scope.menuId === selectedMenuId){
+                       $scope.isOpen = false;
+                       selectedMenuId = 0;
+                     }
+                     $scope.menuId = selectedMenuId;
+                   }
+               };
+               
+               $scope.isSelected = function(value) {
+                 return $scope.menuId === value;
+               };
+               
+             });
+         
+         })(); //controllers module
+      </script>
+      <script>
+         var auth_login_name;
+         var git_access_token;
+          $(function(){
+            $.ajax({
+                url:"https://shielded-dusk-55059.herokuapp.com/hi/validateUserCloud?authName=GITHUB",
+                headers: {"Authorization": "Bearer {{access_token}}"},
+                success: function(data){
+                    console.log(data)
+                    if(data.status==="404"){
+                      $("#load").hide();
+                            $("#main1111").removeClass("blur");
+                        $("#main-cont").append(`
+                        <md-content id="github11" layout-margin layout-padding flex="100" style="width:100%;">
+                            <div class="card-container" style="width:50%;">
+                            <div class="card">
+                            <h2>GitHub</h2>
+                            <div class="img-container">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <p>
+                            See Your GitHub Data in a Segregated as well as Folder Format according to your needs.
+                            Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                            </p>
+                            </div>
+                            </div>
+                        </md-content>
+         
+                        <md-content id="group11" layout-margin layout-padding flex="50" style="display:none;">
+                            
+                        </md-content>
+         
+                        <md-content id="assignment11" layout-margin layout-padding flex="50" style="display: none;">
+                            
+                        </md-content>
+                        `);
+
+                    }
+                    else{
+                      $("#load").show();
+                      $("#main1111").addClass("blur");
+                      git_access_token=data.access_token;
+                      auth_login_name=data.auth_login_name;
+                      console.log(git_access_token);
+                     console.log(auth_login_name);
+                       $.ajax({
+                          url: "https://shielded-dusk-55059.herokuapp.com/hi/buildDrive?authName=GITHUB",
+                          headers: {"Authorization": "Bearer {{access_token}}"},
+                          success: function(data1){
+            				      var RootFolderData=JSON.parse(data1.RootFolder);
+                          console.log(RootFolderData);
+                          $("#main-cont").append(`
+                          <md-content id="github11" layout-margin layout-padding flex="100" style="width:100%;  overflow-x: hidden;">
+                            
+                        </md-content>
+         
+                        <md-content id="group11" layout-margin layout-padding flex="100" style="width:100%; display:none;">
+                            
+                        </md-content>
+         
+                        <md-content id="assignment11" layout-margin layout-padding flex="100" style="width:100%; display: none;">
+                            
+                        </md-content>
+                        `);
+                        
+                          
+                          var html1=' <div class="row" style="width:100%; margin-left:5%;">';
+                          for(var i in RootFolderData){
+                           var date=moment(RootFolderData[i]['updated_at'])
+                           date=date.fromNow();
+                             html1+=`
+            <div class="col-lg-5">
+               <div class="card" id="`+RootFolderData[i]['name']+`">
+                  <div class="card-title">
+                     <div class="d-inline-block mb-1">
+                        <br>
+                        <h4>
+                           <a class="links" href="#">
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`+RootFolderData[i]['name'].substr(0,17)+`</a>`;
+                         if(RootFolderData[i]['private']=="True"){
+                           html1+=`<span class="Label Label--outline v-align-middle ml-1 mb-1"><i class="fa" style="font-size:24px">&#xf023;</i></span>`
+                         }
+                       html1+=`
+                        </h4>
+                     </div>
+                     <div class="card-body">
+                        <div>
+                           <p class="col-9 d-inline-block text-gray mb-2 pr-4" itemprop="description">
+                              `+RootFolderData[i]['description'].substr(0,200)+`
+                           </p>
+                        </div>
+                     </div>
+                     <div class="card-footer">
+                        <div class="f6 text-gray mt-2">`;
+         
+                        
+                           if (RootFolderData[i]['language'] === "Python")
+                           {
+                             html1+=`<i class="devicon-python-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if(RootFolderData[i]['language'] === "C")
+                           {
+                             html1+=`<i class="devicon-c-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "C++")
+                           {
+                             html1+=`<i class="devicon-cplusplus-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "C#")
+                           {
+                             html1+=`<i class="devicon-csharp-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "HTML")
+                           {
+                             html1+=`<i class="devicon-html5-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "Java")
+                           {
+                             html1+=`<i class="devicon-java-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "JavaScript")
+                           {
+                             html1+=`<i class="devicon-javascript-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "React")
+                           {
+                             html1+=`<i class="devicon-react-original colored" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "TypeScript")
+                           {
+                             hmtl+=`<i class="devicon-typescript-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "Django")
+                           {
+                             html1+=`<i class="devicon-django-plain colored" style="font-size:38px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "CSS")
+                           {
+                             html1+=`<i class="devicon-css3-plain" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "NodeJs")
+                           {
+                             html1+=`<i class="devicon-nodejs-plain colored" style="font-size:32px;"></i>`;
+                           }
+                           else if (RootFolderData[i]['language'] === "Angular")
+                           {
+                             html1+=`<i class="devicon-angularjs-plain colored" style="font-size:32px;"></i>`;
+                           }
+                           else
+                           {
+                             html1+=`<i class="fa fa-code" style="font-size:32px;"></i>`;
+                           }
+         
+                           html1+=`
+                           &nbsp;&nbsp;
+                           <span><i style="font-size:24px" class="fa">&#xf126;</i>&nbsp;<b>`+RootFolderData[i]['forks']+`</b></span>&nbsp;&nbsp;
+                           <span><i style="font-size:18px" class="fa">&#xf06e;</i>&nbsp;<b>`+RootFolderData[i]['watchers']+`</b></span>&nbsp;&nbsp;
+                           <span><i style="font-size:18px" class="fa fa-star"></i>&nbsp;<b>`+RootFolderData[i]['stargazers_count']+`</b></span>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Updated
+                           <relative-time datetime="`+RootFolderData[i]['updated_at']+`" title="`+RootFolderData[i]['updated_at']+`">`+date+`</relative-time>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+                          `;
+                         
+                          }
+                           
+                         html1+=`</div>`;
+                         $("#github11").html(html1);
+                         $("#load").remove();
+                          $("#main1111").removeClass("blur");
+                          $(".card").click(function(){
+                              console.log("clicked")
+                              
+                              repoDetails($(this).attr('id'));
+                            })
+                           
+                          }
+                          })
+         
+                    }
+                    $("#github11").click(function(){
+                         window.location.href="/test/gitHubLogin";
+                    })
+                    $("#github1").click(function(){
+                    
+                    $("#assignment11").hide()
+                    $("#github11").show()
+                    $("#group11").hide()
+                   
+                    })
+                     $("#group1").click(function(){
+                    $("#assignment11").hide()
+                   //$("#assignment1").attr('class', '_md-button-wrap _md md-clickable')
+                    $("#github11").hide()
+                    $("#group11").show()
+                   
+                    })
+                    $("#assignment1").click(function(){
+                    
+                    $("#assignment11").show()
+                    $("#github11").hide()
+                    $("#group11").hide()
+                   
+                    })
+                    }
+                })
+           
+          })
+      </script>
+      <script>
+         var repoId;
+         function repoDetails(id){
+             repoId=id;
+             console.log(git_access_token);
+             console.log(auth_login_name);
+             var settings = {
+               "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/branches",
+               "method": "GET",
+               "headers": {
+                   "Authorization": "Bearer "+git_access_token
+               }
+               }
+               $.ajax(settings).done(function (response) {
+         
+               var sha=response[0]['commit']['sha'];
+         
+                 var settings = {
+               "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/git/trees/"+sha+"?recursive=1",
+               "method": "GET",
+               "headers": {
+                   "Authorization": "Bearer "+git_access_token
+               }
+               }
+               $.ajax(settings).done(function (response) {
+                 
+                 console.log(response);
+                 $("#assignment1").click();
+                // $("#assignment1").attr('class', '_md-button-wrap _md md-clickable side-button-active')
+                
+                 $("#assignment11").html(`
+                       <nav aria-label="breadcrumb">
+            <ol class="breadcrumb" id="ol" style="cursor:pointer;">
+               <li class="breadcrumb-item active" aria-current="page">`+repoId+`</li>
+            </ol>
+         </nav>
+         <div class="card">
+           
+            <div class="card-body">
+               <table class="table table-hover">
+                  <tbody id="tbdy" style="cursor:pointer;">
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div id="myModal" class="modal1" style="width: 100%; height: 100%;">
+            <span class="close">&times;</span>
+            <!-- <img class="modal-content1" id="img01"> -->
+            <iframe class="modal-content1" id="img01" style="border:2px #ffffff solid;" name="myiFrame" frameborder="1" marginheight="0px" marginwidth="0px" height="100%" width="100%" allowfullscreen></iframe>
+         </div>
+                 `);
+                  
+                 make(response, repoId, auth_login_name )
+             
+               })
+               })
+         }
+         
+         var audioArray=['mp3','ogg'];
+         var videoArray=['mp4'];
+         var imageArray=['jpg', 'jpeg', 'gif'];
+         var myMap=new Map();
+         var rootMap = new Map();
+         function make(response, repoId, auth_login_name ){
+         myMap=new Map();
+         rootMap=new Map();
+            var a=response;
+            console.log(a);
+            $("#tbdy").html("")
+            
+            for(var i in a['tree']){
+              var c=0;
+                var ancestor=a['tree'][i]['path'].split('/');
+                if(ancestor.length===1){
+                    if(rootMap.has('/')){
+                        var curr=rootMap.get('/');
+                        rootMap.set('/', [...curr, a['tree'][i]])
+                    }
+                    else{
+                        var arr=[];
+                        arr=[...arr, a['tree'][i]];
+                        rootMap.set('/', arr);
+                    }
+                    if(a['tree'][i]['type']==="blob"){
+                     
+                        var html=`<tr id="blob-`+ancestor[0].replace("'","~|")+`-`+a['tree'][i]['path'].replace("'","~|")+`-`+a['tree'][i]['sha']+`" ondblclick="showBlob('`+a['tree'][i]['sha']+`', '`+a['tree'][i]['path'].replace("'","~|")+`')">`;
+                     c=0;
+                    }
+                    else{
+                        var html=`<tr id="tree-`+ancestor[0].replace("'","~|")+`-`+a['tree'][i]['path'].replace("'","~|")+`-`+a['tree'][i]['sha']+`" onclick="showTree('`+ancestor[0].replace("'","~|")+`')">`;
+                      c=1;
+                    }
+                    html+=` <th colspan="2">`+ancestor[0]+`</th>
+                            <td scope="row">`+a['tree'][i]['type']+`</td>
+                            </tr>`
+                     
+                    $("#tbdy").append(html);
+                    if(c===0){
+                     document.getElementById("blob-"+ancestor[0].replace("'","~|")+"-"+a['tree'][i]['path'].replace("'","~|")+"-"+a['tree'][i]['sha']).addEventListener('contextmenu', onContextMenu, false);
+                    
+                    }
+                    else{
+                      document.getElementById("tree-"+ancestor[0].replace("'","~|")+"-"+a['tree'][i]['path'].replace("'","~|")+"-"+a['tree'][i]['sha']).addEventListener('contextmenu', onContextMenu, false);
+                    }
+                    
+              
+                    if(myMap.has('/')){
+                        var array=myMap.get('/');
+                        myMap.set('/', [...array, a['tree'][i]])
+                    }
+                    else{
+                        var arr=[a['tree'][i]];
+                        myMap.set('/', arr);
+                    }
+                }
+                else{
+                    var anc="";
+                    for(var j=0;j<ancestor.length-1;j++){
+                        anc+="/"+ancestor[j];
+                    }
+                    anc=anc.substr(1,anc.length).replace("'","~|");
+                    //console.log("Ans path is:- "+" "+anc)
+                    if(myMap.has(anc)){
+                        var array1=myMap.get(anc);
+                        myMap.set(anc, [...array1, a['tree'][i]])
+                    }
+                    else{
+                        var arr1=[a['tree'][i]];
+                        myMap.set(anc, arr1);
+                    }
+                }
+            }
+         
+            var menu = document.querySelector('.menu1');
+         
+         function showMenu(x, y){
+         menu.style.left = x + 'px';
+         menu.style.top = y + 'px';
+         menu.classList.add('menu-show1');
+         }
+         
+         function hideMenu(){
+         menu.classList.remove('menu-show1');
+         }
+         
+         function onContextMenu(e){
+         e.preventDefault();
+         
+         $("#SHA").val($(this).attr('id'))
+         showMenu(e.pageX, e.pageY);
+         
+         }
+         
+         
+            console.log(myMap)
+            console.log(rootMap) 
+         
+               
+         }
+         
+            
+                  function showBlob(id, path){
+                      path=path.replace("~|", "'")
+                      console.log(path);
+                      var settings = {
+                        "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/contents/"+path,
+                        "method": "GET",
+                        "headers": {
+                            "Authorization": "Bearer "+git_access_token
+                        }
+                    }
+                        $.ajax(settings).done(function (response) {
+         
+                        var modal = document.getElementById("myModal");
+                        var modalImg = document.getElementById("img01");
+                        modal.style.display = "block";
+                        var ext=path.split('/')
+                        ext=ext[ext.length-1].split('.');
+                        ext=ext[ext.length-1];
+                        //console.log(ext);
+                        if((audioArray.indexOf(ext))!==-1){
+                           modalImg.src = "data:audio/mp3;base64,"+response['content'];
+                        }
+                        else if((imageArray.indexOf(ext))!==-1){
+                        modalImg.src = "data:image/jpeg;base64,"+response['content'];
+                        }
+                        else if(videoArray.indexOf(ext)!==-1){
+                          modalImg.src = "data:video/mp4;base64,"+response['content'];
+                        }
+                        else if(ext==="docx"){
+                            modalImg.src = "data:application/pdf;base64,"+response['content'];
+                        }
+                        else if(ext==="pdf"){
+                            modalImg.src = "data:application/pdf;base64,"+response['content'];
+                        }
+                        else if(ext==="pptx"){
+                            modalImg.src = "data:application/vnd.openxmlformats-officedocument.presentationml.presentation;base64,"+response['content'];
+                        }
+                        
+                        else{
+                            modalImg.src = "data:text/plain;base64,"+response['content'];
+                        }
+                           var span = document.getElementsByClassName("close")[0];
+                  
+                           // When the user clicks on <span> (x), close the modal
+                           span.onclick = function() {
+                               modal.style.display = "none";
+                               var modalImg = document.getElementById("img01");
+                                modalImg.src = "";
+                           }
+                        });    
+                  }
+         
+            function showTree(path){
+                   console.log(path);
+                   $("#tbdy").html("");
+                   var curr=myMap.get(path);
+                   //console.log(myMap)
+                   //console.log(rootMap)
+                   console.log("Current is:- "+" "+curr);
+                   var path=curr[0]['path']
+                   if(path){
+                       //console.log(path);
+                       $("#ol").html("");
+                       
+                     path=path.split('/');
+                     var s="";
+                     if(path.length===1){
+                         var html=`<li class="breadcrumb-item"><a onclick="showTree('/')">`+repoId+`</a></li>`;
+                         $("#ol").html(html);
+                     }
+                     else{
+                         var html=`<li class="breadcrumb-item"><a onclick="showTree('/')" href="#">`+repoId+`</a></li>`;
+               
+                     for(var i=0;i<path.length-2;i++){
+                         
+                         s+="/"+path[i];
+                         //console.log("Current Path is:- "+" "+s);
+                         html+=`<li class="breadcrumb-item"><a onclick="showTree('`+s.substr(1,s.length).replace("'","")+`')" href="#">`+path[i]+`</a></li>`
+                     }
+                         html+=`<li class="breadcrumb-item active" aria-current="page">`+path[path.length-2]+`</li>`;
+                         $("#ol").html(html);
+                   }
+                   }
+                     for(var j in curr){
+                       var ancestor=curr[j]['path'].split('/');
+                       //console.log(curr)
+                       var c=0;
+                       ancestor=ancestor[ancestor.length-1]
+                       //console.log("Tree ans:- "+" "+ancestor)
+                       if(curr[j]['type']==="blob"){
+                             var html1=`<tr id="blob-`+ancestor+`-`+curr[j]['path'].replace("'","~|")+`-`+curr[j]['sha']+`" ondblclick="showBlob('`+curr[j]['sha']+`', '`+curr[j]['path'].replace("'","~|")+`')">`;
+                         c=0;
+                         }
+                         else{
+                             var html1=`<tr id="tree-`+ancestor+`-`+curr[j]['path'].replace("'","~|")+`-`+curr[j]['sha']+`" onclick="showTree('`+curr[j]['path'].replace("'","~|")+`')">`;
+                         c=1;
+                         }
+                         html1+=`<th colspan="2">`+ancestor+`</th><td scope="row">`+curr[j]['type']+`</td></tr>`;
+                         $("#tbdy").append(html1);
+                             if(c===0){
+                         document.getElementById("blob-"+ancestor+"-"+curr[j]['path'].replace("'","~|")+"-"+curr[j]['sha']).addEventListener('contextmenu', onContextMenu, false);
+                       
+                       }
+                       else{
+                         document.getElementById("tree-"+ancestor+"-"+curr[j]['path'].replace("'","~|")+"-"+curr[j]['sha']).addEventListener('contextmenu', onContextMenu, false);
+                       }
+                    
+                   }
+                   
+            var menu = document.querySelector('.menu1');
+         
+         function showMenu(x, y){
+         menu.style.left = x + 'px';
+         menu.style.top = y + 'px';
+         menu.classList.add('menu-show1');
+         }
+         
+         function hideMenu(){
+         menu.classList.remove('menu-show1');
+         }
+         
+         function onContextMenu(e){
+         e.preventDefault();
+         
+         $("#SHA").val($(this).attr('id'))
+         showMenu(e.pageX, e.pageY);
+         
+         }
+               }
+         
+         
+         var TreeData;
+         function share(){
+         
+         var sha1=$("#SHA").val();
+         var type=sha1.split("-")[0];
+         
+         
+         
+         var menu = document.querySelector('.menu1');
+         menu.classList.remove('menu-show1');
+         var ancPath=sha1.split("-")[1];
+         var path=sha1.split("-")[2];
+         var sha1=sha1.split("-")[3];
+         console.log("Anc Path:- "+" "+ancPath);
+         console.log("Curr Path:- "+" "+path)
+         console.log("inside share")
+         if(type==="tree"){
+         console.log("Inside Tree")
+         
+         var settings = {
+               "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/git/trees/"+sha1+"?recursive=1",
+               "method": "GET",
+               "headers": {
+                   "Authorization": "Bearer "+git_access_token
+               }
+               }
+               $.ajax(settings).done(function (response) {
+                 console.log(response);
+                  TreeData=response;
+                 for(var i=0;i<TreeData['tree'].length;i++){
+                   if(TreeData['tree'][i]['type']==="blob"){
+                     
+                       getBlob(i, path+"/"+TreeData['tree'][i]['path']);
+                       
+                   }
+                 }
+                 console.log("\n\n---------------------------\n\n")
+                 console.log("Printing Tree Data")
+                 console.log(TreeData);
+                 console.log("\n\n---------------------------\n\n")
+                 var data=JSON.stringify(TreeData);
+         
+                  var settings = {
+                         "async": true,
+                         "crossDomain": true,
+                         "url": "https://shielded-dusk-55059.herokuapp.com/shared/allUserFriends",
+                         "method": "GET",
+                         "headers": {
+                             "Authorization": "Bearer "+'{{access_token}}'
+                             }
+                         }
+               
+                     $.ajax(settings).then(function (response) {
+                         console.log(response)
+                         if(response.status==="200"){
+                             var friends=JSON.parse(response.list);
+                        console.log(friends)
+                        var html=`<select class="selectpicker" multiple data-live-search="true" id="select1">`
+                        
+                        for(var i=0;i<friends.length;i++){
+                          var user;
+                          
+                          if(friends[i]['friends_name']==="{{username}}"){
+                            user=friends[i]['username']
+                          }
+                          else{
+                            user=friends[i]['friends_name']
+                          }
+                          html+=`<option value="`+user+`">`+user+`</option>
+                          `;
+                        }
+                        html+="</select>";
+                        console.log(html);
+         
+                        $("#mbd").html(html);
+                        
+                        $("#select1").selectpicker();
+                        $("#exampleModal1").modal('toggle');
+                         }
+                          else{
+                           if(confirm("You Don't have any friends yet.. Lets make some!!")){
+                            window.location.href="/test/network"
+                           }
+                         }
+                     })
+                 
+               })
+         }
+         else{
+         
+         console.log("Anc Path:-"+" "+ancPath)
+         console.log("Curr Path:-"+" "+path)
+         console.log("inside file")
+         var settings = {
+                        "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/contents/"+path,
+                        "method": "GET",
+                        "headers": {
+                            "Authorization": "Bearer "+git_access_token
+                        }
+                    }
+                        $.ajax(settings).done(function (response) {
+                          console.log(response);
+                          TreeData=response;
+                          
+                          
+                          var settings = {
+                         "async": true,
+                         "crossDomain": true,
+                         "url": "https://shielded-dusk-55059.herokuapp.com/shared/allUserFriends",
+                         "method": "GET",
+                         "headers": {
+                             "Authorization": "Bearer "+'{{access_token}}'
+                             }
+                         }
+               
+                    $.ajax(settings).then(function (response) {
+                         console.log(response)
+                         if(response.status==="200"){
+                             var friends=JSON.parse(response.list);
+                        console.log(friends)
+                        var html=`<select class="selectpicker" multiple data-live-search="true" id="select1">`
+                        
+                        for(var i=0;i<friends.length;i++){
+                          var user;
+                          
+                          if(friends[i]['friends_name']==="{{username}}"){
+                            user=friends[i]['username']
+                          }
+                          else{
+                            user=friends[i]['friends_name']
+                          }
+                          html+=`<option value="`+user+`">`+user+`</option>
+                          `;
+                        }
+                        html+="</select>";
+                        console.log(html);
+         
+                        $("#mbd").html(html);
+                        console.log($("#mbd").html())
+                        $("#select1").selectpicker();
+                        $("#exampleModal1").modal('toggle');
+                         }
+                         else{
+                           if(confirm("You Don't have any friends yet.. Lets make some!!")){
+                            window.location.href="/test/network"
+                           }
+                         }
+                     })
+                        })
+         
+         }
+         }
+         
+         $("#mdb_btn").click(function(){
+         //console.log($("#select1").val());
+         console.log(TreeData['tree']);
+         if('tree' in TreeData){
+         var settings = {
+                        "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/submitGitHubNote",
+                        "method": "POST",
+                        "headers": {
+                            "Authorization": "Bearer {{access_token}}"
+                        },
+                        "data":{
+                          "list[]":$("#select1").val(),
+                          "content":JSON.stringify({"rootFolderData":TreeData['tree']}),
+                          "title":$("#title").val(),
+                          "caption":$("#caption1").val()
+                        }
+                    }
+         }
+         else{
+         console.log(TreeData)
+         var settings = {
+                        "url": "https://shielded-dusk-55059.herokuapp.com/personalNotes/submitGitHubNote",
+                        "method": "POST",
+                        "headers": {
+                            "Authorization": "Bearer {{access_token}}"
+                        },
+                        "data":{
+                          "list[]":$("#select1").val(),
+                          "content":JSON.stringify({"rootFolderData":TreeData}),
+                          "title":$("#title").val(),
+                          "caption":$("#caption1").val()
+                        }
+                    }
+         }
+                        $.ajax(settings).done(function (response) {
+                        console.log(response);
+                        if(response.status==="201"){
+                          $("#exampleModal1").modal("toggle");
+                        }
+                        else{
+                          $("#exampleModal1").modal("toggle");
+                          aler("Some Error Occured !! Please Try Again Later Or Report An Issue")
+                        }
+                        })
+         
+         })
+         
+         function comment(){
+         var sha1=$("#SHA").val();
+         var menu = document.querySelector('.menu1');
+         //$("#exampleModal").modal("toggle");
+         menu.classList.remove('menu-show1');
+         console.log(sha1)
+         }
+         
+         
+         
+            function getBlob(i, path){
+              let res={};
+              console.log("https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/contents/"+path)
+               var settings = {
+                        "url": "https://api.github.com/repos/"+auth_login_name+"/"+repoId+"/contents/"+path,
+                        "method": "GET",
+                        "headers": {
+                            "Authorization": "Bearer "+git_access_token
+                        }
+                    }
+                        $.ajax(settings).done(function (response) {
+                          //console.log(response['content'])
+                         $("#blobData").val(response['content']);
+                         var blobData=$("#blobData").val();
+                       TreeData['tree'][i]['blob-data']=blobData;
+                        })
+                       //console.log(res)
+                       
+            }
+         
+         
+            $("#gd").click(function(){
+                    var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://shielded-dusk-55059.herokuapp.com/hi/socialLogout",
+                    "method": "DELETE",
+                    "headers": {
+                        "Authorization": "Bearer "+'{{access_token}}'
+                    },
+                    "data": {
+                        'authName':"GITHUB"
+                    }
+                    }
+               $.ajax(settings).then(function (response) {
+                console.log(response);
+                if(response.status==="200"){
+            
+                     $("#github11").html(`
+                        <md-content id="github11" layout-margin layout-padding flex="100" style="width:100%;">
+                            <div class="card-container" style="width:50%;">
+                            <div class="card">
+                            <h2>GitHub</h2>
+                            <div class="img-container">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <p>
+                            See Your GitHub Data in a Segregated as well as Folder Format according to your needs.
+                            Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                            </p>
+                            </div>
+                            </div>
+                        </md-content>
+         
+                        
+                        `);
+                        $("#group11").html("");
+                        $("#assignment11").html("")
+                         $("#github11").click(function(){
+                         window.location.href="/test/gitHubLogin";
+                    })
+                    $("#github1").click(function(){
+                    
+                    $("#assignment11").hide()
+                    $("#github11").show()
+                    $("#group11").hide()
+                   
+                    })
+                     $("#group1").click(function(){
+                    $("#assignment11").hide()
+                   //$("#assignment1").attr('class', '_md-button-wrap _md md-clickable')
+                    $("#github11").hide()
+                    $("#group11").show()
+                   
+                    })
+                    $("#assignment1").click(function(){
+                    
+                    $("#assignment11").show()
+                    $("#github11").hide()
+                    $("#group11").hide()
+                   
+                    })
+         
+                }
+                else{
+                    var notice = PNotify.info({
+                      text:
+                        'Some Error Occured While Deleting!! Please Try Again Later!!',
+                      animateSpeed: "fast",
+                      modules: {
+                        Buttons: {
+                          closer: false,
+                          sticker: false
+                        }
+                      }
+                    });
+                    notice.on("click", function() {
+                      notice.close();
+                    });
+                }
+            
+                })
+                })
+         
+            
+      </script>
+   </body>
+</html>

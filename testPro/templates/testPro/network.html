@@ -1,0 +1,860 @@
+<html>
+   <head>
+      <title>Network</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <style>
+         .range-slider {
+         margin: 10px 0 0 0%;
+         }
+         .range-slider {
+         width: 70%;
+         margin-left:50px;
+         }
+         .range-slider__range {
+         -webkit-appearance: none;
+         width: calc(100% - (73px));
+         height: 10px;
+         border-radius: 5px;
+         background: #d7dcdf;
+         outline: none;
+         padding: 0;
+         margin: 0;
+         }
+         .range-slider__range::-webkit-slider-thumb {
+         -webkit-appearance: none;
+         appearance: none;
+         width: 20px;
+         height: 20px;
+         border-radius: 50%;
+         background: #2c3e50;
+         cursor: pointer;
+         transition: background .15s ease-in-out;
+         }
+         .range-slider__range::-webkit-slider-thumb:hover {
+         background: #1abc9c;
+         }
+         .range-slider__range:active::-webkit-slider-thumb {
+         background: #1abc9c;
+         }
+         .range-slider__range::-moz-range-thumb {
+         width: 20px;
+         height: 20px;
+         border: 0;
+         border-radius: 50%;
+         background: #2c3e50;
+         cursor: pointer;
+         transition: background .15s ease-in-out;
+         }
+         .range-slider__range::-moz-range-thumb:hover {
+         background: #1abc9c;
+         }
+         .range-slider__range:active::-moz-range-thumb {
+         background: #1abc9c;
+         }
+         .range-slider__range:focus::-webkit-slider-thumb {
+         box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1abc9c;
+         }
+         .range-slider__value {
+         display: inline-block;
+         position: absolute;
+         width: 85px;
+         color: #fff;
+         line-height: 20px;
+         text-align: center;
+         border-radius: 3px;
+         background: #2c3e50;
+         padding: 5px 10px;
+         margin-left: 8px;
+         }
+         .range-slider__value:after {
+         display: inline-block;
+         position: absolute;
+         width: 70px;
+         color: #fff;
+         line-height: 20px;
+         text-align: center;
+         border-radius: 3px;
+         background: #2c3e50;
+         padding: 5px 10px;
+         margin-left: 8px;
+         }
+         ::-moz-range-track {
+         background: #d7dcdf;
+         border: 0;
+         }
+         input::-moz-focus-inner,
+         input::-moz-focus-outer {
+         border: 0;
+         }
+         .main {
+         display: grid;
+         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+         grid-gap: 20px;
+         margin: 20px;
+         }
+         .container {
+         background-color: #ECEFF1;
+         width: 100%;
+         height: auto;
+         max-height: 300px;
+         justify-self: center;
+         position: relative;
+         transition: 100ms;
+         }
+         .follow:hover, .icon:hover, .profile-img:hover {
+         cursor: pointer;
+         }
+         .profile-img {
+         position: relative;
+         width: 150px;
+         height: 150px;
+         object-fit: cover;
+         border-radius: 50%;
+         z-index: 3;
+         margin: 10px;
+         box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.3);
+         }
+         .background-img {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 40%;
+         object-fit: cover;
+         z-index: 0;
+         }
+         .name1 {
+         font-size: 22px;
+         position: absolute;
+         right: 20px;
+         top: 50%;
+         }
+         .bio {
+         margin: 15px;
+         margin-top: 0px;
+         }
+         .icon1 {
+         width: 19px;
+         position: absolute;
+         margin-left: -28px;
+         margin-top: 3px;
+         }
+         .follow {
+         font-size: 14px;
+         width: 50px;
+         color: #ECEFF1;
+         z-index: 3;
+         position: absolute;
+         right: 0;
+         margin: 10px;
+         padding: 8px;
+         border-radius: 5px;
+         background-color: rgba(0,0,0,0.7);
+         }
+         .follow1 {
+         font-size: 14px;
+         width: 70px;
+         color: #ECEFF1;
+         z-index: 3;
+         position: absolute;
+         right: 20%;
+         margin: 10px;
+         padding: 8px;
+         border-radius: 5px;
+         background-color: rgba(0,0,0,0.7);
+         cursor: pointer;
+         }
+         @media only screen and (max-width: 2000px) {
+         .main {
+         grid-template-columns: 1fr 1fr 1fr 1fr;
+         }
+         }
+         @media only screen and (max-width: 1500px) {
+         .main {
+         grid-template-columns: 1fr 1fr 1fr;
+         }
+         }
+         @media only screen and (max-width: 1100px) {
+         .main {
+         grid-template-columns: 1fr 1fr;
+         }
+         }
+         @media only screen and (max-width: 650px) {
+         .main {
+         grid-template-columns: 1fr;
+         }
+         }
+
+
+
+         /* * Copyright (c) 2012 Thibaut Courouble
+ * Licensed under the MIT License
+   ================================================== */
+
+
+a {
+    color: #1e7ad3;
+    text-decoration: none;
+}
+
+a:hover { text-decoration: underline }
+
+ .main1 {
+    width: 50px;
+    margin-left: 0px;
+    margin-right: auto;
+    height: 20px;
+}
+
+
+
+input {
+    font-family: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    color: #555860;
+}
+
+.search {
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+}
+
+.search input {
+    height: 26px;
+    width: 100%;
+    padding: 0 12px 0 25px;
+    background: white url("https://cssdeck.com/uploads/media/items/5/5JuDgOa.png") 8px 6px no-repeat;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #a8acbc #babdcc #c0c3d2;
+    border-radius: 13px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+    -moz-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+    -ms-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+    -o-box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+    box-shadow: inset 0 1px #e5e7ed, 0 1px 0 #fcfcfc;
+}
+
+.search input:focus {
+    outline: none;
+    border-color: #66b1ee;
+    -webkit-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+    -moz-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+    -ms-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+    -o-box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+    box-shadow: 0 0 2px rgba(85, 168, 236, 0.9);
+}
+
+.search input:focus + .results { display: block }
+
+.search .results {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #cbcfe2 #c8cee7 #c4c7d7;
+    border-radius: 3px;
+    background-color: #fdfdfd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #fdfdfd), color-stop(100%, #eceef4));
+    background-image: -webkit-linear-gradient(top, #fdfdfd, #eceef4);
+    background-image: -moz-linear-gradient(top, #fdfdfd, #eceef4);
+    background-image: -ms-linear-gradient(top, #fdfdfd, #eceef4);
+    background-image: -o-linear-gradient(top, #fdfdfd, #eceef4);
+    background-image: linear-gradient(top, #fdfdfd, #eceef4);
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.search .results li { display: block }
+
+.search .results li:first-child { margin-top: -1px }
+
+.search .results li:first-child:before, .search .results li:first-child:after {
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px outset transparent;
+}
+
+.search .results li:first-child:before {
+    border-bottom: 5px solid #c4c7d7;
+    top: -11px;
+}
+
+.search .results li:first-child:after {
+    border-bottom: 5px solid #fdfdfd;
+    top: -10px;
+}
+
+.search .results li:first-child:hover:before, .search .results li:first-child:hover:after { display: none }
+
+.search .results li:last-child { margin-bottom: -1px }
+
+.search .results a {
+    display: block;
+    position: relative;
+    margin: 0 -1px;
+    padding: 6px 40px 6px 10px;
+    color: #808394;
+    font-weight: 500;
+    text-shadow: 0 1px #fff;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.search .results a span { font-weight: 200 }
+
+.search .results a:before {
+    content: '';
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -9px;
+    background: url("https://cssdeck.com/uploads/media/items/7/7BNkBjd.png") 0 0 no-repeat;
+}
+
+.search .results a:hover {
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+    border-color: #2380dd #2179d5 #1a60aa;
+    background-color: #338cdf;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #59aaf4), color-stop(100%, #338cdf));
+    background-image: -webkit-linear-gradient(top, #59aaf4, #338cdf);
+    background-image: -moz-linear-gradient(top, #59aaf4, #338cdf);
+    background-image: -ms-linear-gradient(top, #59aaf4, #338cdf);
+    background-image: -o-linear-gradient(top, #59aaf4, #338cdf);
+    background-image: linear-gradient(top, #59aaf4, #338cdf);
+    -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+    -ms-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+    -o-box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.2), 0 1px rgba(0, 0, 0, 0.08);
+}
+
+:-moz-placeholder {
+    color: #a7aabc;
+    font-weight: 200;
+}
+
+::-webkit-input-placeholder {
+    color: #a7aabc;
+    font-weight: 200;
+}
+
+.lt-ie9 .search input { line-height: 26px }
+
+
+      </style>
+   </head>
+   <body>
+      {% include 'testPro/navBar.html' %}
+      {% include 'testPro/loader.html' %}
+      <div class="blur" id="main1111">
+      <div class="row">
+      <div class="range-slider">
+         <input class="range-slider__range" type="range" id="range" value="1" min="1" max="1000" style="margin-top:10px;">
+         <span class="range-slider__value" id="val">1 km</span>
+      </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
+	 <div class="search main1" style="margin-top:10px;">
+		 <input type="text" name="q" placeholder="Search Friends..." autocomplete="off" id="search" />
+		 <ul class="results" id="friends_ul" >
+		 </ul>
+	 </div>
+   
+      </div>
+      <br>
+      <div class="main" id="recommendation"></div>
+      <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Give Access</button>
+                     <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#" id="all">ALL</a>
+                        <a class="dropdown-item" href="#" id="seperate">SEPERATE</a>
+                     </div>
+                     <input type="text" id="username" hidden>
+                     <input type="text" id="inp" class="form-control" aria-label="Text input with dropdown button">
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="send1">Send</button>
+               </div>
+            </div>
+         </div>
+      </div>
+  </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+ 
+      $("#all").click(function(){
+          $("#inp").val("ALL")
+      });
+      $("#seperate").click(function(){
+          $("#inp").val("SEPERATE")
+      });
+      
+      $(function(){
+
+        $(".loi").click(function(){
+              console.log("li clicked")
+          })
+          $("#search").keyup(function(){
+
+              setTimeout(function(){
+
+            var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/friendList?suggest="+$("#search").val(),
+          "method": "GET",
+          "headers": {
+              "Authorization": "Bearer "+'{{access_token}}'
+              }
+          }
+      $.ajax(settings).then(function (response) {
+          //console.log(response);
+          var friendsList=JSON.parse(response.suggestion_list);
+           var html="";
+          for(var i=0;i<friendsList.length;i++){
+              html+=`<li class="loi" id="list-`+friendsList[i]['username']+`"><a href="#">`+friendsList[i]['username']+`<br /><span>Go To Profile</span></a></li>`
+               
+          }
+                     
+          $("#friends_ul").html(html);
+          
+            
+          })
+              }, 100)
+          })
+         
+              
+          $("#val").text("1 km")
+          var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/friendRecommendation?distance=1",
+          "method": "GET",
+          "headers": {
+              "Authorization": "Bearer "+'{{access_token}}'
+              }
+          }
+        
+      $.ajax(settings).then(function (response) {
+          
+          var friendsArray=JSON.parse(response.ext_user);
+          var sentArray=JSON.parse(response.sent);
+          var receivedArray=JSON.parse(response.received);
+          var friends=JSON.parse(response.friend);
+      
+          var newSentArray={};
+          var newReceivedArray={};
+          var newFriendArray={};
+      
+          for(var i=0;i<sentArray.length;i++){
+              newSentArray[sentArray[i]['friends_name']]=sentArray[i];
+          }
+          for(var i=0;i<receivedArray.length;i++){
+              newReceivedArray[receivedArray[i]['username']]=receivedArray[i];
+          }
+          for(var i=0;i<friends.length;i++){
+              newFriendArray[friends[i]['username']]=friends[i];
+              newFriendArray[friends[i]['friends_name']]=friends[i];
+          }
+          console.log(newSentArray);
+          console.log(newReceivedArray)
+          console.log(newFriendArray);
+      
+          var html="";
+          for(var i=0;i<friendsArray.length;i++){
+              html+=`
+              <div class="container" id="`+friendsArray[i]['username']+`">`;
+              if(friendsArray[i]['username'] in newReceivedArray){
+                  html+=`<p class="follow1" align="center" id="accept">Accept</p>`;
+                  html+=`<p class="follow" align="center" id="reject">Reject</p>`;
+              }
+              else if(friendsArray[i]['username'] in newSentArray){
+                  html+=`<p class="follow1" align="center" id="cancel">Cancel</p>`
+                  html+=`<p class="follow" align="center">View</p>`;
+              }
+              else if(friendsArray[i]['username'] in newFriendArray){
+                  html+=`<p class="follow1" align="center" id="unfriend">UnFriend</p>`
+                  html+=`<p class="follow" align="center">View</p>`;
+              }
+              else{
+                  html+=`<p class="follow1" align="center" id="access">Add Friend</p>`
+                  html+=`<p class="follow" align="center">View</p>`;
+              }
+                  
+              
+                  if(friendsArray[i]['profilePhoto']){
+                      html+=`<img class="profile-img" src="https://shielded-dusk-55059.herokuapp.com`+friendsArray[i]['profilePhoto']+`">`;
+                  }
+                  else{
+                      html+=`<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                  }
+      
+                  html+=`
+                  <img class="background-img" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg">
+                  <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="`+friendsArray[i]['username']+`">
+                  <p class="name1"><img class="icon1" src="https://cdn1.iconfinder.com/data/icons/micon-social-pack/512/twitch-512.png">`+friendsArray[i]['username'].substr(0,7)+`..</p>
+                  </span>
+              </div>`;
+              
+              
+              
+          }
+          $("#recommendation").html(html);
+          $("#load").remove();
+        $("#main1111").removeClass("blur");
+          $('p[id="access"]').click(function(){
+                  console.log($(this).parent().attr('id'))
+                  $('#modal').modal('toggle')
+                  $("#username").val($(this).parent().attr('id'))
+              })
+          $("#unfriend").click(function(){
+              unfriend($(this).parent().attr('id'));
+          })
+
+          $("#reject").click(function(){
+              reject($(this).parent().attr('id'));
+          })
+          
+          
+          $("#cancel").click(function(){
+              cancel($(this).parent().attr('id'));
+          })
+      
+          $("#accept").click(function(){
+              accept($(this).parent().attr('id'));
+          })
+      
+      })
+      })
+      
+      var rangeSlider = function(){
+        var slider = $('.range-slider'),
+            range = $('.range-slider__range'),
+            value = $('.range-slider__value');
+          
+        slider.each(function(){
+      
+          value.each(function(){
+            var value = $(this).prev().attr('value');
+            $(this).html(value);
+          });
+      
+          range.on('input', function(){
+            $(this).next(value).html(this.value);
+          });
+        });
+      };
+      
+      rangeSlider();
+      $("#range").change(function(){
+          var dist=$('input[type="range"]').val();
+          $("#val").text(dist+" kms")
+      console.log(dist);
+      
+      var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/friendRecommendation?distance="+dist,
+          "method": "GET",
+          "headers": {
+              "Authorization": "Bearer "+'{{access_token}}'
+              }
+          }
+      $.ajax(settings).then(function (response) {
+          
+          var friendsArray=JSON.parse(response.ext_user);
+          var sentArray=JSON.parse(response.sent);
+          var receivedArray=JSON.parse(response.received);
+          var friends=JSON.parse(response.friend);
+      
+          var newSentArray={};
+          var newReceivedArray={};
+          var newFriendArray={};
+      
+          for(var i=0;i<sentArray.length;i++){
+              newSentArray[sentArray[i]['friends_name']]=sentArray[i];
+          }
+          for(var i=0;i<receivedArray.length;i++){
+              newReceivedArray[receivedArray[i]['username']]=receivedArray[i];
+          }
+          for(var i=0;i<friends.length;i++){
+              newFriendArray[friends[i]['username']]=friends[i];
+              newFriendArray[friends[i]['friends_name']]=friends[i];
+          }
+          console.log(newSentArray);
+          console.log(newReceivedArray)
+          console.log(newFriendArray);
+      
+          var html="";
+          for(var i=0;i<friendsArray.length;i++){
+              html+=`
+              <div class="container" id="`+friendsArray[i]['username']+`">`;
+              if(friendsArray[i]['username'] in newReceivedArray){
+                  html+=`<p class="follow1" align="center" id="accept">Accept</p>`;
+                   html+=`<p class="follow" align="center" id="reject">Reject</p>`;
+              }
+              else if(friendsArray[i]['username'] in newSentArray){
+                  html+=`<p class="follow1" align="center" id="cancel">Cancel</p>`
+                   html+=`<p class="follow" align="center">View</p>`;
+              }
+              else if(friendsArray[i]['username'] in newFriendArray){
+                  html+=`<p class="follow1" align="center" id="unfriend">UnFriend</p>`
+                   html+=`<p class="follow" align="center">View</p>`;
+              }
+              else{
+                  html+=`<p class="follow1" align="center" id="access">Add Friend</p>`
+                   html+=`<p class="follow" align="center">View</p>`;
+              }
+                  
+             
+                  if(friendsArray[i]['profilePhoto']){
+                      html+=`<img class="profile-img" src="http://127.0.0.1:8000`+friendsArray[i]['profilePhoto']+`">`;
+                  }
+                  else{
+                      html+=`<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                  }
+      
+                  html+=`
+                  <img class="background-img" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg">
+                  <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="`+friendsArray[i]['username']+`">
+                  <p class="name1"><img class="icon1" src="https://cdn1.iconfinder.com/data/icons/micon-social-pack/512/twitch-512.png">`+friendsArray[i]['username'].substr(0,7)+`..</p>
+                  </span>
+              </div>`;
+              
+              
+              
+          }
+          $("#recommendation").html(html);
+          $('p[id="access"]').click(function(){
+                  console.log($(this).parent().attr('id'))
+                  $('#modal').modal('toggle')
+                  $("#username").val($(this).parent().attr('id'))
+              })
+          $("#unfriend").click(function(){
+              unfriend($(this).parent().attr('id'));
+          })
+          
+          $("#reject").click(function(){
+              reject($(this).parent().attr('id'));
+          })
+          
+          $("#cancel").click(function(){
+              cancel($(this).parent().attr('id'));
+          })
+      
+          $("#accept").click(function(){
+              accept($(this).parent().attr('id'));
+          })
+      
+      })
+      })
+   </script>
+   <script>
+      $(function(){
+      //Add Friend -> Cancel
+      $("#send1").click(function(){
+          console.log($("#username").val());
+          console.log($("#inp").val());
+          var th=$(this);
+          var settings1 = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/createFriend/",
+          "method": "POST",
+          "headers": {
+              "Authorization": "Bearer {{access_token}}"
+              },
+          "data":{
+              "username": $("#username").val(),
+              "access": $("#inp").val()
+          }
+          }
+      $.ajax(settings1).then(function (response) {
+          console.log(response);
+          if(response.status==="200"){
+              console.log("ok")
+                $('#modal').modal('toggle');
+                  
+             $('body').find('div[id="'+$("#username").val()+'"]').find('p[class="follow1"]').text("Cancel");
+              $('body').find('div[id="'+$("#username").val()+'"]').find('p[class="follow1"]').attr('id', "cancel");
+              $('body').find('div[id="'+$("#username").val()+'"]').find('p[class="follow1"]').unbind();
+              $('body').find('div[id="'+$("#username").val()+'"]').find('p[class="follow1"]').click(function(){
+                  cancel($("#username").val());
+          })
+          }
+          
+          else{
+              $('#modal').modal('toggle');
+          }
+      })
+      })
+      })
+      //UnFriend -> Add Friend
+      function unfriend(username){
+          var settings1 = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/removeFriend/",
+          "method": "DELETE",
+          "headers": {
+              "Authorization": "Bearer {{access_token}}"
+              },
+          "data":{
+              "username": username
+          }
+          }
+      $.ajax(settings1).then(function (response) {
+          console.log("Cancel"+" "+response.status);
+          console.log(username);
+          if(response.status==="200"){
+              //$("#"+username).find('p[id="unfriend"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').attr('id', "access");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').unbind();
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').click(function(){
+                  $('#modal').modal('toggle')
+                  $("#username").val(username)
+              })
+          }
+          })
+      }
+      
+      //Cancel -> Add Friend
+      function cancel(username){
+          var settings1 = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/cancelRequest/",
+          "method": "DELETE",
+          "headers": {
+              "Authorization": "Bearer {{access_token}}"
+              },
+          "data":{
+              "username": username
+          }
+          }
+      $.ajax(settings1).then(function (response) {
+          console.log("Cancel"+" "+response.status);
+          console.log(username)
+          if(response.status==="200"){
+              //console.log($("#"+username).find('p[id="cancel"]').text())
+              //$("#"+username).find('p[id="cancel"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').attr('id', "access");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').unbind();
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').click(function(){
+                  $('#modal').modal('toggle')
+                  $("#username").val(username)
+              })
+          }
+          })
+      }
+      
+
+      //Reject - > Add Friend + View
+      function reject(username){
+         
+          var settings1 = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/cancelRequest/",
+          "method": "DELETE",
+          "headers": {
+              "Authorization": "Bearer {{access_token}}"
+              },
+          "data":{
+              "username": username
+          }
+          }
+      $.ajax(settings1).then(function (response) {
+          console.log("Cancel"+" "+response.status);
+          console.log(username)
+          if(response.status==="200"){
+              //console.log($("#"+username).find('p[id="cancel"]').text())
+              //$("#"+username).find('p[id="cancel"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').text("Add Friend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow"]').text("View");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').attr('id', "access");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').unbind();
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').click(function(){
+                  $('#modal').modal('toggle')
+                  $("#username").val(username)
+              })
+          }
+          })
+      }
+
+
+      //Accept -> UnFriend
+      function accept(username){
+          console.log(username)
+          var settings12 = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://shielded-dusk-55059.herokuapp.com/friends/acceptFriend/",
+          "method": "POST",
+          "headers": {
+              "Authorization": "Bearer {{access_token}}"
+              },
+          "data":{
+              "username": username
+          }
+          }
+      $.ajax(settings12).then(function (response) {
+          console.log(response)
+          console.log("Accept"+" "+response.status);
+          console.log(username)
+          if(response.status==="201"){
+              //$("#"+username).find('p[id="accept"]').text("UnFriend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').text("UnFriend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow"]').text("View");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').attr('id', "unfriend");
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').unbind();
+              $('body').find('div[id="'+username+'"]').find('p[class="follow1"]').click(function(){
+                  unfriend(username);
+              })
+          }
+          })
+      }
+   </script>
+    </body>
+</html>

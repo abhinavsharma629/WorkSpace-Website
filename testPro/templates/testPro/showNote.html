@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <title>Custom Angular Material Sidenav</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+       
+      <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+      <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+      <script src='https://cdn.quilljs.com/1.2.2/quill.min.js'></script>
+      <script src='https://cdn.rawgit.com/kensnyder/quill-image-resize-module/3411c9a7/image-resize.min.js'></script>
+      <script src="https://momentjs.com/downloads/moment.min.js"></script>
+      <style>
+      #editor-container {
+  height:590px;
+}
+
+.container1 {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.container1 a {
+  font-family: Helvetia, sans-serif;
+}
+
+#counter {
+  border: 1px solid #ccc;
+  border-width: 0px 1px 1px 1px;
+  color: #aaa;
+  padding: 5px 15px;
+  text-align: right;
+}
+
+
+
+
+
+.balloon {
+    margin-left:-100px;
+    width:80%;
+  position: relative;
+  
+}
+.balloon::before {
+  content: '';
+  position: absolute;
+}
+.balloon::after {
+  content: '';
+  position: absolute;
+}
+.balloon__inner {
+  position: relative;
+}
+
+.balloon {
+  min-height: 2em;
+  padding: 1em;
+}
+
+.balloon,
+.balloon::before {
+  box-shadow: 0px 0px 10px 0px rgba(163, 163, 163, 0.5);
+}
+
+.balloon,
+.balloon::before,
+.balloon::after,
+.balloon__inner {
+  background: #EEE;
+}
+
+.balloon::before {
+  left: 10px;
+  top: -10px;
+  transform: rotate(45deg) skew(20deg, 20deg);
+  width: 2em;
+  height: 2em;
+}
+
+.balloon,
+.balloon::after {
+  border-radius: .5em;
+}
+
+.balloon--primary, .balloon--primary::before, .balloon--primary::after, .balloon--primary .balloon__inner {
+  color: #337AB7;
+  background-color: #bfe1ff;
+  border-color: #a9c9e4;
+}
+.balloon--success, .balloon--success::before, .balloon--success::after, .balloon--success .balloon__inner {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+.balloon--info, .balloon--info::before, .balloon--info::after, .balloon--info .balloon__inner {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+.balloon--warning, .balloon--warning::before, .balloon--warning::after, .balloon--warning .balloon__inner {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+.balloon--danger, .balloon--danger::before, .balloon--danger::after, .balloon--danger .balloon__inner {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+
+</style>
+      
+      </head>
+  <body>
+    {% include 'testPro/navBar.html'%}
+    <div class="row">
+    <div>
+    <div id="editor-container">
+    </div>
+    </div>
+ <div id="comments" style="margin-left:10%; width:40%;">
+     </div>
+     </div>
+    
+     </body>
+<script>
+var colors=["balloon balloon--primary", "balloon balloon--success", "balloon balloon--info", "balloon balloon--warning"]
+$(function(){
+    var settings = {
+                   "async": true,
+                   "crossDomain": true,
+                   "url": "https://shielded-dusk-55059.herokuapp.com/shared/specificNoteDetail?noteId={{noteId}}",
+                   "method": "GET",
+                   "headers": {
+                       "Authorization": "Bearer "+'{{access_token}}'
+                   }
+        }
+         
+               $.ajax(settings).then(function (response) {
+                   if(response.status==="200"){
+                   var noteDetails=JSON.parse(response.noteDetails);
+                   console.log(noteDetails);
+                   $("#editor-container").html(noteDetails[0]['noteData']);
+                   var currClass=colors[Math.floor(Math.random()*4) + 1];
+                   var html="";
+                   for(var i=0;i<noteDetails[0]['comments'].length;i++){
+                       console.log("ind")
+                       var date=moment(noteDetails[0]['comments'][i]['timeOfComment'])
+                       date=date.fromNow(date)
+                       html+=`
+                       <div class="`+colors[Math.floor(Math.random()*3) + 1]+`" id="`+noteDetails[0]['comments'][i]['commentId']+`">
+                            <div class="balloon__inner">`;
+                        if("{{username}}"===noteDetails[0]['comments'][i]['user']){
+                          html+=`<p class="text-muted"> You &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `+date+`</p>
+                                `+noteDetails[0]['comments'][i]['comment']+`
+                            </div>
+                        </div>
+                        <br>
+                       `;
+                        }
+                        else{
+                          html+=`<p class="text-muted"> `+noteDetails[0]['comments'][i]['user']+`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `+date+`</p>
+                                `+noteDetails[0]['comments'][i]['comment']+`
+                            </div>
+                        </div>
+                        <br>
+                       `;
+                        }
+                            
+                   }
+                   $("#comments").html(html);
+                   }
+               })
+})
+
+
+
+var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+
+  [{
+    'header': 1
+  }, {
+    'header': 2
+  }], // custom button values
+  [{
+    'list': 'ordered'
+  }, {
+    'list': 'bullet'
+  }],
+  [{
+    'script': 'sub'
+  }, {
+    'script': 'super'
+  }], // superscript/subscript
+  [{
+    'indent': '-1'
+  }, {
+    'indent': '+1'
+  }], // outdent/indent
+  [{
+    'direction': 'rtl'
+  }], // text direction
+
+  [{
+    'header': [1, 2, 3, 4, 5, 6, false]
+  }],
+
+  ['link', 'blockquote', 'code-block', 'image', 'video']
+];
+
+var quill = new Quill('#editor-container', {
+  modules: {
+    counter: {
+      container: '#counter',
+      unit: 'word'
+    },
+    toolbar: toolbarOptions,
+  },
+   readOnly: true,
+  placeholder: 'Whats in your mind??',
+  theme: 'snow'
+});
+
+</script>
+</html>

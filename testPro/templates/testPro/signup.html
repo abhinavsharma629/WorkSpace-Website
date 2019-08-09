@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap MultiStep Form</title>
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+<style>
+/*custom font*/
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    background: #6441A5; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #6441A5, #2a0845); /* Chrome 10-25, Safari 5.1-6 */
+}
+
+body {
+    font-family: montserrat, arial, verdana;
+    background: transparent;
+}
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*inputs*/
+#msform input, #msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+#msform input:focus, #msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ee0979;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #ee0979;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #C5C5F1;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+}
+
+/*headings*/
+.fs-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: white;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #ee0979;
+    color: white;
+}
+
+
+/* Not relevant to this form */
+.dme_link {
+    margin-top: 30px;
+    text-align: center;
+}
+.dme_link a {
+    background: #FFF;
+    font-weight: bold;
+    color: #ee0979;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 25px;
+    font-size: 12px;
+}
+
+.dme_link a:hover, .dme_link a:focus {
+    background: #C5C5F1;
+    text-decoration: none;
+}
+
+
+
+
+{% comment %} Profile Image {% endcomment %}
+.container {
+  max-width: 960px;
+  margin: 30px auto;
+  padding: 20px;
+}
+.avatar-upload {
+  position: relative;
+  max-width: 205px;
+  margin: 50px auto;
+}
+.avatar-upload .avatar-edit {
+  position: absolute;
+  right: 12px;
+  z-index: 1;
+  top: 10px;
+}
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-edit input + label {
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+  background: #f1f1f1;
+  border-color: #d6d6d6;
+}
+.avatar-upload .avatar-edit input + label:after {
+  content: "\f040";
+  font-family: 'FontAwesome';
+  color: #757575;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 10%;
+  text-align: center;
+  margin: auto;
+}
+.avatar-upload .avatar-preview {
+  width: 192px;
+  height: 192px;
+  border-radius: 100%;
+  border: 6px solid #F8F8F8;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+.avatar-upload .avatar-preview > div {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+
+
+
+
+{% comment %} Date Picker {% endcomment %}
+[type="date"] {
+  background:#fff url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png)  97% 50% no-repeat ;
+}
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+/* custom styles */
+
+label {
+  display: block;
+}
+.input1 {
+  border: 1px solid #c4c4c4;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 3px 5px;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+  width: 190px;
+}
+</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- MultiStep Form -->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form id="msform" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <!-- progressbar -->
+            <ul id="progressbar">
+                <li class="active">Personal Details</li>
+                <li>Social Profiles</li>
+                <li>Account Setup</li>
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                <h2 class="fs-title">Personal Details</h2>
+                <h3 class="fs-subtitle">Tell us something more about you</h3>
+                <input type="text" name="username" id="username" placeholder="Username" required />
+                <input type="text" name="fname" id="firstname" placeholder="First Name" required/>
+                <input type="text" name="lname" id="lastname" placeholder="Last Name"/>
+                <input type="number" name="phone" placeholder="Phone"/>
+                <input type="number" name="phone1" placeholder="Alternate Phone"/>
+                <input type="text" name="occupation" placeholder="Occupation"  />
+                <input type="text" name="address" placeholder="Address"/>
+				<input type="text" name="address1" placeholder="LandMark"/>
+                <div class="col-sm-13 col-xs-13">
+                    <select name="country" class="form-control countries" id="countries" required>
+		                <option value="" selected="">Country</option>
+	                </select>
+                </div>
+				<br>
+				<input type="text" name="state" placeholder="State" required/>
+				<input type="text" name="city" placeholder="City" required/>
+				<div class="col-sm-13 col-xs-13">
+                    <select name="gender" id="gender" class="form-control gender" required>
+		                <option value="" selected="">Select Gender</option>
+						<option value="M">Male</option>
+						<option value="F">Female</option>
+						<option value="N">Can't Reveal</option>
+	                </select>
+                </div>
+				<br>
+				<input type="date" name="dob" class="input1" id="dateofbirth" required>
+				<input type="number" name="lat" id='lat' placeholder="Latitude" readonly/>
+				<input type="number" name="long" id='long' placeholder="Longitude" readonly/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            
+            <fieldset>
+                <h2 class="fs-title">Social Profiles</h2>
+                <h3 class="fs-subtitle">Your presence on the social network</h3>
+                
+                <input type="text" name="twitter" placeholder="Twitter"/>
+                <input type="text" name="codeforces" placeholder="Codeforces"/>
+                <input type="text" name="codechef" placeholder="CodeChef"/>
+                <input type="text" name="spoj" placeholder="Spoj"/>
+                <input type="text" name="hackerrank" placeholder="Hacker Rank"/>
+                <input type="text" name="hackerearth" placeholder="Hacker Earth"/>
+                <input type="text" name="github" placeholder="GitHub"/>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset>
+                <h2 class="fs-title">Create your account</h2>
+                <h3 class="fs-subtitle">Fill in your credentials</h3>
+                <h3 class="fs-subtitle" id="sub"></h3>
+           
+    
+                <div class="avatar-upload" style="margin-left:30%;">
+                    <div class="avatar-edit">
+                        <input type='file' name="file" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview" style="background-image: url(https://images.unsplash.com/photo-1553258318-c22356c14808?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60);">
+                        </div>
+                    </div>
+               
+            </div>
+                <input type="email" name="email" id="email" placeholder="Email" required/>
+                <input type="password" name="pass" id="pass" minlength="8" placeholder="Password" required/>
+                <input type="password" name="cpass" id="cpass" placeholder="Confirm Password" required/>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <span>
+                <input type="submit" id="subm" name="submit" class="action-button" value="Submit"/>
+                </span>
+            </fieldset>
+            
+        </form>
+    </div>
+</div>
+<!-- /.MultiStep Form -->
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+
+</body>
+<script>
+var file;
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+            $('#imagePreview').hide();
+            $('#imagePreview').fadeIn(650);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#imageUpload").change(function(e) {
+    readURL(this);
+	file=e.target.files[0];
+	var reader = new FileReader();
+    reader.onload = function(event) {
+    file=event.target.result;
+	}
+    $("#sub").text("Nice Picture My Friend!!");
+
+});
+
+</script>
+<script>
+$("#msform").submit(function(e){
+
+    e.preventDefault();
+	if($("#pass").val()!==$("#cpass").val()){
+		alert("Your Passwords don't match!!")
+	}
+	else{
+		var fd = new FormData();
+		fd.append("file", file);
+		fd.append("user", "{{csrf_token}}");
+		
+		console.log(file)
+    $("input").each(function(){
+        //console.log($(this).val());
+		fd.append($(this).attr('name'), $(this).val());
+    })
+	//console.log(fd);
+	fd.append('gender', $("#gender").val());
+	fd.append('country', $("#countries").val());
+	$.ajax({
+              type: "POST",
+              url: "https://shielded-dusk-55059.herokuapp.com/user/createUser/",
+              data: fd,
+              processData: false,
+              contentType: false
+            }).done(function(data) {
+				if(data.status==="203"){
+					alert("Some Error Occured!! Please Try Again!!")
+				}
+				else if(data.status==="304"){
+					alert("Username Already Exists!! Try Another One!!")
+				}
+				else{
+					//console.log($("#firstname").val()+" "+$("#lastname").val()+" "+$("#pass").val())
+					$.ajax({
+						url:"/test/signUpInCurrentServer/",
+						type:"POST",
+						data:{
+							"username":$("#username").val(),
+							"pass":$("#pass").val(),
+							"email":$("#email").val(),
+							"firstname":$("#firstname").val(),
+							"lastname":$("#lastname").val()
+						},
+						success: function(data1){
+							print(data1)
+							if(data1.status==="201"){
+							window.location.href="/test/saveToken?username="+$("#username").val()+"&access_token="+data.token_data.access+"&refresh_token="+data.token_data.refresh;
+						}
+						else{
+							alert("Some Error Occured!! Please Try Again!!")
+						}
+						}
+					})
+					console.log("sfdfd")
+									}
+	})
+	}
+})
+
+	
+           
+            
+</script>
+<script>
+
+//jQuery time
+var current_fs, next_fs, previous_fs; //fieldsets
+var left, opacity, scale; //fieldset properties which we will animate
+var animating; //flag to prevent quick multi-click glitches
+
+$(".next").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	next_fs = $(this).parent().next();
+	
+	//activate next step on progressbar using the index of next_fs
+	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	
+	//show the next fieldset
+	next_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale current_fs down to 80%
+			scale = 1 - (1 - now) * 0.2;
+			//2. bring next_fs from the right(50%)
+			left = (now * 50)+"%";
+			//3. increase opacity of next_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({
+        'transform': 'scale('+scale+')',
+        'position': 'absolute'
+      });
+			next_fs.css({'left': left, 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".previous").click(function(){
+	if(animating) return false;
+	animating = true;
+	
+	current_fs = $(this).parent();
+	previous_fs = $(this).parent().prev();
+	
+	//de-activate current step on progressbar
+	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+	
+	//show the previous fieldset
+	previous_fs.show(); 
+	//hide the current fieldset with style
+	current_fs.animate({opacity: 0}, {
+		step: function(now, mx) {
+			//as the opacity of current_fs reduces to 0 - stored in "now"
+			//1. scale previous_fs from 80% to 100%
+			scale = 0.8 + (1 - now) * 0.2;
+			//2. take current_fs to the right(50%) - from 0%
+			left = ((1-now) * 50)+"%";
+			//3. increase opacity of previous_fs to 1 as it moves in
+			opacity = 1 - now;
+			current_fs.css({'left': left});
+			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+		}, 
+		duration: 800, 
+		complete: function(){
+			current_fs.hide();
+			animating = false;
+		}, 
+		//this comes from the custom easing plugin
+		easing: 'easeInOutBack'
+	});
+});
+
+$(".submit").click(function(){
+	return false;
+})
+</script>
+
+<script>
+function countriesDropdown(container){
+	var countries = {
+		AFG: "Afghanistan",
+		ALB: "Albania",
+		ALG: "Algeria",
+		AND: "Andorra",
+		ANG: "Angola",
+		ANT: "Antigua and Barbuda",
+		ARG: "Argentina",
+		ARM: "Armenia",
+		ARU: "Aruba",
+		ASA: "American Samoa",
+		AUS: "Australia",
+		AUT: "Austria",
+		AZE: "Azerbaijan",
+		BAH: "Bahamas",
+		BAN: "Bangladesh",
+		BAR: "Barbados",
+		BDI: "Burundi",
+		BEL: "Belgium",
+		BEN: "Benin",
+		BER: "Bermuda",
+		BHU: "Bhutan",
+		BIH: "Bosnia and Herzegovina",
+		BIZ: "Belize",
+		BLR: "Belarus",
+		BOL: "Bolivia",
+		BOT: "Botswana",
+		BRA: "Brazil",
+		BRN: "Bahrain",
+		BRU: "Brunei",
+		BUL: "Bulgaria",
+		BUR: "Burkina Faso",
+		CAF: "Central African Republic",
+		CAM: "Cambodia",
+		CAN: "Canada",
+		CAY: "Cayman Islands",
+		CGO: "Congo",
+		CHA: "Chad",
+		CHI: "Chile",
+		CHN: "China",
+		CIV: "Cote d'Ivoire",
+		CMR: "Cameroon",
+		COD: "DR Congo",
+		COK: "Cook Islands",
+		COL: "Colombia",
+		COM: "Comoros",
+		CPV: "Cape Verde",
+		CRC: "Costa Rica",
+		CRO: "Croatia",
+		CUB: "Cuba",
+		CYP: "Cyprus",
+		CZE: "Czech Republic",
+		DEN: "Denmark",
+		DJI: "Djibouti",
+		DMA: "Dominica",
+		DOM: "Dominican Republic",
+		ECU: "Ecuador",
+		EGY: "Egypt",
+		ERI: "Eritrea",
+		ESA: "El Salvador",
+		ESP: "Spain",
+		EST: "Estonia",
+		ETH: "Ethiopia",
+		FIJ: "Fiji",
+		FIN: "Finland",
+		FRA: "France",
+		FSM: "Micronesia",
+		GAB: "Gabon",
+		GAM: "Gambia",
+		GBR: "Great Britain",
+		GBS: "Guinea-Bissau",
+		GEO: "Georgia",
+		GEQ: "Equatorial Guinea",
+		GER: "Germany",
+		GHA: "Ghana",
+		GRE: "Greece",
+		GRN: "Grenada",
+		GUA: "Guatemala",
+		GUI: "Guinea",
+		GUM: "Guam",
+		GUY: "Guyana",
+		HAI: "Haiti",
+		HKG: "Hong Kong",
+		HON: "Honduras",
+		HUN: "Hungary",
+		INA: "Indonesia",
+		IND: "India",
+		IRI: "Iran",
+		IRL: "Ireland",
+		IRQ: "Iraq",
+		ISL: "Iceland",
+		ISR: "Israel",
+		ISV: "Virgin Islands",
+		ITA: "Italy",
+		IVB: "British Virgin Islands",
+		JAM: "Jamaica",
+		JOR: "Jordan",
+		JPN: "Japan",
+		KAZ: "Kazakhstan",
+		KEN: "Kenya",
+		KGZ: "Kyrgyzstan",
+		KIR: "Kiribati",
+		KOR: "South Korea",
+		KOS: "Kosovo",
+		KSA: "Saudi Arabia",
+		KUW: "Kuwait",
+		LAO: "Laos",
+		LAT: "Latvia",
+		LBA: "Libya",
+		LBR: "Liberia",
+		LCA: "Saint Lucia",
+		LES: "Lesotho",
+		LIB: "Lebanon",
+		LIE: "Liechtenstein",
+		LTU: "Lithuania",
+		LUX: "Luxembourg",
+		MAD: "Madagascar",
+		MAR: "Morocco",
+		MAS: "Malaysia",
+		MAW: "Malawi",
+		MDA: "Moldova",
+		MDV: "Maldives",
+		MEX: "Mexico",
+		MGL: "Mongolia",
+		MHL: "Marshall Islands",
+		MKD: "Macedonia",
+		MLI: "Mali",
+		MLT: "Malta",
+		MNE: "Montenegro",
+		MON: "Monaco",
+		MOZ: "Mozambique",
+		MRI: "Mauritius",
+		MTN: "Mauritania",
+		MYA: "Myanmar",
+		NAM: "Namibia",
+		NCA: "Nicaragua",
+		NED: "Netherlands",
+		NEP: "Nepal",
+		NGR: "Nigeria",
+		NIG: "Niger",
+		NOR: "Norway",
+		NRU: "Nauru",
+		NZL: "New Zealand",
+		OMA: "Oman",
+		PAK: "Pakistan",
+		PAN: "Panama",
+		PAR: "Paraguay",
+		PER: "Peru",
+		PHI: "Philippines",
+		PLE: "Palestine",
+		PLW: "Palau",
+		PNG: "Papua New Guinea",
+		POL: "Poland",
+		POR: "Portugal",
+		PRK: "North Korea",
+		PUR: "Puerto Rico",
+		QAT: "Qatar",
+		ROU: "Romania",
+		RSA: "South Africa",
+		RUS: "Russia",
+		RWA: "Rwanda",
+		SAM: "Samoa",
+		SEN: "Senegal",
+		SEY: "Seychelles",
+		SIN: "Singapore",
+		SKN: "Saint Kitts and Nevis",
+		SLE: "Sierra Leone",
+		SLO: "Slovenia",
+		SMR: "San Marino",
+		SOL: "Solomon Islands",
+		SOM: "Somalia",
+		SRB: "Serbia",
+		SRI: "Sri Lanka",
+		SSD: "South Sudan",
+		STP: "Sao Tome and Principe",
+		SUD: "Sudan",
+		SUI: "Switzerland",
+		SUR: "Suriname",
+		SVK: "Slovakia",
+		SWE: "Sweden",
+		SWZ: "Swaziland",
+		SYR: "Syria",
+		TAN: "Tanzania",
+		TGA: "Tonga",
+		THA: "Thailand",
+		TJK: "Tajikistan",
+		TKM: "Turkmenistan",
+		TLS: "Timor-Leste",
+		TOG: "Togo",
+		TPE: "Chinese Taipei",
+		TTO: "Trinidad and Tobago",
+		TUN: "Tunisia",
+		TUR: "Turkey",
+		TUV: "Tuvalu",
+		UAE: "United Arab Emirates",
+		UGA: "Uganda",
+		UKR: "Ukraine",
+		URU: "Uruguay",
+		USA: "United States",
+		UZB: "Uzbekistan",
+		VAN: "Vanuatu",
+		VEN: "Venezuela",
+		VIE: "Vietnam",
+		VIN: "Saint Vincent and the Grenadines",
+		YEM: "Yemen",
+		ZAM: "Zambia",
+		ZAN: "Zanzibar",
+		ZIM: "Zimbabwe"
+		}
+	var out = "<select><option rel=''>Country</option>";
+	for (var key in countries) {
+		out += "<option rel='" + key + "'>" + countries[key] + "</option>";
+	}
+	out += "</select>";
+
+	document.getElementById(container).innerHTML = out;
+}
+countriesDropdown("countries");
+
+</script>
+<script>
+$(function()
+     {
+        if( navigator.geolocation )
+        {
+           // Call getCurrentPosition with success and failure callbacks
+           navigator.geolocation.getCurrentPosition( success, fail );
+        }
+        else
+        {
+           alert("Sorry, your browser does not support geolocation services.");
+        }
+     }
+)
+
+     function success(position)
+     {
+		 console.log(position.coords.longitude)
+		 console.log(position.coords.latitude)
+         $('#long').val(position.coords.longitude);
+         $('#lat').val(position.coords.latitude);
+     }
+
+     function fail()
+     {
+		 console.log("Could not obtain location");
+     }
+</script>
+</html>

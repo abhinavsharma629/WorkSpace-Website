@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My WorkSpace</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <style>
+        /*
+#3A80E2
+#418CFC
+*/
+        
+        .logo {
+            display: flex;
+            width: 20%;
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 1.3em;
+            color: #434343;
+        }
+        
+        .logo > strong {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-top: solid 2px;
+            border-bottom: solid 2px;
+        }
+        
+        .icon {
+            width: 50px;
+        }
+        
+        .menu {
+            width: 70%;
+        }
+        
+        .menu > ul {
+            list-style-type: none;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        li {
+            cursor: pointer;
+            color: #434343;
+            transition: all 0.3s;
+            border: solid 1px white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        li:hover {
+            color: #418CFC;
+            border-color: #418CFC;
+        }
+        
+        .navbar {
+            padding-top: 10px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 6px 15px;
+            cursor: pointer;
+        }
+        
+        li a:hover {
+            background: #425B90;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        #noti_Container {
+            position: relative;
+        }
+        /* A CIRCLE LIKE BUTTON IN THE TOP MENU. */
+        
+        #noti_Button {
+            cursor: pointer;
+        }
+        /* THE POPULAR RED NOTIFICATIONS COUNTER. */
+        
+        #noti_Counter {
+            display: block;
+            position: relative;
+            background: #E1141E;
+            color: #FFF;
+            font-size: 12px;
+            font-weight: normal;
+            padding: 1px 3px;
+            margin: -8px 0 0 23px;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            z-index: 1;
+        }
+        /* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
+        
+        #notifications {
+            display: none;
+            width: 430px;
+            position: absolute;
+            top: 30px;
+            left: 0;
+            background: #FFF;
+            border: solid 1px rgba(100, 100, 100, .20);
+            -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .20);
+            z-index: 1;
+        }
+        /* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+        
+        #notifications:before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            color: transparent;
+            border: 10px solid #CCC;
+            border-color: transparent transparent #FFF;
+            margin-top: -20px;
+            margin-right: 10%;
+        }
+        
+        .h3 {
+            display: block;
+            color: #333;
+            background: #FFF;
+            font-weight: bold;
+            font-size: 13px;
+            padding: 8px;
+            margin: 0;
+            border-bottom: solid 1px rgba(100, 100, 100, .30);
+        }
+        
+        .seeAll {
+            background: #F6F7F8;
+            padding: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-top: solid 1px rgba(100, 100, 100, .30);
+            text-align: center;
+        }
+        
+        .seeAll a {
+            color: #3b5998;
+        }
+        
+        .seeAll a:hover {
+            background: #F6F7F8;
+            color: #3b5998;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar" id="nav">
+        <div class="logo">
+            <strong>Your</strong>
+            <div class="icon">
+                <svg id="Capa_1" x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 58 58;" xml:space="preserve">
+                    <g>
+                        <polygon style="fill:#418CFC;" points="29,58 3,45 3,13 29,26 	" />
+                        <polygon style="fill:#3A80E2;" points="29,58 55,45 55,13 29,26 	" />
+                        <polygon style="fill:#418CFC;" points="3,13 28,0 55,13 29,26 	" />
+                    </g>
+                </svg>
+            </div>
+            <strong>WorkSpace</strong>
+        </div>
+        <div class="menu">
+            <ul>
+                <li id="network">Network</li>
+                <li id="friends">Find Friends</li>
+                <li id="github">GitHub</li>
+                <li id="personal">Personal Data</li>
+                <li id="noti_Container">
+                    <div id="noti_Counter"></div>
+                    <!--SHOW NOTIFICATIONS COUNT.-->
+
+                    <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                    <div id="noti_Button">
+                        <i class="fa fa-bell"></i>
+                    </div>
+
+                    <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                    <div id="notifications" style="margin-right:10%;">
+                        <h3 class="h3">Notifications</h3>
+                        <div style="height:300px;" id="main_notif">
+                        </div>
+                        <div class="seeAll" onclick="markAsRead()"><a href="#">Mark As Read</a></div>
+                    </div>
+                </li>
+                <li id="cloud">Cloud Storages</li>
+
+                <li id="analysis">Analysis</li>
+                <li id="workspace">WorkSpace</li>
+
+                <li id="profile">{{username}}</li>
+                &nbsp;
+                <button class="btn btn-primary" id="logout">Logout</button>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>
+<!-- partial -->
+<script>
+    console.log('{{access_token}}')
+    $("#profile").click(function() {
+        window.location.href = "/test/profile?user={{username}}"
+    })
+     $("#logout").click(function() {
+        window.location.href = "http://127.0.0.1:8001/logout"
+    })
+
+    $("#github").click(function() {
+        window.location.href = "/test/github"
+    })
+
+    $("#network").click(function() {
+        window.location.href = "/test/network1"
+    })
+
+    $("#friends").click(function() {
+        window.location.href = "/test/network"
+    })
+    $("#personal").click(function() {
+        window.location.href = "/test/personal"
+    })
+
+    $("#cloud").click(function() {
+        window.location.href = "/test/clouds"
+    })
+</script>
+<script>
+    function markAsRead() {
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://shielded-dusk-55059.herokuapp.com/notif/markAsRead",
+            "method": "POST",
+            "headers": {
+                "Authorization": "Bearer " + '{{access_token}}'
+            }
+        }
+        $.ajax(settings).then(function(response) {
+            if (response.status === "201") {
+                $('#noti_Counter').fadeOut('slow'); // HIDE THE COUNTER.
+                $('#notifications').fadeToggle('fast');
+            }
+        })
+    }
+    $(document).ready(function() {
+
+        showNoti();
+        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+
+        $('#noti_Button').click(function() {
+
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications').fadeToggle('fast', 'linear', function() {
+                if ($('#notifications').is(':hidden')) {
+                    $('#noti_Button').css('background-color', '#FFFFFF');
+                }
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                else $('#noti_Button').css('background-color', '#FFFFFF');
+            });
+
+            return false;
+        });
+
+        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+        $(document).click(function() {
+            $('#notifications').hide();
+
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+
+        });
+
+        $('#notifications').click(function() {
+            return false; // DO NOTHING WHEN CONTAINER IS CLICKED.
+        });
+
+        setInterval(function() {
+            showNoti();
+        }, 10000)
+
+        function showNoti() {
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://shielded-dusk-55059.herokuapp.com/notif/notification",
+                "method": "GET",
+                "headers": {
+                    "Authorization": "Bearer " + '{{access_token}}'
+                }
+            }
+
+            $.ajax(settings).then(function(response) {
+                if (response.status === "200") {
+
+                    var notif = JSON.parse(response.notifications);
+                    console.log(notif)
+                    var html1 = "";
+                    $("#noti_Counter").text(notif.length);
+                    for (var i = 0; i < notif.length; i++) {
+                        html1 += `<p>• &nbsp;` + notif[i]['notification'] + `</p><hr>`
+                    }
+                    if (notif.length === 0) {
+                        $('#noti_Counter').hide()
+                    } else {
+                        $('#noti_Counter').show()
+                    }
+                    //console.log(html1)
+                    $("#main_notif").html(html1);
+
+                }
+            })
+        }
+
+    });
+</script>
+</body>
+
+</html>

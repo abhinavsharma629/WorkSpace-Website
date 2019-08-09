@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <title>Custom Angular Material Sidenav</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+      <link rel='stylesheet' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.css'>
+      <link rel='stylesheet' href='https://material.angularjs.org/1.1.1/docs.css'>
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'>
+      <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+      <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+      <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+      <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css'>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <style type="text/css">
+         #myImg {
+         border-radius: 5px;
+         cursor: pointer;
+         transition: 0.3s;
+         }
+         #myImg:hover {
+         opacity: 0.7;
+         }
+         /* The Modal (background) */
+         .modal {
+         display: none;
+         /* Hidden by default */
+         position: fixed;
+         /* Stay in place */
+         z-index: 1;
+         /* Sit on top */
+         padding-top: 100px;
+         /* Location of the box */
+         left: 0;
+         top: 0;
+         width: 100%;
+         /* Full width */
+         height: 100%;
+         /* Full height */
+         overflow: auto;
+         /* Enable scroll if needed */
+         background-color: rgb(0, 0, 0);
+         /* Fallback color */
+         background-color: rgba(0, 0, 0, 0.9);
+         /* Black w/ opacity */
+         }
+         /* Modal Content (image) */
+         .modal-content {
+         margin: auto;
+         display: block;
+         width: 80%;
+         max-width: 700px;
+         }
+         /* Caption of Modal Image */
+         #caption {
+         margin: auto;
+         display: block;
+         width: 80%;
+         max-width: 700px;
+         text-align: center;
+         color: #ccc;
+         padding: 10px 0;
+         height: 150px;
+         }
+         /* Add Animation */
+         .modal-content,
+         #caption {
+         -webkit-animation-name: zoom;
+         -webkit-animation-duration: 0.6s;
+         animation-name: zoom;
+         animation-duration: 0.6s;
+         }
+         @-webkit-keyframes zoom {
+         from {
+         -webkit-transform: scale(0)
+         }
+         to {
+         -webkit-transform: scale(1)
+         }
+         }
+         @keyframes zoom {
+         from {
+         transform: scale(0)
+         }
+         to {
+         transform: scale(1)
+         }
+         }
+         /* The Close Button */
+         .close {
+         position: absolute;
+         top: 15px;
+         right: 35px;
+         color: #f1f1f1;
+         font-size: 40px;
+         font-weight: bold;
+         transition: 0.3s;
+         }
+         .close:hover,
+         .close:focus {
+         color: #bbb;
+         text-decoration: none;
+         cursor: pointer;
+         }
+         /* 100% Image Width on Smaller Screens */
+         @media only screen and (max-width: 700px) {
+         .modal-content {
+         width: 100%;
+         }
+         }
+         ::selection {
+         background: transparent;
+         }
+         ::-moz-selection {
+         background: transparent;
+         }
+         html {
+         box-sizing: border-box;
+         }
+         *,
+         *::before,
+         *::after {
+         box-sizing: inherit;
+         }
+         .body {
+         background: #efefef;
+         font-size: 100%;
+         /*line-height: 1.5;*/
+         max-height: 50%;
+         max-width: 50%;
+         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+         color: #787878;
+         }
+         @media (min-width: 900px) {
+         body {
+         padding: 1rem;
+         }
+         }
+         a {
+         text-decoration: none;
+         color: inherit;
+         }
+         [draggable] {
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         -khtml-user-drag: element;
+         -webkit-user-drag: element;
+         }
+         h1, h2, h3, h4, h5, h6 {
+         margin: 0;
+         font-size: 1rem;
+         font-weight: bold;
+         }
+         .btn {
+         display: inline-block;
+         margin: 1rem 0 0;
+         line-height: 1;
+         font-size: .75rem;
+         font-weight: bold;
+         padding: 0.8rem 2rem;
+         letter-spacing: 1px;
+         text-transform: uppercase;
+         color: white;
+         background: #47cedf;
+         border: none;
+         outline: none;
+         }
+         .btn:hover, .btn:focus {
+         background: #24bccf;
+         cursor: pointer;
+         }
+         .btn:active {
+         -webkit-transform: translateY(2px);
+         transform: translateY(2px);
+         }
+         aside{
+         width:100%;
+         height:100%;
+         overflow-y:scroll;
+         }
+         .ui {
+         position: relative;
+         display: flex;
+         margin: 0 auto;
+         max-width: 900px;
+         min-height: 100vh;
+         background: #fff;
+         overflow: hidden;
+         }
+         @media (min-width: 900px) {
+         .ui {
+         margin: 10vh auto 0;
+         min-height: 50vh;
+         box-shadow: 0 0 20px rgba(120, 120, 120, 0.1);
+         border-radius: 5px;
+         }
+         }
+         .ui.upload-drop--dragover .ui__sidebar {
+         opacity: .5;
+         }
+         .ui.upload-drop--dragover .ui__main {
+         transition: border .5s ease;
+         border: 4px dashed #47cedf;
+         }
+         .ui.upload-drop--dragover .ui__main > * {
+         pointer-events: none;
+         }
+         .ui__sidebar {
+         display: block;
+         position: relative;
+         background: #404040;
+         color: #ccc;
+         /*overflow: hidden;*/
+         overflow-y: scroll;
+         transition: all .5s ease;
+         width: 0;
+         max-width: 350px;
+         /*max-height: 100%;*/
+         }
+         .ui__sidebar--open .ui__sidebar {
+         display: block;
+         width: 80%;
+         opacity: 1;
+         padding: 1rem;
+         border-right: 0.5rem solid #efefef;
+         }
+         @media (min-width: 900px) {
+         .ui__sidebar {
+         display: block;
+         width: 300px;
+         padding: 1rem;
+         border-right: 0.5rem solid #efefef;
+         }
+         .ui__sidebar--open .ui__sidebar {
+         width: 300px;
+         }
+         }
+         .ui__main {
+         flex: 1 1 auto;
+         display: block;
+         width: calc(100% - 300px);
+         }
+         .ui__menu {
+         display: flex;
+         }
+         .ui__btn {
+         flex: 0 0 auto;
+         padding: 0.5rem 1rem;
+         transition: all .1s linear;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         }
+         .ui__btn::before {
+         font-family: FontAwesome;
+         }
+         .ui__btn:hover {
+         color: #121212;
+         }
+         .ui__btn.ui__btn--active, .ui__btn:active {
+         color: #47cedf;
+         }
+         .upload-btn::before {
+         content: '\f0ee';
+         }
+         .help-btn::before {
+         content: '\f128';
+         }
+         .sidebar-toggle {
+         margin-left: 0;
+         }
+         .sidebar-toggle::before {
+         content: '\f152';
+         }
+         .ui__sidebar--open .sidebar-toggle::before {
+         content: '\f191';
+         }
+         @media (min-width: 900px) {
+         .sidebar-toggle {
+         display: none;
+         }
+         }
+         .options-toggle {
+         margin-right: 0;
+         text-align: right;
+         }
+         .options-toggle::before {
+         content: '\f013';
+         }
+         .file-path {
+         flex: 1 1 auto;
+         display: inline-block;
+         margin: 0;
+         padding: 0.3333333333rem 1rem;
+         font-size: .875rem;
+         list-style: none;
+         background: #f8f8f8;
+         border-radius: 3px;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+         line-height: 2;
+         border-radius: 0 0 3px 3px;
+         }
+         .file-path li {
+         display: inline-block;
+         }
+         .file-path li::after {
+         display: inline-block;
+         font-family: FontAwesome;
+         content: '\f105';
+         opacity: .5;
+         margin-left: 0.5rem;
+         margin-right: 0.25rem;
+         }
+         .file-path a {
+         cursor: pointer;
+         }
+         .file-path a:hover {
+         color: #121212;
+         }
+         .file-tree {
+         display: block;
+         margin: 0;
+         padding: 0;
+         list-style: none;
+         max-height: 100%;
+         overflow-y: scroll;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         }
+         .file-tree__item {
+         display: block;
+         padding: 0.5rem 1rem;
+         }
+         .file-tree__subtree {
+         display: none;
+         margin: 0.5rem 1rem 0 1.5rem;
+         padding: 0;
+         list-style: none;
+         }
+         .file-tree__item--open .file-tree__subtree {
+         display: block;
+         }
+         .file-tree__subtree > li {
+         padding: 0.3333333333rem 0;
+         font-size: .875rem;
+         }
+         .file-tree__subtree > li .folder::before {
+         color: #c298cf;
+         }
+         .folder {
+         display: block;
+         overflow: hidden;
+         white-space: nowrap;
+         text-overflow: ellipsis;
+         }
+         .folder::before {
+         content: "\f07b";
+         font-family: FontAwesome;
+         margin-right: 0.5rem;
+         color: #47cedf;
+         }
+         .folder:hover {
+         color: white;
+         cursor: pointer;
+         }
+         .folder:hover::before {
+         color: #5dd4e3;
+         }
+         .folder.folder--open {
+         color: white;
+         }
+         .folder.folder--open::before {
+         content: "\f07c";
+         }
+         .file-list {
+         width: 100%;
+         text-align: left;
+         }
+         .file-list .file-list__file:nth-child(odd) {
+         background: #f8f8f8;
+         }
+         .file-list th {
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+         user-select: none;
+         border-bottom: 1px solid #efefef;
+         padding: 1rem;
+         }
+         .file-list th:hover {
+         cursor: pointer;
+         color: #121212;
+         }
+         .file-list td {
+         padding: 0.3333333333rem 1rem;
+         }
+         .file-list td:hover {
+         cursor: pointer;
+         color: #121212;
+         }
+         .file-list__header {
+         font-size: 0.6875rem;
+         letter-spacing: 1px;
+         line-height: 1;
+         }
+         .overlay {
+         display: none;
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         background: rgba(71, 206, 223, 0.6);
+         z-index: 1000;
+         box-shadow: 0 0 20px rgba(120, 120, 120, 0.1);
+         }
+         .overlay.overlay--active {
+         display: block;
+         }
+         .overlay__inner {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         margin: 0 auto;
+         z-index: 1001;
+         border-radius: 5px;
+         background: #f8f8f8;
+         padding: 2rem;
+         text-align: center;
+         }
+         @media (min-width: 900px) {
+         .overlay__inner {
+         top: 50%;
+         -webkit-transform: translateY(-50%);
+         transform: translateY(-50%);
+         bottom: auto;
+         max-width: 500px;
+         }
+         }
+         .upload-drop--dragover .overlay__inner {
+         transition: border .5s ease;
+         border: 4px dashed #47cedf;
+         }
+         .upload-drop--dragover .overlay__inner > * {
+         pointer-events: none;
+         }
+         .info-modal {
+         display: block;
+         -webkit-transform: translateY(-100%);
+         transform: translateY(-100%);
+         opacity: 0;
+         overflow: hidden;
+         height: 0;
+         font-size: .875rem;
+         }
+         .info-modal.info-modal--active {
+         -webkit-transform: translateY(0);
+         transform: translateY(0);
+         opacity: 1;
+         height: auto;
+         padding: 1rem;
+         background: linear-gradient(to bottom, white, #efefef);
+         border: 5px solid #fff;
+         }
+         
+         
+         
+         
+         .red { background-color: red;}
+         .blue { background-color: blue;}
+         .lightgreen { background-color: lightgreen;}
+         .section{ height: 100%;}
+         .locked-sidebar { background-color: #FAFAFA;}
+         .side-button-active{
+         background-color: #69F0AE;
+         }
+         .side-icon-active{
+         color: #FFFFFF;
+         }
+         .side-icon-inactive{
+         color: #000000;
+         }
+         .side-toolbar{
+         background-color: #35A62D;
+         font-color: #FAFAFA;
+         }
+         .md-button.sidebar-button{
+         min-width: 2px;
+         max-width: 100%;
+         min-height: 2px;
+         max-height: 50px;
+         margin-left: 12px;
+         width: 51px;
+         padding-left: 0px;
+         }
+         md-sidenav.locked-sidebar, 
+         md-sidenav.md-locked-open.locked-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.locked-sidebar {
+         min-width: 4em !important;
+         width: 85vw !important;
+         max-width: 4em !important;
+         overflow-x: hidden;
+         }
+         md-sidenav.toggleable-sidebar, 
+         md-sidenav.md-locked-open.toggleable-sidebar, 
+         md-sidenav.md-closed.md-locked-open-add-active.toggleable-sidebar {
+         min-width: 0em !important;
+         width: 85vw !important;
+         max-width: 20em !important;
+         } 
+         * {
+         box-sizing: border-box;
+         }
+         body {
+         font-family: Montserrat,sans-serif;
+         }
+         body > h1 {
+         text-align: center;
+         margin-top: 30px;
+         }
+         .card-container {
+         display: flex;
+         flex-wrap: wrap;
+         width: 90%;
+         margin: 0px auto;
+         }
+         .card-container .card {
+         flex: 1 1 0%;
+         margin: 10px 10px;
+         background-color: #1d54ba;
+         color: #ffffff;
+         padding: 15px;
+         text-align: center;
+         box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+         transition: all 0.3s ease-in-out;
+         }
+         .card-container .card .img-container {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 70px;
+         width: 100px;
+         height: 100px;
+         border-radius: 50%;
+         margin: 0px auto;
+         transition: all 0.5s ease-in-out;
+         }
+         @media (max-width: 768px) {
+         .card-container .card {
+         flex: 0 0 100%;
+         margin: 10px 0px;
+         }
+         }
+         .card-container:hover .card {
+         transform: scale(0.9);
+         filter: blur(5px) grayscale(1);
+         }
+         .card-container:hover .card:hover {
+         transform: scale(1.1);
+         filter: blur(0px) grayscale(0);
+         z-index: 999;
+         }
+         .card-container:hover .card:hover .img-container {
+         background-color: #ffffff;
+         transform: scale(1.1);
+         font-size: 50px;
+         }
+         .card-container:hover .card:nth-child(1):hover .img-container {
+         color: #38539b;
+         }
+         .card-container:hover .card:nth-child(2):hover .img-container {
+         color: #d85043;
+         }
+         .card-container:hover .card:nth-child(3):hover .img-container {
+         color: #1c9ce7;
+         }
+      </style>
+   </head>
+   <body>
+      {% include 'testPro/navBar.html' %}
+      {% include 'testPro/loader.html' %}
+      <!-- partial:index.partial.html -->
+      <div class="blur" id="main1111">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+      <div ng-app="myApp" ng-controller="appCtrl" layout="column" class="section" ng-cloak>
+         <div class="container" layout="row" flex id="main-cont">
+            <md-sidenav md-component-id="l-sidenav" class="locked-sidebar" md-is-locked-open="true" md-whiteframe="4">
+               <md-list>
+                  <md-list-item id="drive" ng-click="toggleExpanded(1)" ng-class="{ 'side-button-active': isSelected(1) && isOpen }">
+                     <i class="fab fa-google-drive" ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': false}"></i>
+                  </md-list-item>
+                  <md-list-item id="dropbox" ng-click="toggleExpanded(2)" ng-class="{ 'side-button-active': isSelected(2) && isOpen }">
+                     <i class="fab fa-dropbox" ng-class="{ 'side-icon-active': isSelected(2) && isOpen,'side-icon-inactive': !isSelected(2), 'material-icons': false}"></i>
+                  </md-list-item>
+                  <md-list-item id="azure" ng-click="toggleExpanded(3)" ng-class="{ 'side-button-active': isSelected(3) && isOpen }">
+                     <i class="fab fa-microsoft" ng-class="{ 'side-icon-active': isSelected(3) && isOpen,'side-icon-inactive': !isSelected(3), 'material-icons': false}"></i>
+                  </md-list-item>
+                  
+               </md-list>
+            </md-sidenav>
+         </div>
+      </div>
+      </div>
+      
+      <!-- partial -->
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js'></script>
+      <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js'></script>
+      <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+      <script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.1/angular-material.js'></script>
+      <script>
+         //app module 
+         
+         (function(){
+           
+           var app = angular.module('myApp',['ngMaterial','ngAnimate','myControllers']);
+           
+           app.config(function ($mdThemingProvider) {
+                 $mdThemingProvider
+                     .theme('default')
+                     .primaryPalette('indigo')
+                     .accentPalette('indigo')
+                     .warnPalette('indigo');
+               });
+         })(); // app module
+         
+         //controllers module
+         (function () {
+             
+             var app = angular.module('myControllers', ['ngMaterial']);
+         
+             app.controller('appCtrl', function ($scope, $timeout, $mdSidenav) {
+               $scope.isOpen = false;
+               $scope.menuId = 0;
+               
+               $scope.closeSidenav = function() {
+                 if($scope.isOpen){
+                   $scope.toggleExpanded(0);
+                   $scope.isOpen = false;
+                 }
+               }
+               
+               $scope.toggleExpanded = function(selectedMenuId){
+                   if(!$scope.isOpen){
+                     $scope.isOpen = true;
+                     $scope.menuId = selectedMenuId;
+                   }else{
+                     if($scope.menuId === selectedMenuId){
+                       $scope.isOpen = false;
+                       selectedMenuId = 0;
+                     }
+                     $scope.menuId = selectedMenuId;
+                   }
+               };
+               
+               $scope.isSelected = function(value) {
+                 return $scope.menuId === value;
+               };
+               
+             });
+         
+         })(); //controllers module
+      </script>
+      <script>
+         var ar=[];
+         var data=[];
+         var ar1=[];
+         var ar11=[];
+         var data11=[];
+         var ar111=[];
+         $(function(){
+         $.ajax({
+             url:"https://shielded-dusk-55059.herokuapp.com/hi/validateUserCloud?authName=GOOGLE DRIVE",
+             headers: {"Authorization": "Bearer {{access_token}}"},
+             success: function(data){
+                 console.log(data)
+                 if(data.status==="404"){
+                   $("#load").remove();
+                    $("#main1111").removeClass("blur");
+                     $("#main-cont").append(`
+                     <md-content id="drive1" layout-margin layout-padding flex="50" style="width:50%;">
+                         <div class="card-container">
+                         <div class="card">
+                         <h2>Drive</h2>
+                         <div class="img-container">
+                             <i class="fab fa-google-drive"></i>
+                         </div>
+                         <p>
+                         See Your Drive Data in a Segregated as well as Folder Format according to your needs.
+                         Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                         </p>
+                         </div>
+                         </div>
+                     </md-content>
+                     `);
+                 $("#drive1").click(function(){
+                      window.location.href="/test/login";
+                 })
+                 $("#drive").click(function(){
+                 
+                 $("#azure1").attr("style", "display:none;")
+                 $("#dropbox1").attr("style", "display:none;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:block;width:50%;")
+                
+                 })
+         
+                 
+                 }
+                 else{
+         
+                     $.ajax({
+                       url: "https://shielded-dusk-55059.herokuapp.com/hi/buildDrive?authName=GOOGLE DRIVE",
+                       headers: {"Authorization": "Bearer {{access_token}}"},
+                       success: function(data1){
+         				console.log(data1);
+                         
+                         $("#main-cont").append(`
+                     <md-content id="drive1" layout-margin layout-padding flex="100" style="width:100%;">
+                         <button id="gd" style="margin-left:90%;"><i class="fab fa-google-drive" ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': false}"></i>Logout</button>
+                         <br>
+                         <div class="ui upload-drop" style="max-width: 100%; max-height: 100%; margin-top: 0%;">
+                  <aside class="ui__sidebar" >
+                     <ul class="file-tree" id="main-ul" style="overflow-y: scroll;">
+                     </ul>
+                     <!-- /.file-tree -->
+                  </aside>
+                  <!-- /.sidebar -->
+                  <main class="ui__main" style="overflow-y: scroll;" >
+                     <div class="ui__menu">
+                        <a href="javascript:void(0);" class="ui__btn1 sidebar-toggle"></a>
+                        <a href="javascript:void(0);" data-modal="upload-modal" class="ui__btn1 upload-btn1"></a>
+                        <ul class="file-path" id="file-Path">
+                           <!-- <li><a href="#">UI</a></li>
+                              <li><a href="#">Project A</a></li> -->
+                        </ul>
+                        <!-- /.file-path -->
+                        <a href="javascript:void(0);" class="ui__btn1 options-toggle"></a>
+                        <a href="javascript:void(0);" class="ui__btn1 help-btn1" data-overlay="help"></a>
+                     </div>
+                     <!-- /.ui__menu -->
+                     <div class="ui__info info-modal" id="upload-modal">
+                        <h2>Upload</h2>
+                        <p>Simply drag & drop a file here or select one with the button below.</p>
+                        <form action="#" method="POST">
+                           <div><input type="file" required></div>
+                           <button type="submit" class="btn1">Upload</button>
+                        </form>
+                     </div>
+                     <!-- /.ui__info -->
+                     <table class="file-list" id="file-table" style="overflow-y: scroll;">
+                       <tr class="file-list__header">
+                          <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                          <th onClick="sortTable(1)">Typ</th>
+                          <th onClick="sortTable(2, '123')">Size</th>
+                          <th>Tags</th>
+                      </tr>
+                     </table>
+                     <!-- /.file-list -->
+                  </main>
+                  <!-- /.ui__main -->
+               </div>
+               <!-- /.ui -->
+               <div class="ui__overlay overlay" id="help">
+                  <div class="overlay__inner">
+                     <h2>🎂</h2>
+                     <p>The cake is a lie...</p>
+                     <a href="javascript:void(0)" class="btn1 overlay__close">Oh no!</a>
+                  </div>
+                  <!-- /.overlay__inner -->
+               </div>
+               <div id="myModal" class="modal" style="width: 100%; height: 100%;">
+                  <span class="close">&times;</span>
+                  <!-- <img class="modal-content" id="img01"> -->
+                  <iframe class="modal-content" id="img01" width="100%" height="100%"></iframe>
+                  <div id="caption"></div>
+               </div>
+               </md-content>
+                         `);
+                         $("#load").remove();
+                          $("#main1111").removeClass("blur");
+                 $("#drive").click(function(){
+                 
+                 $("#azure1").attr("style", "display:none;")
+                 $("#dropbox1").attr("style", "display:none;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:block;width:100%;")
+                
+                 })
+         
+         
+             $("#gd").click(function(){
+                 var settings = {
+                 "async": true,
+                 "crossDomain": true,
+                 "url": "https://shielded-dusk-55059.herokuapp.com/hi/socialLogout",
+                 "method": "DELETE",
+                 "headers": {
+                     "Authorization": "Bearer "+'{{access_token}}'
+                 },
+                 "data": {
+                     'authName':"GOOGLE DRIVE"
+                 }
+                 }
+            $.ajax(settings).then(function (response) {
+             console.log(response);
+             if(response.status==="200"){
+         
+                 $("#drive1").html(`
+                         <div class="card-container">
+                         <div class="card">
+                         <h2>Drive</h2>
+                         <div class="img-container">
+                             <i class="fab fa-google-drive"></i>
+                         </div>
+                         <p>
+                         See Your Drive Data in a Segregated as well as Folder Format according to your needs.
+                         Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                         </p>
+                         </div>
+                         </div>
+                     
+                     `);
+                      $("#drive").click(function(){
+                 
+                 $("#azure1").attr("style", "display:none;")
+                 $("#dropbox1").attr("style", "display:none;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:block;width:50%;")
+                
+                 })
+                     $("#drive1").removeAttr("style");
+                     $("#drive1").attr("style","width:50%;")
+             }
+             else{
+                 var notice = PNotify.info({
+                   text:
+                     'Some Error Occured While Deleting!! Please Try Again Later!!',
+                   animateSpeed: "fast",
+                   modules: {
+                     Buttons: {
+                       closer: false,
+                       sticker: false
+                     }
+                   }
+                 });
+                 notice.on("click", function() {
+                   notice.close();
+                 });
+             }
+         
+             })
+             })
+         
+         
+         
+            
+            
+             ar=JSON.parse(data1.obj1)
+             data=JSON.parse(data1.obj);
+            
+         
+         
+            
+         
+             //console.log(data);
+              changeView("None", data);
+            
+         
+            
+         
+           function unzip(id){
+             console.log(id);
+             $.ajax({
+               url: 'https://drive.google.com/uc?id='+id+'&export=download',
+               headers: {
+                 'Authorization': 'Bearer ya29.Gls7B59OSnp0WGjmDamRyPdmVvquhrsHAnVtrYVxe2ZzwZ3lbOZLnkaga4hqTSafnd1-gMqzGNqDVOnpECEYV5EyVyCiXqKSaa8C7EzH-BnNlqlqgtRBbp6RXU4Y'
+               },
+             success: function(data){
+               console.log(data.response);
+             }
+             })
+           }
+                       }
+                 })
+             }
+             }
+         })
+         
+         $.ajax({
+             url:"https://shielded-dusk-55059.herokuapp.com/hi/validateUserCloud?authName=DROPBOX",
+             headers: {"Authorization": "Bearer {{access_token}}"},
+             success: function(data){
+                 if(data.status==="404"){
+                     $("#main-cont").append(`
+                      <md-content id="dropbox1" layout-margin layout-padding flex="50"  style="display:none;">
+                         <div class="card-container">
+                         <div class="card">
+                         <h2>Dropbox</h2>
+                         <div class="img-container">
+                             <i class="fab fa-dropbox"></i>
+                         </div>
+                         <p>
+                         See Your Dropbox Data in a Segregated as well as Folder Format according to your needs.
+                         Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                         </p>
+                         </div>
+                         </div>
+                     </md-content>
+                     `);
+                     $("#dropbox1").click(function(){
+                      window.location.href="/test/dropboxLogin";
+                 })
+                 $("#dropbox").click(function(){
+                     $("#azure1").attr("style", "display:none;")
+                     $("#dropbox1").attr("style", "display:block;width:50%;")
+                     $("#github1").attr("style", "display:none;")
+                     $("#drive1").attr("style", "display:none;")
+                 })
+                 }
+                 else{
+          $.ajax({
+                       url: "https://shielded-dusk-55059.herokuapp.com/hi/buildDrive?authName=DROPBOX",
+                       headers: {"Authorization": "Bearer {{access_token}}"},
+                       success: function(data1){
+         				console.log(data1);
+                         
+                         $("#main-cont").append(`
+                     <md-content id="dropbox1" layout-margin layout-padding flex="100" style="width:100%; display:none;">
+                         <button id="db" style="margin-left:90%;"><i class="fab fa-dropbox" ng-class="{ 'side-icon-active': isSelected(1) && isOpen,'side-icon-inactive': !isSelected(1), 'material-icons': false}"></i>Logout</button>
+                         <div class="ui upload-drop" style="max-width: 100%; max-height: 100%; margin-top: 0%;">
+                  <aside class="ui__sidebar">
+                     <ul class="file-tree" id="main-ul1">
+                     </ul>
+                     <!-- /.file-tree -->
+                  </aside>
+                  <!-- /.sidebar -->
+                  <main class="ui__main" style="overflow-y: scroll;">
+                     <div class="ui__menu" >
+                        <a href="javascript:void(0);" class="ui__btn1 sidebar-toggle"></a>
+                        <a href="javascript:void(0);" data-modal="upload-modal" class="ui__btn1 upload-btn1"></a>
+                        <ul class="file-path" id="file-Path1">
+                           <!-- <li><a href="#">UI</a></li>
+                              <li><a href="#">Project A</a></li> -->
+                        </ul>
+                        <!-- /.file-path -->
+                        <a href="javascript:void(0);" class="ui__btn1 options-toggle"></a>
+                        <a href="javascript:void(0);" class="ui__btn1 help-btn1" data-overlay="help"></a>
+                     </div>
+                     <!-- /.ui__menu -->
+                     <div class="ui__info info-modal" id="upload-modal">
+                        <h2>Upload</h2>
+                        <p>Simply drag & drop a file here or select one with the button below.</p>
+                        <form action="#" method="POST">
+                           <div><input type="file" required></div>
+                           <button type="submit" class="btn1">Upload</button>
+                        </form>
+                     </div>
+                     <!-- /.ui__info -->
+                     <table class="file-list" id="file-table1" style="overflow-y: scroll;">
+                       <tr class="file-list__header">
+                          <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                          <th onClick="sortTable(1)">Typ</th>
+                          <th onClick="sortTable(2, '123')">Size</th>
+                          <th>Tags</th>
+                      </tr>
+                     </table>
+                     <!-- /.file-list -->
+                  </main>
+                  <!-- /.ui__main -->
+               </div>
+               <!-- /.ui -->
+               <div class="ui__overlay overlay" id="help">
+                  <div class="overlay__inner">
+                     <h2>🎂</h2>
+                     <p>The cake is a lie...</p>
+                     <a href="javascript:void(0)" class="btn1 overlay__close">Oh no!</a>
+                  </div>
+                  <!-- /.overlay__inner -->
+               </div>
+               <div id="myModal1" class="modal" style="width: 100%; height: 100%;">
+                  <span class="close1">&times;</span>
+                  <!-- <img class="modal-content" id="img011"> -->
+                  <iframe class="modal-content" id="img011" width="100%" height="100%"></iframe>
+                  <div id="caption1"></div>
+               </div>
+               </md-content>
+                         `);
+                 $("#dropbox").click(function(){
+                 
+                 $("#azure1").attr("style", "display:none;")
+                 $("#dropbox1").attr("style", "display:block;width:100%;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:none;")
+                
+                 });
+         
+             
+         
+              $("#db").click(function(){
+                 var settings = {
+                 "async": true,
+                 "crossDomain": true,
+                 "url": "https://shielded-dusk-55059.herokuapp.com/hi/socialLogout",
+                 "method": "DELETE",
+                 "headers": {
+                     "Authorization": "Bearer "+'{{access_token}}'
+                 },
+                 "data": {
+                     'authName':"DROPBOX"
+                 }
+                 }
+            $.ajax(settings).then(function (response) {
+             console.log(response);
+             if(response.status==="200"){
+         
+                 $("#dropbox1").html(`
+                         <div class="card-container">
+                         <div class="card">
+                         <h2>Dropbox</h2>
+                         <div class="img-container">
+                             <i class="fab fa-dropbox"></i>
+                         </div>
+                         <p>
+                         See Your Dropbox Data in a Segregated as well as Folder Format according to your needs.
+                         Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                         </p>
+                         </div>
+                         </div>
+                     
+                     `);
+                     $("#dropbox").click(function(){
+                 
+                 $("#azure1").attr("style", "display:none;")
+                 $("#dropbox1").attr("style", "display:block;width:50%;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:none;")
+                
+                 });
+                     $("#dropbox1").removeAttr("style");
+                     $("#dropbox1").attr("style","width:50%;")
+             }
+             else{
+                 var notice = PNotify.info({
+                   text:
+                     'Some Error Occured While Deleting!! Please Try Again Later!!',
+                   animateSpeed: "fast",
+                   modules: {
+                     Buttons: {
+                       closer: false,
+                       sticker: false
+                     }
+                   }
+                 });
+                 notice.on("click", function() {
+                   notice.close();
+                 });
+             }
+         
+             })
+             })
+         
+         
+         
+             ar11=JSON.parse(data1.obj1)
+             data11=JSON.parse(data1.obj);
+            
+         
+         
+            
+         
+             //console.log(data);
+              changeView1("None", data11);
+                       }
+                 })
+             }
+             }
+         })
+         
+        
+         
+         $.ajax({
+             url:"https://shielded-dusk-55059.herokuapp.com/hi/validateUserCloud?authName=AZURE",
+             headers: {"Authorization": "Bearer {{access_token}}"},
+             success: function(data){
+                 if(data.status==="404"){
+                     $("#main-cont").append(`
+                     <md-content id="azure1" layout-margin layout-padding flex="50"  style="display:none;">
+                         <div class="card-container">
+                         <div class="card">
+                         <h2>Azure</h2>
+                         <div class="img-container">
+                             <i class="fab fa-microsoft"></i>
+                         </div>
+                         <p>
+                         See Your Microsoft Azure Data in a Segregated as well as Folder Format according to your needs.
+                         Share Your Files as well as Folders with people easily and get to see the reactions on them.
+                         </p>
+                         </div>
+                         </div>
+                     </md-content>
+                     `);
+             $("#azure").click(function(){
+                 $("#azure1").attr("style", "display:block;width:50%;")
+                 $("#dropbox1").attr("style", "display:none;")
+                 $("#github1").attr("style", "display:none;")
+                 $("#drive1").attr("style", "display:none;")
+              })
+                 }
+                 else{
+         console.log("No")
+                 }
+             }
+         })
+         })
+         
+         if('{{data}}'){
+             var notice = PNotify.info({
+                   text:
+                     '{{data}}',
+                   animateSpeed: "fast",
+                   modules: {
+                     Buttons: {
+                       closer: false,
+                       sticker: false
+                     }
+                   }
+                 });
+                 notice.on("click", function() {
+                   notice.close();
+                 });
+         }
+         
+         
+         function go(idd) {
+            console.log(idd)
+            var t = $("#"+idd).find('div');
+            console.log(t.attr('class'));
+            
+            if (t.hasClass("folder--open")) {
+                t.removeClass("folder--open");
+                 
+                $("#file-table").empty();
+                $("#file-Path").empty();
+                ar1=[];
+                $("#file-table").append(`<tr class="file-list__header">
+                          <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                          <th onClick="sortTable(1)">Typ</th>
+                          <th onClick="sortTable(2, '123')">Size</th>
+                          <th>Tags</th>
+                      </tr>`);
+            } else {
+                //console.log($("#main-ul").children())
+               
+                 $("#main-ul").children().each(function(){
+                     //console.log($(this).attr("id")+" - "+$(this).find('div').attr("class"))
+                     $(this).find('div').removeClass('folder--open');
+                 })
+                 
+                
+                 t.addClass("folder--open");
+            
+                
+                if(data[idd]){
+                  
+                  ar1=[];
+                  ar1.push(idd);
+                  $("#file-Path").empty();
+                  $("#file-table").find("tr:gt(0)").remove();
+            
+                  $("#file-Path").append(`<li><a href="#" id='br-`+idd+`' onclick="go('`+idd+`')">`+data[idd][0]['title']+`</a></li>`);
+                  changeView(idd, data);
+                }
+                else{
+                  if(ar1.indexOf(idd)!=-1){
+                    console.log("Hai yaar file ka data!! Bakchodi na kaat!!")
+                  }
+                  else{
+                  ar1=ar1.slice(0,ar1.indexOf(idd)+1);
+                  $('#br-'+idd).nextAll().remove();
+                  $('#br-'+idd).remove();
+                  $("#file-Path").append(`<li><a href="#" id='br-`+idd+`' onclick="go('`+idd+`')">`+ar[idd]['title']+`</a></li>`);
+                  ar1.push(idd);
+                  changeView(idd, data);
+                }
+                }
+                }
+            }
+         
+         
+            function showImg(src1, title, type, id, imgId) {
+                // Get the modal
+                
+              console.log(src1+" "+title+" "+type+" "+id+" "+imgId)
+                   
+                        var modal = document.getElementById("myModal");
+            
+                        // Get the image and insert it inside the modal - use its "alt" text as a caption
+                       
+            
+                        var modalImg = document.getElementById("img01");
+                        var captionText = document.getElementById("caption");
+                        modal.style.display = "block";
+                        modalImg.src = src1;
+                        // "https://drive.google.com/file/d/" + imgId + "/view?usp=sharing"
+                        captionText.innerHTML = title;
+            
+                        // Get the <span> element that closes the modal
+                        var span = document.getElementsByClassName("close")[0];
+            
+                        // When the user clicks on <span> (x), close the modal
+                        span.onclick = function() {
+                            modal.style.display = "none";
+                            var modalImg = document.getElementById("img01");
+                             modalImg.src = "";
+                        }
+                    
+            
+            }
+         
+         
+         
+            function changeView(id, data){
+              var count=1;
+              console.log(id);
+         
+            
+              if(id!="None"){
+            
+              console.log("Id is not None");
+              var data1=ar[id]['children'];
+              var table=$("#file-table").empty();
+              table.append(`<tr class="file-list__header">
+                          <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                          <th onClick="sortTable(1)">Typ</th>
+                          <th onClick="sortTable(2, '123')">Size</th>
+                          <th>Tags</th>
+                      </tr>`);
+              
+              for(var i in data1){
+            
+                var currHtml="";
+            
+                var split=ar[data1[i]]['type'].split('/');
+                var name=ar[data1[i]]['title'].split('.');
+            
+                console.log(split)
+            
+                if(split[0]==="folder"){
+                 currHtml+=`<tr class="file-list__file" onclick="go('`+data1[i]+`')">
+                           <td>`+ar[data1[i]]['title']+`</td>
+                            <td>`+ar[data1[i]]['type']+`</td>
+                            <td>1.2MB</td>
+                            <td>privat</td>`;
+                }
+            
+                else {
+                 
+                  if(ar[data1[i]]['title'].length>=24){
+                 
+            
+                   currHtml+=`<tr class="file-list__file" ondblclick="showImg('`+ar[data1[i]]['embedLink']+`', '`+ar[data1[i]]['title']+`', '`+ar[data1[i]]['type']+`','`+count+`', '`+ar[data1[i]]['childId']+`')">
+                           <td>`+ar[data1[i]]['title'].substr(0, 21)+`</td>
+                            <td>`+ar[data1[i]]['type']+`</td>
+                            <td>1.2MB</td>
+                            <td>privat</td>`;
+                  }
+                  else{
+                   currHtml+=`<tr class="file-list__file" ondblclick="showImg('`+ar[data1[i]]['embedLink']+`', '`+ar[data1[i]]['title']+`', '`+ar[data1[i]]['type']+`','`+count+`', '`+ar[data1[i]]['childId']+`')">
+                           <td>`+ar[data1[i]]['title']+`</td>
+                            <td>`+ar[data1[i]]['type']+`</td>
+                            <td>1.2MB</td>
+                            <td>privat</td>`;
+                 }
+                   count+=1;
+                }
+            
+               
+                table.append(currHtml);
+              }
+            }
+          
+            else{
+              
+              var html="";
+              console.log(data)
+              for(var i in data){
+                var split=ar[i]['type'].split('/');
+                var name=ar[i]['title'].split('.');
+                console.log(split)
+                if(split[0]==="folder"){
+                 // html+=`<li ondblclick="go('`+i+`')">`+ar[i]['title']+`</li>`;
+                 html+=`<li class="file-tree__item" id='`+i+`'>`;
+                 html+=`<div class="folder" onclick="go('`+i+`')">`+ar[i]['title']+`</div>`
+                 html+=`</li>`
+                }
+                else if(split[0]==='form'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                   html+=`<div class="folder" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i class="material-icons">`+ar[i]['title']+`</i></div>`
+                   html+=`</li>`
+                   count+=1;
+                }
+                
+                
+                else if(split[0]==='application' && split[1]==='pdf'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c1;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c1;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                   html+=`</li>`
+                   count+=1;
+                }
+            
+                else if(split[0]==='application' && split[1]==='octet-stream'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                   html+=`</li>`
+                   count+=1;
+                }
+            
+            
+              else if(split[0]==='video'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c8;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c8;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+                   html+=`</li>`
+                }
+            
+                 else if(split[0]==='image'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c5;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c5;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+            
+                   html+=`</li>`
+                }
+            
+            
+            
+            
+                  else if(name[name.length-1]==='docx' ){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c2;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c2;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+            
+                   html+=`</li>`
+               }
+         
+               else if(split[0]==='spreadsheet' ){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c3;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c3;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+            
+                   html+=`</li>`
+               }
+         
+            
+               else if(split[0]==='text'&&( name[name.length-1]==='py' || name[name.length-1]==='html' || name[name.length-1]==='css' || name[name.length-1]==='js' || name[name.length-1]==='c' || name[name.length-1]==='cpp' || name[name.length-1]==='java')){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c9;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c9;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+            
+                   html+=`</li>`
+               }
+            
+               else if(split[0]==='text'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1;
+            
+                   html+=`</li>`
+               }
+            
+            
+               else if(name[name.length-1]==='zip' ){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" onclick="unzip('`+i+`')"><i style="font-size:16px" class="fa">&#xf1c6;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" onclick="unzip('`+i+`')"><i style="font-size:16px" class="fa">&#xf1c6;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+                 count+=1
+                   html+=`</li>`
+               }
+            
+                 else if(split[0]==='presentation'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c4;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf1c4;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+            
+                 count+=1
+                   html+=`</li>`
+                }
+                else if(split[0]==='document'){
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                  if(ar[i]['title'].length>=20){
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title'].substr(0, 15)+`...</a>` 
+                  }
+                  else{
+                   html+=`<a href="#" ondblclick="showImg('`+ar[i]['embedLink']+`', '`+ar[i]['title']+`', '`+ar[i]['type']+`','`+count+`', '`+ar[i]['childId']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+ar[i]['title']+`</a>`
+                 }
+            
+                 count+=1
+                   html+=`</li>`
+                }
+            
+               
+            
+                else{
+                  html+=`<li class="file-tree__item" id='`+i+`'>`;
+                   html+=`<div class="folder">`+ar[i]['title']+`</div>`
+                   html+=`</li>`
+                }
+              }
+              
+              $('#main-ul').html(html);
+            }
+            // console.log("Ok Done");
+            // //console.log(html);
+            //   $("#sdf").html(html);
+            }
+      </script>
+      <script>
+         var videoExtensionArray=['mp4', 'm4a', 'm4v', 'f4v', 'f4a', 'm4b', 'm4r', 'f4b', 'mov', '3gp', '3gp2', '3g2', '3gpp', '3gpp2', 'ogg', 'oga', 'ogv', 'ogx', 'wmv', 'wma', 'asf', 'webm', 'flv', 'AVI'];
+         var imageExtensionArray=['jpeg', 'gif', 'png'];
+         
+         console.log(ar)
+         function changeView1(id, data){
+             
+           var count=1;
+         
+           if(id!="None"){
+         
+           console.log("Id is not None");
+         
+           var data1=ar11[id+"/"]['children'];
+           var table=$("#file-table1").empty();
+           table.append(`<tr class="file-list__header">
+                       <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                       <th onClick="sortTable(1)">Type</th>
+                       <th onClick="sortTable(2, '123')">Size (MB / Bytes)</th>
+                       <th>Tags</th>
+                   </tr>`);
+           
+           for(var i in data1){
+               console.log(i)
+               console.log(ar11[id+"/"]['children'][i])
+               console.log(ar11[id+"/"]['children'][i]['typeOfFile'])
+            var currHtml="";
+         
+             var split=ar11[id+"/"]['children'][i]['name'].split('.');
+             split=split[split.length-1];
+              var id1=ar11[id+"/"]['children'][i]['id']
+              
+             console.log("Split:- "+" "+split)
+         
+             if(ar11[id+"/"]['children'][i]['typeOfFile']==="folder"){
+              
+              //Check And Correct this
+              {% comment %} var path=ar11[id+"/"]['children'][i]['path']+"/";
+              console.log(path);
+              var sum=0;
+              for(var j in ar11[path]['children']){
+                  if(ar11[path]['children'][j]['size']){
+                      sum+=ar11[path]['children'][j]['size']
+                  }
+              } {% endcomment %}
+              
+              currHtml+=`<tr class="file-list__file" onclick="go1('`+ar11[id+"/"]['children'][i]['path']+`', '`+id+`')">
+                        <td>`+ar11[id+"/"]['children'][i]['name']+`</td>
+                         <td>`+ar11[id+"/"]['children'][i]['typeOfFile']+`</td>
+                         <td>--</td>
+                         <td>Private</td>`;
+             }
+         
+             else {
+              
+               {% comment %} if(ar11[id+"/"]['children'][i]['name'].length>=24){
+              
+         
+                currHtml+=`<tr class="file-list__file" ondblclick="showImg1('`+id+`', '`+ar11[id+"/"]['children'][i]['name']+`','`+ar11[id+"/"]['children'][i]['path']+`')">
+                        <td>`+ar11[id+"/"]['children'][i]['name'].substr(0,21)+`</td>
+                         <td>`+ar11[id+"/"]['children'][i]['typeOfFile']+`</td>
+                         <td>`+((parseInt(ar11[id+"/"]['children'][i]['size']))/1000000).toFixed(2)+` / `+ar11[id+"/"]['children'][i]['size']+`</td>
+                         <td>Private</td>`;
+               } {% endcomment %}
+               
+                currHtml+=`<tr class="file-list__file" ondblclick="showImg1('`+id+`', '`+ar11[id+"/"]['children'][i]+`','`+ar11[id+"/"]['children'][i]['path']+`')">
+                        <td>`+ar11[id+"/"]['children'][i]['name']+`</td>
+                         <td>`+ar11[id+"/"]['children'][i]['typeOfFile']+`</td>
+                        <td>`+((parseInt(ar11[id+"/"]['children'][i]['size']))/1000000).toFixed(2)+` / `+ar11[id+"/"]['children'][i]['size']+`</td>
+                         <td>Private</td>`;
+              
+               count+=1;
+             }
+             table.append(currHtml); 
+           }
+         }
+         
+         
+         else{
+           var html="";
+           for(var i in data['children']){
+               var split=data['children'][i]['name'].split('.')[1];
+               var id=data['children'][i]['id']
+               console.log(split);
+               console.log(id)
+             if(data['children'][i]['typeOfFile']==="folder"){
+              // html+=`<li ondblclick="go('`+i+`')">`+data['children'][i]['name']+`</li>`;
+              html+=`<li class="file-tree__item" id='`+id+`'>`;
+              html+=`<div class="folder" onclick="go1('`+data['children'][i]['path']+`', '`+id+`')">`+data['children'][i]['name']+`</div>`
+              html+=`</li>`
+             }
+             else if(data['children'][i]['typeOfFile']==='form'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+                html+=`<div class="folder" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i class="material-icons">`+data['children'][i]['name']+`</i></div>`
+                html+=`</li>`
+                count+=1;
+             }
+             else if(data['children'][i]['typeOfFile']==="file"){
+                 
+              if(split==='pdf'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c1;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c1;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+                html+=`</li>`
+                count+=1;
+             }
+         
+                else if(split==='octet-stream'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+                html+=`</li>`
+                count+=1;
+             }
+         
+         
+           else if(videoExtensionArray.indexOf(split)!==-1){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c8;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c8;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+                html+=`</li>`
+             }
+         
+              else if(imageExtensionArray.indexOf(split)!==-1){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c5;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c5;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+         
+                html+=`</li>`
+             }
+         
+         
+         
+         
+               else if(split==='docx' ){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c2;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c2;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+         
+                html+=`</li>`
+            }
+         
+            else if(split==='spreadsheet' ){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c3;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c3;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+         
+                html+=`</li>`
+            }
+         
+         
+            else if((split=='py' || split==='html' || split==='css' || split==='js' || split==='c' || split==='cpp' || split==='java')){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c9;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c9;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+         
+                html+=`</li>`
+            }
+         
+            else if(split=='txt'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1;
+         
+                html+=`</li>`
+            }
+         
+         
+            else if(split=='zip'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" onclick="unzip('`+id+`')"><i style="font-size:16px" class="fa">&#xf1c6;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" onclick="unzip('`+id+`')"><i style="font-size:16px" class="fa">&#xf1c6;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+              count+=1
+                html+=`</li>`
+            }
+         
+              else if(split=='presentation'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c4;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf1c4;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+         
+              count+=1
+                html+=`</li>`
+             }
+             else if(split=='document'){
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+               if(data['children'][i]['name'].length>=20){
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name'].substr(0, 15)+`...</a>` 
+               }
+               else{
+                html+=`<a href="#" ondblclick="showImg1('`+id+`', '`+data['children'][i]['name']+`','`+data['children'][i]['path']+`')"><i style="font-size:16px" class="fa">&#xf0f6;</i>&nbsp;&nbsp;`+data['children'][i]['name']+`</a>`
+              }
+         
+              count+=1
+                html+=`</li>`
+             }
+             }
+         else{
+               html+=`<li class="file-tree__item" id='`+id+`'>`;
+                html+=`<div class="folder">`+data['children'][i]['name']+`</div>`
+                html+=`</li>`
+             }      
+           }
+           $('#main-ul1').html(html);
+         }
+         }
+         
+         function go1(path, id) {
+            console.log(id+" "+path);
+            changeView1(path, data11);
+            if(path.split('/').length==2){
+                var t = $("#"+String(id)).find('div');
+                if (t.hasClass("folder--open") && $("#file-Path1").children().length===0) {
+                console.log("finding length"+" "+$("#file-Path1").children().length)
+                t.removeClass("folder--open");
+                $("#file-table1").empty();
+                $("#file-Path1").empty();
+                ar1=[];
+                $("#file-table").append(`<tr class="file-list__header">
+                          <th onClick="sortTable(0)">Name <i class="fa fa-long-arrow-down"></i></th>
+                          <th onClick="sortTable(1)">Typ</th>
+                          <th onClick="sortTable(2, '123')">Size (MB / Bytes)</th>
+                          <th>Tags</th>
+                      </tr>`);
+            }
+            else{
+                $("#file-Path1").empty();
+                $("div").removeClass('folder--open');
+                t.addClass("folder--open");
+                $("#file-Path1").append(`<li><a href="#" id='br-`+path+`' onclick="go1('`+path.substr(0,path.length-1)+`')">`+path.substr(1,path.length-1)+`</a></li>`);
+            }
+            }
+            else{
+           
+                //t.addClass("folder--open");
+            var pathSplit=path.split('/')
+            
+                $("#file-Path1").empty();
+                console.log(path);
+                var s="/";
+            for(var i=1;i<pathSplit.length; i++){
+                console.log(pathSplit[i])
+                s+=pathSplit[i]+"/";
+                 console.log(s);
+                 $("#file-Path1").append(`<li><a href="#" id='br-`+s+`' onclick="go1('`+s.substr(0,s.length-1)+`')">`+pathSplit[i]+`</a></li>`);
+                }
+            } 
+            }
+         
+         function showImg1(id, title, path) {
+             // Get the modal
+             
+           console.log(id);
+          console.log(title);
+          console.log(path);
+         
+          var settings = {
+         "async": true,
+         "crossDomain": true,
+         "url": "https://api.dropboxapi.com/2/files/get_temporary_link",
+         "method": "POST",
+         "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "+'{{access_token}}'
+         },
+         "data": `{"path": "`+path+`"}`
+         }
+         var src1;
+         console.log(settings);
+         $.ajax(settings).then(function (response) {
+          if('link' in response){
+              src1=response['link'];
+         
+              var modal = document.getElementById("myModal1");
+         
+                     // Get the image and insert it inside the modal - use its "alt" text as a caption
+                    
+         
+                     var modalImg = document.getElementById("img011");
+                     var captionText = document.getElementById("caption1");
+                     modal.style.display = "block";
+                     modalImg.src = src1;
+                     // "https://drive.google.com/file/d/" + imgId + "/view?usp=sharing"
+                     captionText.innerHTML = title;
+         
+                     // Get the <span> element that closes the modal
+                     var span = document.getElementsByClassName("close1")[0];
+         
+                     // When the user clicks on <span> (x), close the modal
+                     span.onclick = function() {
+                         modal.style.display = "none";
+                         var modalImg = document.getElementById("img011");
+                          modalImg.src = "";
+                     }
+          }
+          else{
+              console.log(response['link']);
+          alert("Sorry We Had Some Error Talking to the server!! Please Try again later!!")
+          }
+          });
+         }
+         
+         function download(id, title, path) {
+         
+          var settings = {
+         "async": true,
+         "crossDomain": true,
+         "url": "https://api.dropboxapi.com/2/files/get_temporary_link",
+         "method": "POST",
+         "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer "+'{{access_token}}'
+         },
+         "data": `{"path": "`+path+`"}`
+         }
+         var src1;
+         console.log(settings);
+         $.ajax(settings).then(function (response) {
+          if('link' in response){
+              src1=response['link'];
+          }
+          
+         });
+         
+         }
+         
+         
+      </script>
+      <script>
+         var ui = $(".ui"),
+         sidebar = $(".ui__sidebar"),
+         main = $(".ui__main"),
+         uploadDrop = $(".upload-drop");
+         
+         // SIDEBAR TOGGLE
+         // $(".sidebar-toggle").on("click", function(e) {
+         //   e.preventDefault();
+         //   ui.toggleClass("ui__sidebar--open");
+         // });
+         
+         // MODAL
+         $("[data-modal]").on("click", function(e) {
+         e.preventDefault();
+         var target = $(this).data("modal");
+         openModal(target);
+         });
+         
+         function openModal(id) {
+         $("#" + id).toggleClass("info-modal--active");
+         $('[data-modal="' + id + '"]').toggleClass("ui__btn1--active");
+         }
+         
+         // OVERLAY
+         $("[data-overlay]").on("click", function(e) {
+         e.preventDefault();
+         var target = $(this).data("overlay");
+         openOverlay(target);
+         });
+         
+         // Close Overlay on Overlay Background Click
+         $(".overlay").on("click", function(e) {
+         if (e.target !== e.currentTarget) return;
+         closeOverlay();
+         });
+         
+         $(".overlay__close").on("click", function(e) {
+         closeOverlay();
+         });
+         
+         function openOverlay(id) {
+         $("#" + id + ".overlay").addClass("overlay--active");
+         }
+         
+         function closeOverlay() {
+         $(".overlay--active").removeClass("overlay--active");
+         }
+         
+         
+         // DRAG & DROP
+         var dc = 0;
+         uploadDrop
+         .on("dragover", function(e) {
+         dc = 0;
+         drag($(this), e);
+         })
+         .on("dragenter", function(e) {
+         drag($(this), e);
+         dc++;
+         })
+         .on("dragleave", function(e) {
+         dragend($(this), e);
+         dc--;
+         })
+         .on("drop", function(e) {
+         drop($(this), e);
+         });
+         
+         function drag(that, e) {
+         e.preventDefault();
+         e.stopPropagation();
+         that.addClass("upload-drop--dragover");
+         }
+         
+         function dragend(that, e) {
+         e.preventDefault();
+         e.stopPropagation();
+         if (dc === 0) {
+         $(".upload-drop--dragover").removeClass("upload-drop--dragover");
+         }
+         }
+         
+         function drop(that, e) {
+         dc = 0;
+         dragend($(this), e);
+         // Handle file
+         alert("It seems you dropped something!");
+         }
+         
+         // SORTING
+         function sortTable(n, method) {
+         var table,
+         rows,
+         switching,
+         i,
+         x,
+         y,
+         shouldSwitch,
+         dir,
+         switchcount = 0;
+         table = document.getElementById("file-table");
+         switching = true;
+         dir = "asc";
+         
+         while (switching) {
+         switching = false;
+         rows = table.getElementsByTagName("tr");
+         
+         for (i = 1; i < rows.length - 1; i++) {
+         shouldSwitch = false;
+         x = rows[i].getElementsByTagName("td")[n];
+         y = rows[i + 1].getElementsByTagName("td")[n];
+         
+         if (method == "123") {
+          if (dir == "asc") {
+              if (parseFloat(x.innerHTML) > parseFloat(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+              }
+          } else if (dir == "desc") {
+              if (parseFloat(x.innerHTML) < parseFloat(y.innerHTML)) {
+                  shouldSwitch = true;
+                  break;
+              }
+          }
+         } else {
+          if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+              }
+          } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  shouldSwitch = true;
+                  break;
+              }
+          }
+         }
+         }
+         if (shouldSwitch) {
+         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+         switching = true;
+         switchcount++;
+         } else {
+         if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+         }
+         }
+         }
+         }
+      </script>
+   </body>
+</html>

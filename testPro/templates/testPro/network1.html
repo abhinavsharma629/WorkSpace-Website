@@ -1,0 +1,1750 @@
+<html>
+
+<head>
+    <title>Network</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+   
+    <style>
+        html{
+            font-size: 62.5%;
+        }
+        
+        body {
+            font-family: system-ui, sans-serif;
+            font-size: 100%;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            font-smoothing: grayscale;
+            line-height: 1.5;
+        }
+        
+        a {
+            color: #0073b1;
+            font-weight: 600;
+            font-size: 100%;
+            vertical-align: baseline;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        a,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .feed {
+            box-sizing: border-box;
+            width: 792px;
+            position: relative;
+            overflow: hidden;
+            -webkit-animation: fade-in 330ms ease forwards;
+            animation: fade-in 330ms ease forwards;
+            -webkit-animation-delay: 84ms;
+            animation-delay: 84ms;
+            opacity: 0;
+            margin-left: -10px;
+        }
+        
+        .update {
+            position: relative;
+            padding: 0 130px;
+            margin-top: 70px;
+        }
+        
+        .update .card {
+            background-image: linear-gradient(#f3f6f8, #e1e9ee);
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+        
+        .update .card h3 {
+            color: rgba(0, 0, 0, 0.9);
+            font-size: 2rem;
+            font-weight: 600;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .update .card .last-updated {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1.33333;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        
+        .update .card .summary {
+            color: #000;
+            font-size: 14px;
+            line-height: 26px;
+        }
+        
+        .update .card .summary a {
+            color: #0073b1;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .update .card .summary a:hover {
+            text-decoration: underline;
+        }
+        
+        .update .info {
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 1.4rem;
+            line-height: 1.42857;
+            padding: 12px 16px;
+        }
+        
+        .update .posts {
+            padding-bottom: 10px;
+        }
+        
+        .update .posts .post {
+            position: relative;
+            margin-bottom: 2px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: box-shadow 83ms;
+        }
+        
+        .update .posts .post .header {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        
+        .update .posts .post .header .profile-photo {
+            display: flex;
+            flex-shrink: 0;
+            position: relative;
+            width: 48px;
+            height: 48px;
+        }
+        
+        .update .posts .post .header .profile-photo img {
+            width: 48px;
+            height: 48px;
+            background-color: #b3b6b9;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-clip: content-box;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            -o-object-fit: contain;
+            object-fit: contain;
+        }
+        
+        .update .posts .post .header .meta {
+            flex-grow: 1;
+            flex-basis: 0;
+            margin-left: 8px;
+            overflow: hidden;
+        }
+        
+        .update .posts .post .header .meta h3,
+        .update .posts .post .header .meta .description {
+            font-size: 1.2rem;
+            font-weight: 400;
+            line-height: 1;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .update .posts .post .header .meta h3 {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+            margin: 0;
+        }
+        
+        .update .posts .post .header .meta h3 .name:hover {
+            color: #0073b1;
+        }
+        
+        .update .posts .post .header .meta h3 .supplimentary {
+            display: inline-block;
+            padding-left: 7px;
+        }
+        
+        .update .posts .post .header .meta .description {
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            text-overflow: ellipsis;
+            vertical-align: baseline;
+        }
+        
+        .update .posts .post .post-content {
+            display: block;
+            -webkit-line-clamp: initial;
+            position: relative;
+            max-width: 928px;
+            line-height: 2rem;
+            overflow: hidden;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.75);
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+        
+        .update .posts .post article {
+            overflow: hidden;
+            margin: 0;
+            background-color: #f3f6f8;
+            margin: 8px 0;
+        }
+        
+        .update .posts .post article .shared-article {
+            display: flex;
+            padding: 8px 16px;
+            position: relative;
+            align-items: center;
+        }
+        
+        .update .posts .post article .shared-article a .article-image {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            margin-right: 8px;
+            width: 138px;
+            height: 72px;
+            box-sizing: content-box;
+            border-radius: 0;
+            flex-shrink: 0;
+        }
+        
+        .update .posts .post article .shared-article a .article-image img {
+            background-color: #b3b6b9;
+            background-position: center;
+            background-size: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -o-object-position: center;
+            object-position: center;
+            -o-object-fit: cover;
+            object-fit: cover;
+        }
+        
+        .update .posts .post article .shared-article .description {
+            display: flex;
+            flex-grow: 1;
+            max-width: calc(100% - 10px);
+            min-width: 0;
+        }
+        
+        .update .posts .post article .shared-article .description a {
+            min-width: 0;
+            max-width: 100%;
+            flex-grow: 1;
+        }
+        
+        .update .posts .post article .shared-article .description a:hover {
+            text-decoration: none;
+        }
+        
+        .update .posts .post article .shared-article .description a .article-title {
+            display: block;
+            line-height: 2rem;
+            max-height: 4rem;
+            overflow: hidden;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .update .posts .post article .shared-article .description a .article-subtitle {
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 400;
+            font-size: 1.2rem;
+            line-height: 1.33333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-height: 16px;
+        }
+        
+        .update .posts .post .comments-link {
+            display: block;
+            padding-top: 8px;
+            vertical-align: baseline;
+            text-decoration: none;
+        }
+        
+        .update .posts .post .comments {
+            display: flex;
+            font-size: 1.4rem;
+            line-height: 1.42857;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.6);
+            height: 32px;
+        }
+        
+        .update .posts .post .comments ul {
+            list-style-type: none;
+        }
+        
+        .update .posts .post .comments ul::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+        
+        .update .posts .post .comments ul li {
+            float: left;
+            margin-left: -24px;
+        }
+        
+        .update .posts .post .comments ul li:first-child {
+            float: left;
+            margin-left: 0;
+        }
+        
+        .update .posts .post .comments ul li .avatar {
+            overflow: hidden;
+            flex-shrink: 0;
+            line-height: 0;
+            border: 0;
+        }
+        
+        .update .posts .post .comments ul li .avatar img {
+            width: 32px;
+            height: 32px;
+            box-sizing: border-box;
+            background-clip: content-box;
+            border: 3px solid transparent;
+            border-radius: 50%;
+        }
+        
+        .update .posts .post .comments .meta-text {
+            padding-left: 8px;
+            -ms-grid-row-align: center;
+            align-self: center;
+        }
+        
+        @-webkit-keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        .div1 {
+            height: 100px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .i {
+            cursor: pointer;
+            padding: 10px 12px 8px;
+            background: #fff;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 0 15px;
+            color: #aaa;
+            transition: .2s;
+        }
+        
+        .i:hover {
+            color: #666;
+        }
+        
+        .i:before {
+            font-family: fontawesome;
+            content: '\f004';
+            font-style: normal;
+        }
+        
+        .span {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            visibility: hidden;
+            transition: .6s;
+            z-index: -2;
+            font-size: 2px;
+            color: transparent;
+            font-weight: 400;
+        }
+        
+        .i.press {
+            animation: size .4s;
+            color: #e23b3b;
+        }
+        
+        .span.press {
+            bottom: 120px;
+            font-size: 14px;
+            visibility: visible;
+            animation: fade 1s;
+        }
+        
+        @keyframes fade {
+            0% {
+                color: #transparent;
+            }
+            50% {
+                color: #e23b3b;
+            }
+            100% {
+                color: #transparent;
+            }
+        }
+        
+        @keyframes size {
+            0% {
+                padding: 10px 12px 8px;
+            }
+            50% {
+                padding: 14px 16px 12px;
+                margin-top: -4px;
+            }
+            100% {
+                padding: 10px 12px 8px;
+            }
+        }
+        
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            margin-left: auto;
+            margin-right: auto
+        }
+        
+        #myImg:hover {
+            opacity: 0.7;
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            width: 50%;
+            /* Full width */
+            height: 50%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+        /* Modal Content (image) */
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 75%;
+            //max-width: 75%;
+        }
+        /* Caption of Modal Image */
+        
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }
+        /* Add Animation */
+        
+        .modal-content,
+        #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+        
+        .out {
+            animation-name: zoom-out;
+            animation-duration: 0.6s;
+        }
+        
+        @-webkit-keyframes zoom {
+            from {
+                -webkit-transform: scale(1)
+            }
+            to {
+                -webkit-transform: scale(2)
+            }
+        }
+        
+        @keyframes zoom {
+            from {
+                transform: scale(0.4)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+        
+        @keyframes zoom-out {
+            from {
+                transform: scale(1)
+            }
+            to {
+                transform: scale(0)
+            }
+        }
+        /* The Close Button */
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* 100% Image Width on Smaller Screens */
+        
+        @media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+        
+        .comment-section {
+            list-style: none;
+            max-width: 800px;
+            width: 100%;
+            margin: 50px auto;
+            padding: 10px;
+        }
+        
+        .comment {
+            display: flex;
+            border-radius: 3px;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
+        }
+        
+        .comment.user-comment {
+            color: #dadada;
+        }
+        
+        .comment.author-comment {
+            color: #dadada;
+            justify-content: flex-end;
+        }
+        /* User and time info */
+        
+        .comment .info {
+            width: 17%;
+        }
+        
+        .comment.user-comment .info {
+            text-align: right;
+        }
+        
+        .comment.author-comment .info {
+            order: 3;
+        }
+        
+        .comment .info a {
+            /* User name */
+            display: block;
+            text-decoration: none;
+            color: #656c71;
+            font-weight: bold;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 10px 0 3px 0;
+        }
+        
+        .comment .info span {
+            /* Time */
+            font-size: 11px;
+            color: #9ca7af;
+        }
+        /* The user avatar */
+        
+        .comment .avatar {
+            width: 8%;
+        }
+        
+        .comment.user-comment .avatar {
+            padding: 10px 18px 0 3px;
+        }
+        
+        .comment.author-comment .avatar {
+            order: 2;
+            padding: 10px 3px 0 18px;
+        }
+        
+        .comment .avatar img {
+            display: block;
+            border-radius: 50%;
+        }
+        
+        .comment.user-comment .avatar img {
+            float: right;
+        }
+        /* The comment text */
+        
+        .comment p {
+            line-height: 1.5;
+            padding: 18px 22px;
+            width: 50%;
+            position: relative;
+            word-wrap: break-word;
+        }
+        
+        .comment.user-comment p {
+            background-color: #0992aa;
+        }
+        
+        .comment.author-comment p {
+            background-color: #970a40;
+            order: 1;
+        }
+        /* Signifies author has responded to post */
+        
+        .author-comment p:after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            border: 2px solid #e2f8ff;
+            right: -8px;
+            top: 18px;
+        }
+        /* Comment form */
+        
+        .write-new {
+            margin: 20px auto 0;
+            width: 50%;
+            margin-left: 10px;
+        }
+        
+        .write-new textarea {
+            color: #444;
+            font: inherit;
+            outline: 0;
+            border-radius: 3px;
+            border: 1px solid #cecece;
+            background-color: #fefefe;
+            box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.06);
+            overflow: auto;
+            width: 100%;
+            min-height: 80px;
+            padding: 15px 20px;
+        }
+        
+        .write-new img {
+            border-radius: 50%;
+            margin-top: 15px;
+        }
+        
+        .write-new button {
+            float: right;
+            background-color: #729bbb;
+            box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.12);
+            border-radius: 2px;
+            border: 0;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 25px;
+            margin-top: 18px;
+        }
+        /* Responsive styles */
+        
+        @media (max-width: 800px) {
+            /* Make the paragraph in the comments take up the whole width,
+    forcing the avatar and user info to wrap to the next line*/
+            .comment p {
+                width: 100%;
+            }
+            /* Reverse the order of elements in the user comments,
+    so that the avatar and info appear after the text. */
+            .comment.user-comment .info {
+                order: 3;
+                text-align: left;
+            }
+            .comment.user-comment .avatar {
+                order: 2;
+            }
+            .comment.user-comment p {
+                order: 1;
+            }
+            /* Align toward the beginning of the container
+    all the elements inside the author comments. */
+            .comment.author-comment {
+                justify-content: flex-start;
+            }
+            .comment-section {
+                margin-top: 10px;
+            }
+            .comment .info {
+                width: auto;
+            }
+            .comment .info a {
+                padding-top: 15px;
+            }
+            .comment.user-comment .avatar,
+            .comment.author-comment .avatar {
+                padding: 15px 10px 0 18px;
+                width: auto;
+            }
+            .comment.user-comment p:after,
+            .comment.author-comment p:after {
+                width: 12px;
+                height: 12px;
+                top: initial;
+                left: 28px;
+                bottom: -6px;
+            }
+            .write-new {
+                width: 50%;
+            }
+        }
+        
+        .comment1 {
+            position: relative;
+            margin-top: 30px;
+            margin-right: 20px;
+            margin-left: 50px;
+        }
+        
+        .comment-avatar {
+            position: absolute;
+            top: 0;
+            left: -40px;
+            width: 40px;
+            height: 40px;
+            background: #7f8c8c url("/assets/course14/avatar.png") no-repeat 50% 50%;
+        }
+        
+        .comment-author {
+            margin-bottom: 5px;
+            padding-left: 45px;
+            padding-right: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .comment-text {
+            padding: 12px;
+            padding-left: 45px;
+            font-size: 15px;
+            background-color: #f8f8f8;
+            border-bottom: 5px solid #e5e6e6;
+        }
+        
+        .comment-date {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #bdc3c7;
+        }
+        
+        .comment-reply {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: url("/assets/course14/reply.png") no-repeat 0 0;
+        }
+
+
+
+
+
+.switch-button {
+  background-color: #151515;
+  width: 400px;
+  height: 40px;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  -webkit-transform: translate3D(-50%, -50%, 0);
+          transform: translate3D(-50%, -50%, 0);
+  will-change: transform;
+  z-index: 197 !important;
+  cursor: pointer;
+  transition: .3s ease all;
+  border: 1px solid white;
+}
+.switch-button-case {
+  display: inline-block;
+  background: none;
+  width: 49%;
+  height: 100%;
+  color: white;
+  position: relative;
+  border: none;
+  transition: .3s ease all;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  padding-bottom: 1px;
+}
+.switch-button-case:hover {
+  color: grey;
+  cursor: pointer;
+}
+.switch-button-case:focus {
+  outline: none;
+}
+.switch-button .active {
+  color: #151515;
+  background-color: #6699ff;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: -1;
+  transition: .3s ease-out all;
+}
+.switch-button .active-case {
+  color: #151515;
+}
+
+.signature {
+  position: fixed;
+  font-family: sans-serif;
+  font-weight: 100;
+  bottom: 10px;
+  left: 0;
+  letter-spacing: 4px;
+  font-size: 10px;
+  width: 100vw;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+
+
+    </style>
+</head>
+
+<body>
+    {% include 'testPro/navBar.html' %}
+    {% include 'testPro/loader.html' %}
+
+<div class="blur" id="main1111">
+<div class="switch-button"><span class="active"></span>
+  <button class="switch-button-case left active-case">Your Network</button>
+  <button class="switch-button-case right">Shared By You</button>
+</div>
+<div id="right11">
+</div>
+<div id="left">
+</div>
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Give Access</button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#" id="all">ALL</a>
+                                <a class="dropdown-item" href="#" id="seperate">SEPERATE</a>
+                            </div>
+                            <input type="text" id="username" hidden>
+                            <input type="text" id="inp" class="form-control" aria-label="Text input with dropdown button">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="send1">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $(function() {
+       
+      
+
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://shielded-dusk-55059.herokuapp.com/shared/noteDetails",
+            "method": "GET",
+            "headers": {
+                "Authorization": "Bearer " + '{{access_token}}'
+            }
+        }
+        $.ajax(settings).then(function(response) {
+            
+
+            if (response.status === "200") {
+                 $("#load").remove();
+                $("#main1111").removeClass("blur");
+                console.log(JSON.parse(response.sharedDetails));
+
+                console.log(JSON.parse(response.sharedNotes));
+                var sharedDetails = JSON.parse(response.sharedDetails);
+                var likes = JSON.parse(response.likedNotes);
+
+                var newLikedNotes = {};
+
+                for (var i = 0; i < likes.length; i++) {
+                    newLikedNotes[likes[i]['note_id']] = likes[i];
+                }
+                console.log(newLikedNotes)
+                var newSharedDetails = {};
+                for (var i = 0; i < sharedDetails.length; i++) {
+                    newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
+                }
+                var img = sharedDetails[0]['receiver_profilePhoto']
+                var sharedNotes = JSON.parse(response.sharedNotes);
+
+                for (var i = 0; i < sharedNotes.length; i++) {
+                    var date = moment(newSharedDetails[sharedNotes[i]['note_id']]);
+                    date = date.fromNow();
+                    var htmlCode = sharedNotes[i]['noteData'];
+
+                    var html = `
+            <div class="feed" style="width: 100%;">
+
+            <div class="update"  style="width: 100%;">
+                <div class="card" style="width: 100%;">
+                <div class="last-updated">Shared ` + date + `</div>
+
+                <div class="posts" style="width: 100%;" id="` + sharedNotes[i]['note_id'] + `">
+
+                <div class="post" >
+                    <div class="header"><a href="#">
+                        <div class="profile-photo"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + sharedNotes[i]['admin_profile_picture'] + `"/></div></a><a href="#">
+                        <div class="meta">
+                        <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
+                        <br>
+
+                        <div class="description">` + sharedNotes[i]['occupation'] + `</div>
+                        </div></a>
+                    </div>
+                    <div class="post-content">
+                        <p><b># Title:- `+sharedNotes[i]['noteTitle']+`<b></p>
+                    </div>
+                    <article class="articleData" id="art-` + sharedNotes[i]['note_id'] + `">
+                        <div class="shared-article"><a href="#">`
+
+                        if(sharedNotes[i]['typeOfData']==="git"){
+                            html+=` <div class="article-image"><img id="htmlToImg-` + sharedNotes[i]['note_id'] + `" src="`+sharedNotes[i]['showUpImg']+`" class="git" /></div></a>`
+                        }
+                        else{
+                            html+=`<div class="article-image"><img id="htmlToImg-` + sharedNotes[i]['note_id'] + `" src="`+sharedNotes[i]['showUpImg']+`" class="note" /></div></a>`
+                            
+                        }
+                        html+=`<div class="description"><a href="#">
+                                <h2 class="article-title">`+sharedNotes[i]['noteCaption']+`</h2>`;
+
+                                if(sharedNotes[i]['createdFrom']!==undefined){
+                                    html+=`<h3 class="article-subtitle">Created From:- `+sharedNotes[i]['createdFrom'];;
+                                    
+                                }
+                                else{
+                                     html+=`<h3 class="article-subtitle">Shared From:- UnKnown Source`;
+
+                                }
+                                console.log(newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom'])
+                                if(newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom']!== undefined){
+                                    html+=`&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;
+                                    Shared From:- `+newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom']+`
+                                    </h3></a></div>`;
+                                    
+                                }
+                                else{
+                                    html+=`&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp; Shared From:- Unknown Source</h3></a></div>`;
+                                }
+                                
+                        html+=` 
+                        </div>
+                    </article><a class="comments-link" href="javascript:void();">
+                    <div class="comments">
+
+                        <div class="meta-text">
+                            <div class="div1">`;
+                    if (newLikedNotes[sharedNotes[i]['note_id']] !== undefined) {
+                        html += `<i class="i press" id="like-` + sharedNotes[i]['note_id'] + `" style="margin-top:36%;"></i><span>` + sharedNotes[i]['likes'].length + ` Likes</span>`
+                    } else {
+                        html += `<i class="i" id="like-` + sharedNotes[i]['note_id'] + `" style="margin-top:36%;"></i><span>` + sharedNotes[i]['likes'].length + ` Likes</span>`
+                    }
+                    html += `       
+                            </div> 
+                        </div>
+                        &nbsp;
+                        <div class="meta-text"><i class="fa fa-comments meta" aria-hidden="true" id="comment-` + sharedNotes[i]['note_id'] + `"></i>&nbsp;<span>` + sharedNotes[i]['comments'].length + ` Comments</span></div>
+
+                        </div></a>
+
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            `;
+
+                    $('#left').append(html);
+                   
+
+                    
+                    $(".articleData").click(function() {
+                        console.log($(this).attr('id'));
+
+                    })
+
+                  
+
+                    var imgId = "htmlToImg-" + sharedNotes[i]['note_id']
+
+                    $("#"+imgId).click(function(){
+                    
+                        var noteId1=$(this).attr('id').split("-")[1];
+                        if($(this).attr('class')==="git"){
+                            window.location.href="/test/showGitHub/"+noteId1;
+                        }
+                        else{
+                        window.location.href="/test/showNote/"+noteId1;
+                        console.log(noteId1)
+                        console.log("------")
+                        }
+                       
+                    })
+
+                    $("#" + imgId).mouseover(function(e) {
+                        console.log("in")
+                        var modal = document.getElementById('myModal');
+                        var img = document.getElementById('myImg');
+                        var modalImg = document.getElementById("img01");
+                        var captionText = document.getElementById("caption");
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                        modalImg.alt = this.alt;
+                        //captionText.innerHTML = this.alt;
+                        var x = e.clientX;
+                        var y = e.clientY;
+                        console.log(x + " " + y)
+                        modal.style.top = (y - 200) + 'px';
+                        modal.style.left = (x + 200) + 'px';
+                    })
+                    $("#" + imgId).mouseout(function() {
+                        console.log("out")
+                        var modal = document.getElementById('myModal');
+                        img01.className += " out";
+                        modal.style.display = "none";
+                        img01.className = "modal-content";
+                    })
+
+                    $("#like-" + sharedNotes[i]['note_id']).click(function() {
+
+                        var noteId = $(this).attr('id').split("-")[1];
+                        var currCount = ($(this).parent().text()).split(" ")[0]
+                        console.log(currCount)
+                        var currEle = $(this).parent().find('span');
+                        console.log(currEle)
+
+                        if ($(this).attr('class') === "i press") {
+                            //console.log(settings);
+                            console.log("DELETE")
+                            var settings = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "https://shielded-dusk-55059.herokuapp.com/shared/likeOnNote",
+                                "method": "DELETE",
+                                "headers": {
+                                    "Authorization": "Bearer " + '{{access_token}}'
+                                },
+                                "data": {
+                                    "noteId": noteId
+                                }
+                            }
+
+                            $.ajax(settings).then(function(response) {
+                                if (response.status === "200") {
+                                    //console.log(currEle.find('i').text())
+                                    currEle.text(String((parseInt(currCount) - 1) + " Likes"))
+                                        //console.log($(this).parent().text())
+                                    console.log("successfully deleted like");
+                                }
+                            })
+                        } else {
+                            console.log("POST")
+                            var settings = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "https://shielded-dusk-55059.herokuapp.com/shared/likeOnNote",
+                                "method": "POST",
+                                "headers": {
+                                    "Authorization": "Bearer " + '{{access_token}}'
+                                },
+                                "data": {
+                                    "noteId": noteId
+                                }
+                            }
+
+                            //console.log(settings)
+                            $.ajax(settings).then(function(response) {
+                                if (response.status === "201") {
+                                    //console.log((parseInt(currCount)+1)+" Likes")
+                                    //console.log(currEle.text())
+                                    currEle.text(String((parseInt(currCount) + 1) + " Likes"))
+                                        //console.log(currEle.text())
+                                    console.log("successfully liked");
+                                }
+                            })
+
+                        }
+                        $(this).toggleClass("press", 1000);
+                    })
+                }
+                $("#load").remove();
+                $("#main1111").removeClass("blur");
+
+                var comment1 = {};
+
+                $(".meta").click(function() {
+                    console.log($(this).attr('id'))
+                    var id = $(this).attr('id').split('-')[1]
+                    if (id in comment1)
+                        comment1[id]['count'] += 1
+                    else {
+                        comment1[id] = {}
+                        comment1[id]['count'] = 1
+                    }
+                    console.log(comment1[id]['count'])
+                    var comment = `
+            <div class="write-new" id="` + id + `-` + comment1[id]['count'] + `">
+
+                        <form action="#" method="post">
+
+                             <textarea placeholder="Write your comment here" name="comment"></textarea>
+
+                            <div>
+
+                                <img src="https://shielded-dusk-55059.herokuapp.com/media/` + img + `" width="35" alt="Profile of Bradley Jones" title="Bradley Jones" />
+                                <button type="button" class="but" id="but-` + id + `-` + comment1[id]['count'] + `">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+            `;
+                    //console.log($("div[id='"+id+"']"))
+
+                    $("div[id='" + id + "']").append(comment);
+
+                    $("#but-" + id + "-" + comment1[id]['count']).click(function() {
+                        console.log($(this).attr('id'))
+                        var id = $(this).attr('id').split('-')[1];
+                        var text = $("div[id='" + id + "']").find('textarea').val()
+
+                        $("div[id='" + id + "']").find('.write-new').remove();
+
+                        var settings = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "https://shielded-dusk-55059.herokuapp.com/shared/commentOnNote",
+                            "method": "POST",
+                            "headers": {
+                                "Authorization": "Bearer " + '{{access_token}}'
+                            },
+                            "data": {
+                                "noteId": id,
+                                "comment": text
+                            }
+                        }
+
+                        console.log(settings)
+                        $.ajax(settings).then(function(response) {
+                            console.log(response)
+                            if (response.status === "201") {
+                                console.log($("#comment-" + id).parent().find('span').text())
+                                var nOC = $("#comment-" + id).parent().find('span').text().split(" ")[0]
+                                $("#comment-" + id).parent().find('span').text(parseInt(nOC) + 1 + " Comments")
+                                var comment = `
+                   <div class="comment1" id="` + response.generatedId + `">
+            <div class="comment-avatar"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + img + `" width=40px; height=40px; alt="Profile of {{username}}" title="{{username}}" /></div>
+            <div class="comment-author">{{username}}</div>
+
+            <div class="comment-text">
+                ` + text + `
+                <div class="row" style="margin-left:94%;">
+                <button id="edit-` + response.generatedId + `"><i class="fa fa-edit"></i></button>&nbsp;
+                <button id="del-` + response.generatedId + `"><i class="fa fa-trash"></i></button>
+                </div>
+                <div class="comment-date">16.09.2013</div>
+            </div>
+            <a href="#reply" class="comment-reply"></a>
+        </div>
+        </div>
+
+                `;
+
+                                $("div[id='" + id + "']").append(comment);
+                                $("#edit-" + response.generatedId).click(function() {
+                                    console.log($(this).attr('id'));
+                                })
+
+                                $("#del-" + response.generatedId).click(function() {
+                                    var id1 = $(this).attr('id').split('-')[1];
+
+                                    var settings = {
+                                        "async": true,
+                                        "crossDomain": true,
+                                        "url": "https://shielded-dusk-55059.herokuapp.com/shared/commentOnNote",
+                                        "method": "DELETE",
+                                        "headers": {
+                                            "Authorization": "Bearer " + '{{access_token}}'
+                                        },
+                                        "data": {
+                                            "commentId": response.generatedId
+                                        }
+                                    }
+
+                                    console.log(settings)
+                                    $.ajax(settings).then(function(response) {
+                                        console.log(response)
+                                        if (response.status === "200") {
+                                            console.log($("#" + id1));
+                                            $("#" + id1).remove();
+                                            var nOC = $("#comment-" + id).parent().find('span').text().split(" ")[0]
+                                            console.log(nOC)
+                                            $("#comment-" + id).parent().find('span').text(parseInt(nOC) - 1 + " Comments")
+                                        }
+                                    })
+
+                                })
+
+                            }
+                        })
+
+                    })
+
+                })
+                
+            }
+            else{
+                $("#load").remove();
+                $("#main1111").removeClass("blur");
+
+            }
+        })
+    })
+</script>
+<script>
+    $(function() {
+                // Get the modal
+                var modal = document.getElementById('myModal');
+
+                modal.onmouseleave = function(e) {
+
+                }
+    })
+</script>
+<script>
+'use strict';
+
+var switchButton = document.querySelector('.switch-button');
+var switchBtnRight = document.querySelector('.switch-button-case.right');
+var switchBtnLeft = document.querySelector('.switch-button-case.left');
+var activeSwitch = document.querySelector('.active');
+
+function switchLeft(){
+    
+	switchBtnRight.classList.remove('active-case');
+	switchBtnLeft.classList.add('active-case');
+	activeSwitch.style.left = '0%';
+}
+
+function switchRight(){
+    
+	switchBtnRight.classList.add('active-case');
+	switchBtnLeft.classList.remove('active-case');
+	activeSwitch.style.left = '50%';
+}
+
+switchBtnLeft.addEventListener('click', function(){
+    console.log("Left Panel Selected")
+    selectLeft();
+	switchLeft();
+}, false);
+
+switchBtnRight.addEventListener('click', function(){
+    console.log("Right Panel Selected")
+    selectRight();
+	switchRight();
+}, false);
+
+var notAlreadySelected=0;
+</script>
+<script>
+function selectRight(){
+    console.log("Your Network")
+    
+    $("#left").fadeOut(300);
+    $("#right11").fadeIn(300);
+    callRight();
+}
+function selectLeft(){
+    console.log("Shared By You")
+    
+    $("#left").fadeIn(300);
+    $("#right11").fadeOut(300);
+}
+</script>
+<script>
+function callRight(){
+     
+   
+  var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://shielded-dusk-55059.herokuapp.com/shared/selfSharedNoteDetails",
+            "method": "GET",
+            "headers": {
+                "Authorization": "Bearer " + '{{access_token}}'
+            }
+        }
+         if(notAlreadySelected===0){
+             $('#right11').html("");
+             notAlreadySelected=1;
+        $.ajax(settings).then(function(response) {
+
+            if (response.status === "200") {
+                console.log(JSON.parse(response.sharedDetails));
+
+                console.log(JSON.parse(response.sharedNotes));
+                var sharedDetails = JSON.parse(response.sharedDetails);
+                var likes = JSON.parse(response.likedNotes);
+
+                var newLikedNotes = {};
+
+                for (var i = 0; i < likes.length; i++) {
+                    newLikedNotes[likes[i]['note_id']] = likes[i];
+                }
+                console.log(newLikedNotes)
+                var newSharedDetails = {};
+                for (var i = 0; i < sharedDetails.length; i++) {
+                    newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
+                }
+                var img = sharedDetails[0]['receiver_profilePhoto']
+                var sharedNotes = JSON.parse(response.sharedNotes);
+
+                for (var i = 0; i < sharedNotes.length; i++) {
+                    var date = moment(newSharedDetails[sharedNotes[i]['note_id']]);
+                    date = date.fromNow();
+                    var htmlCode = sharedNotes[i]['noteData'];
+
+                    var html = `
+            <div class="feed" style="width: 100%;">
+
+            <div class="update"  style="width: 100%;">
+                <div class="card" style="width: 100%;">
+                <div class="last-updated">Shared ` + date + `</div>
+
+                <div class="posts" style="width: 100%;" id="right-` + sharedNotes[i]['note_id'] + `">
+
+                <div class="post" >
+                    <div class="header"><a href="#">
+                        <div class="profile-photo"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + sharedNotes[i]['admin_profile_picture'] + `"/></div></a><a href="#">
+                        <div class="meta">
+                        <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
+                        <br>
+
+                        <div class="description">` + sharedNotes[i]['occupation'] + `</div>
+                        </div></a>
+                    </div>
+                    <div class="post-content">
+                        <p><b># Title:- `+sharedNotes[i]['noteTitle']+`<b></p>
+                    </div>
+                    <article class="articleData" id="right-art-` + sharedNotes[i]['note_id'] + `">
+                        <div class="shared-article"><a href="#">`;
+                    
+                        if(sharedNotes[i]['typeOfData']==="git"){
+                            html+=`<div class="article-image"><img id="right-htmlToImg-` + sharedNotes[i]['note_id'] + `" src="`+sharedNotes[i]['showUpImg']+`" class="git" /></div></a>`
+                        }
+                        else{
+                            html+=`<div class="article-image"><img id="right-htmlToImg-` + sharedNotes[i]['note_id'] + `" src="`+sharedNotes[i]['showUpImg']+`" class="note" /></div></a>`
+                        }
+                            
+                            html+=`<div class="description"><a href="#">
+                                <h2 class="article-title">`+sharedNotes[i]['noteCaption']+`</h2>`;
+
+                                if(sharedNotes[i]['createdFrom']!==undefined){
+                                    html+=`<h3 class="article-subtitle">Created From:- `+sharedNotes[i]['createdFrom'];;
+                                    
+                                }
+                                else{
+                                     html+=`<h3 class="article-subtitle">Shared From:- UnKnown Source`;
+
+                                }
+                                console.log(newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom'])
+                                if(newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom']!== undefined){
+                                    html+=`&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp;
+                                    Shared From:- `+newSharedDetails[sharedNotes[i]['note_id']]['sharedFrom']+`
+                                    </h3></a></div>`;
+                                    
+                                }
+                                else{
+                                    html+=`&nbsp;&nbsp;<b>|</b>&nbsp;&nbsp; Shared From:- Unknown Source</h3></a></div>`;
+                                }
+                                
+                        html+=` 
+                        </div>
+                    </article><a class="comments-link" href="javascript:void();">
+                    <div class="comments">
+
+                        <div class="meta-text">
+                            <div class="div1">`;
+                    if (newLikedNotes[sharedNotes[i]['note_id']] !== undefined) {
+                        html += `<i class="i press" id="right-like-` + sharedNotes[i]['note_id'] + `" style="margin-top:36%;"></i><span>` +  sharedNotes[i]['likes'].length + ` Likes</span>`
+                    } else {
+                        html += `<i class="i" id="right-like-` + sharedNotes[i]['note_id'] + `" style="margin-top:36%;"></i><span>` +  sharedNotes[i]['likes'].length + ` Likes</span>`
+                    }
+                    html += `       
+                            </div> 
+                        </div>
+                        &nbsp;
+                        <div class="meta-text"><i class="fa fa-comments meta" aria-hidden="true" id="right-comment-` + sharedNotes[i]['note_id'] + `"></i>&nbsp;<span>` + sharedNotes[i]['comments'].length + ` Comments</span></div>
+
+                        </div></a>
+
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            `;
+
+                    $('#right11').append(html);
+                    
+
+                    $(".articleData").click(function() {
+                        console.log($(this).attr('id'));
+
+                    })
+
+                  
+
+                    var imgId = "right-htmlToImg-" + sharedNotes[i]['note_id']
+
+                    $("#"+imgId).click(function(){
+                        var noteId=$(this).attr('id').split("-")[2];
+                        console.log("class is:- "+" "+$(this).attr('class')+" "+typeof($(this).attr('class')))
+                        if($(this).attr('class')==="git"){
+                            console.log("inside git")
+                           window.location.href = "/test/showGitHub/"+noteId
+                        console.log(noteId)
+                        }
+                        else{
+                        console.log(noteId)
+                       window.location.href = "/test/showNote/"+noteId
+                        console.log(noteId)
+                        console.log("-----")
+                        }
+                    })
+                    $("#" + imgId).mouseover(function(e) {
+                        console.log("in")
+                        var modal = document.getElementById('myModal');
+                        var img = document.getElementById('myImg');
+                        var modalImg = document.getElementById("img01");
+                        var captionText = document.getElementById("caption");
+                        modal.style.display = "block";
+                        modalImg.src = this.src;
+                        modalImg.alt = this.alt;
+                        //captionText.innerHTML = this.alt;
+                        var x = e.clientX;
+                        var y = e.clientY;
+                        console.log(x + " " + y)
+                        modal.style.top = (y - 200) + 'px';
+                        modal.style.left = (x + 200) + 'px';
+                    })
+                    $("#" + imgId).mouseout(function() {
+                        console.log("out")
+                        var modal = document.getElementById('myModal');
+                        img01.className += " out";
+                        modal.style.display = "none";
+                        img01.className = "modal-content";
+                    })
+
+                    $("#right-like-" + sharedNotes[i]['note_id']).click(function() {
+
+                        var noteId = $(this).attr('id').split("-")[2];
+                        var currCount = ($(this).parent().text()).split(" ")[0]
+                        console.log(currCount)
+                        var currEle = $(this).parent().find('span');
+                        console.log(currEle)
+
+                        if ($(this).attr('class') === "i press") {
+                            //console.log(settings);
+                            console.log("DELETE")
+                            var settings = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "https://shielded-dusk-55059.herokuapp.com/shared/likeOnNote",
+                                "method": "DELETE",
+                                "headers": {
+                                    "Authorization": "Bearer " + '{{access_token}}'
+                                },
+                                "data": {
+                                    "noteId": noteId
+                                }
+                            }
+
+                            $.ajax(settings).then(function(response) {
+                                if (response.status === "200") {
+                                    //console.log(currEle.find('i').text())
+                                    currEle.text(String((parseInt(currCount) - 1) + " Likes"))
+                                        //console.log($(this).parent().text())
+                                    console.log("successfully deleted like");
+                                }
+                            })
+                        } else {
+                            console.log("POST")
+                            var settings = {
+                                "async": true,
+                                "crossDomain": true,
+                                "url": "https://shielded-dusk-55059.herokuapp.com/shared/likeOnNote",
+                                "method": "POST",
+                                "headers": {
+                                    "Authorization": "Bearer " + '{{access_token}}'
+                                },
+                                "data": {
+                                    "noteId": noteId
+                                }
+                            }
+
+                            //console.log(settings)
+                            $.ajax(settings).then(function(response) {
+                                if (response.status === "201") {
+                                    //console.log((parseInt(currCount)+1)+" Likes")
+                                    //console.log(currEle.text())
+                                    currEle.text(String((parseInt(currCount) + 1) + " Likes"))
+                                        //console.log(currEle.text())
+                                    console.log("successfully liked");
+                                }
+                            })
+
+                        }
+                        $(this).toggleClass("press", 1000);
+                    })
+                }
+
+                console.log("appended to right")
+
+                var comment1 = {};
+
+                $(".meta").click(function() {
+                    console.log($(this).attr('id'))
+                    var id = $(this).attr('id').split('-')[2]
+                    if (id in comment1)
+                        comment1[id]['count'] += 1
+                    else {
+                        comment1[id] = {}
+                        comment1[id]['count'] = 1
+                    }
+                    console.log(comment1[id]['count'])
+                    var comment = `
+            <div class="write-new" id="right-` + id + `-` + comment1[id]['count'] + `">
+
+                        <form action="#" method="post">
+
+                             <textarea placeholder="Write your comment here" name="comment"></textarea>
+
+                            <div>
+
+                                <img src="https://shielded-dusk-55059.herokuapp.com/media/` + img + `" width="35" alt="Profile of Bradley Jones" title="Bradley Jones" />
+                                <button type="button" class="but" id="right-but-` + id + `-` + comment1[id]['count'] + `">Submit</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+            `;
+                    //console.log($("div[id='"+id+"']"))
+
+                    $("div[id='right-" + id + "']").append(comment);
+
+                    $("#right-but-" + id + "-" + comment1[id]['count']).click(function() {
+                        console.log($(this).attr('id'))
+                        var id = $(this).attr('id').split('-')[2];
+                        var text = $("div[id='right-" + id + "']").find('textarea').val()
+
+                        $("div[id='right-" + id + "']").find('.write-new').remove();
+
+                        var settings = {
+                            "async": true,
+                            "crossDomain": true,
+                            "url": "https://shielded-dusk-55059.herokuapp.com/shared/commentOnNote",
+                            "method": "POST",
+                            "headers": {
+                                "Authorization": "Bearer " + '{{access_token}}'
+                            },
+                            "data": {
+                                "noteId": id,
+                                "comment": text
+                            }
+                        }
+
+                        console.log(settings)
+                        $.ajax(settings).then(function(response) {
+                            console.log(response)
+                            if (response.status === "201") {
+                                console.log($("#right-comment-" + id).parent().find('span').text())
+                                var nOC = $("#right-comment-" + id).parent().find('span').text().split(" ")[0]
+                                $("#right-comment-" + id).parent().find('span').text(parseInt(nOC) + 1 + " Comments")
+                                var comment = `
+                   <div class="comment1" id="right-` + response.generatedId + `">
+            <div class="comment-avatar"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + img + `" width=40px; height=40px; alt="Profile of {{username}}" title="{{username}}" /></div>
+            <div class="comment-author">{{username}}</div>
+
+            <div class="comment-text">
+                ` + text + `
+                <div class="row" style="margin-left:94%;">
+                <button id="right-edit-` + response.generatedId + `"><i class="fa fa-edit"></i></button>&nbsp;
+                <button id="right-del-` + response.generatedId + `"><i class="fa fa-trash"></i></button>
+                </div>
+                <div class="comment-date">16.09.2013</div>
+            </div>
+            <a href="#reply" class="comment-reply"></a>
+        </div>
+        </div>
+
+                `;
+
+                                $("div[id='right-" + id + "']").append(comment);
+                                $("#right-edit-" + response.generatedId).click(function() {
+                                    console.log($(this).attr('id'));
+                                })
+
+                                $("#right-del-" + response.generatedId).click(function() {
+                                    var id1 = $(this).attr('id').split('-')[2];
+
+                                    var settings = {
+                                        "async": true,
+                                        "crossDomain": true,
+                                        "url": "https://shielded-dusk-55059.herokuapp.com/shared/commentOnNote",
+                                        "method": "DELETE",
+                                        "headers": {
+                                            "Authorization": "Bearer " + '{{access_token}}'
+                                        },
+                                        "data": {
+                                            "commentId": response.generatedId
+                                        }
+                                    }
+
+                                    console.log(settings)
+                                    $.ajax(settings).then(function(response) {
+                                        console.log(response)
+                                        if (response.status === "200") {
+                                            console.log($("#right-" + id1));
+                                            $("#right-" + id1).remove();
+                                            var nOC = $("#right-comment-" + id).parent().find('span').text().split(" ")[0]
+                                            console.log(nOC)
+                                            $("#right-comment-" + id).parent().find('span').text(parseInt(nOC) - 1 + " Comments")
+                                        }
+                                    })
+
+                                })
+
+                            }
+                        })
+
+                    })
+
+                })
+
+            }
+        })
+         }
+        
+}
+</script>
+</html>
