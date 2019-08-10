@@ -978,7 +978,10 @@
                 for (var i = 0; i < sharedDetails.length; i++) {
                     newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
                 }
-                var img = sharedDetails[0]['receiver_profilePhoto']
+                var img = sharedDetails[0]['receiver_profilePhoto'];
+                if(!img){
+                    img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                }
                 var sharedNotes = JSON.parse(response.sharedNotes);
 
                 for (var i = 0; i < sharedNotes.length; i++) {
@@ -994,10 +997,9 @@
                 <div class="last-updated">Shared ` + date + `</div>
 
                 <div class="posts" style="width: 100%;" id="` + sharedNotes[i]['note_id'] + `">
-
                 <div class="post" >
                     <div class="header"><a href="#">
-                        <div class="profile-photo"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + sharedNotes[i]['admin_profile_picture'] + `"/></div></a><a href="#">
+                        <div class="profile-photo"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + sharedNotes[i]['admin_profile_picture'] + `" /></div></a><a href="#">
                         <div class="meta">
                         <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
                         <br>
