@@ -590,10 +590,18 @@
                         </h4>
                      </div>
                      <div class="card-body">
-                        <div>
-                           <p class="col-9 d-inline-block text-gray mb-2 pr-4" itemprop="description">
+                        <div>`;
+                        if(RootFolderData[i]['description']){
+                           html1+=`<p class="col-9 d-inline-block text-gray mb-2 pr-4" itemprop="description">
                               `+RootFolderData[i]['description'].substr(0,200)+`
-                           </p>
+                           </p>`;
+                        }
+                        else{
+                          html1+=`<p class="col-9 d-inline-block text-gray mb-2 pr-4" itemprop="description">
+                              No Description Available
+                           </p>`;
+                        }
+                      html1+=`
                         </div>
                      </div>
                      <div class="card-footer">
