@@ -986,10 +986,17 @@
                 else{
                     img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
                 }
+                var img1= sharedNotes[i]['admin_profile_picture'];
+                if(img1){
+                    console.log("Admin Image Present")
+                }
+                else{
+                    img1 = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                }
                 var sharedNotes = JSON.parse(response.sharedNotes);
 
                 for (var i = 0; i < sharedNotes.length; i++) {
-                    var date = moment(newSharedDetails[sharedNotes[i]['note_id']]);
+                    var date = moment(newSharedDetails[sharedNotes[i]['sharedAt']]);
                     date = date.fromNow();
                     var htmlCode = sharedNotes[i]['noteData'];
 
@@ -1003,7 +1010,7 @@
                 <div class="posts" style="width: 100%;" id="` + sharedNotes[i]['note_id'] + `">
                 <div class="post" >
                     <div class="header"><a href="#">
-                        <div class="profile-photo"><img src="https://shielded-dusk-55059.herokuapp.com/media/` + sharedNotes[i]['admin_profile_picture'] + `" /></div></a><a href="#">
+                        <div class="profile-photo"><img src=`+img1+` /></div></a><a href="#">
                         <div class="meta">
                         <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
                         <br>
