@@ -979,7 +979,11 @@
                     newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
                 }
                 var img = sharedDetails[0]['receiver_profilePhoto'];
-                if(!img){
+                if(img){
+                    console.log(img)
+                    console.log("Image is present");
+                }
+                else{
                     img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
                 }
                 var sharedNotes = JSON.parse(response.sharedNotes);
