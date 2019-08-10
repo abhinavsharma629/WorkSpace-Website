@@ -979,13 +979,11 @@
                     newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
                 }
                 var img = sharedDetails[0]['receiver_profilePhoto'];
-                if(img){
-                    console.log(img)
-                    console.log("Image is present");
-                }
-                else{
+                if(!img){
+                    
                     img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
                 }
+
                 var image= sharedNotes[i]['admin_profile_picture'];
                 console.log(image)
                 if(image){
@@ -1011,7 +1009,7 @@
                 <div class="posts" style="width: 100%;" id="` + sharedNotes[i]['note_id'] + `">
                 <div class="post" >
                     <div class="header"><a href="#">
-                        <div class="profile-photo"><img src=`+image+` /></div></a><a href="#">
+                        <div class="profile-photo"><img src="https://obscure-bayou-10492.herokuapp.com/media/`+image+`" /></div></a><a href="#">
                         <div class="meta">
                         <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
                         <br>
