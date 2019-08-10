@@ -979,9 +979,12 @@
                     newSharedDetails[sharedDetails[i]['noteId']] = sharedDetails[i];
                 }
                 var img = sharedDetails[0]['receiver_profilePhoto'];
-                if(!img){
+                if(img){
+                    img="https://shielded-dusk-55059.herokuapp.com/media/"+sharedDetails[0]['receiver_profilePhoto'];
+                }
+                else{
                     
-                    img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                    img = "https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg";
                 }
 
                
@@ -1224,7 +1227,7 @@
 
                             <div>
 
-                                <img src="https://shielded-dusk-55059.herokuapp.com/media/` + img + `" width="35" alt="Profile of Bradley Jones" title="Bradley Jones" />
+                                <img src="` + img + `" width="35" alt="Profile of Bradley Jones" title="Bradley Jones" />
                                 <button type="button" class="but" id="but-` + id + `-` + comment1[id]['count'] + `">Submit</button>
                             </div>
 
