@@ -990,9 +990,10 @@
                  
                 for (var i = 0; i < sharedNotes.length; i++) {
 
-                    var image= "https://obscure-bayou-10492.herokuapp.com/media/"+sharedNotes[i]['admin_profile_picture'];
+                    var image= sharedNotes[i]['admin_profile_picture'];
                 console.log(image)
                 if(image){
+                    image="https://obscure-bayou-10492.herokuapp.com/media/"+sharedNotes[i]['admin_profile_picture'];
                     console.log("Admin Image Present")
                 }
                 else{
