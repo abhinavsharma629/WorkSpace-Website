@@ -984,7 +984,10 @@
                     img = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
                 }
 
-                var image= sharedNotes[i]['admin_profile_picture'];
+               
+                var sharedNotes = JSON.parse(response.sharedNotes);
+
+                 var image= sharedNotes[i]['admin_profile_picture'];
                 console.log(image)
                 if(image){
                     console.log("Admin Image Present")
@@ -992,8 +995,7 @@
                 else{
                     image = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
                 }
-                var sharedNotes = JSON.parse(response.sharedNotes);
-
+                
                 for (var i = 0; i < sharedNotes.length; i++) {
                     var date = moment(newSharedDetails[sharedNotes[i]['sharedAt']]);
                     date = date.fromNow();
