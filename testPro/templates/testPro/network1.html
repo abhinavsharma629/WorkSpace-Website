@@ -990,16 +990,16 @@
                  
                 for (var i = 0; i < sharedNotes.length; i++) {
 
-                    var image= sharedNotes[i]['admin_profile_picture'];
+                    var image= "https://obscure-bayou-10492.herokuapp.com/media/"+sharedNotes[i]['admin_profile_picture'];
                 console.log(image)
                 if(image){
                     console.log("Admin Image Present")
                 }
                 else{
-                    image = `<img class="profile-img" src="https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg">`;
+                    image = "https://image.shutterstock.com/image-illustration/photo-silhouette-male-profile-white-260nw-1018631086.jpg";
                 }
                 
-                
+
                     var date = moment(newSharedDetails[sharedNotes[i]['sharedAt']]);
                     date = date.fromNow();
                     var htmlCode = sharedNotes[i]['noteData'];
@@ -1014,7 +1014,7 @@
                 <div class="posts" style="width: 100%;" id="` + sharedNotes[i]['note_id'] + `">
                 <div class="post" >
                     <div class="header"><a href="#">
-                        <div class="profile-photo"><img src="https://obscure-bayou-10492.herokuapp.com/media/`+image+`" /></div></a><a href="#">
+                        <div class="profile-photo"><img src="`+image+`" /></div></a><a href="#">
                         <div class="meta">
                         <h3><span class="name">` + sharedNotes[i]['note_admin'] + `</span><span class="supplimentary">• 1st</span></h3>
                         <br>
