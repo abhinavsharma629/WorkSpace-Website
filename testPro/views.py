@@ -306,8 +306,7 @@ def git_complete(request):
     json.dump(concatinatingTheTwoJsonObjects, gitHubCred, indent=4)
     gitHubCred.close()
 
-    return JsonResponse({'access_token':accessTokenDataToJson['access_token'], 'auth_login_name':userDetailsToJson['login'], 'email':userDetailsToJson['email']['email'], 'cred':json.dumps(accessTokenDataToJson),
-    'dump':json.dumps(userDetailsToJson), authName': "GITHUB"})
+    return JsonResponse({'access_token':accessTokenDataToJson['access_token'], 'auth_login_name':userDetailsToJson['login'], 'email':userDetailsToJson['email']['email'], 'cred':json.dumps(accessTokenDataToJson),'dump':json.dumps(userDetailsToJson), authName': "GITHUB"})
     # obj=Tokens.objects.get(username=request.user)
     # headers1={}
     # headers1['Authorization']= 'Bearer '+obj.access_token
