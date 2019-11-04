@@ -262,143 +262,73 @@ def github(request):
 def gitHubLogin(request):
     return HttpResponseRedirect("https://github.com/login/oauth/authorize?client_id=62214c9c431303a8217c&client_secret=2513fa09a6a01b3956bc1ace331d0c9325fa2b7e&scope=notifications,user,repo:status,read:user,repo,delete_repo,email")
 
+
 def git_complete(request):
     print(request.GET)
     code=request.GET.get('code')
-    return JsonResponse({'code':code})
-    # print("Code is:- ",code)
-    # data={
-    #     'client_id':'62214c9c431303a8217c',
-    #     'client_secret':"2513fa09a6a01b3956bc1ace331d0c9325fa2b7e",
-    #     'state':'notifications,user,email,repo',
-    #     'code':code,
-    #     'redirect_uri':"https://obscure-bayou-10492.herokuapp.com/test/complete/gitHub-oauth2"
-    #     }
-    # headers={}
-    # headers['Accept']="application/json"
-    # accessTokenData=requests.post("https://github.com/login/oauth/access_token", data=data, headers=headers)
-    # #print(accessTokenData.text)
-    # accessTokenDataToJson=json.loads(accessTokenData.text)
-    # header={}
-    # try:
-    #     header['Authorization']="Bearer "+accessTokenDataToJson['access_token']
-    # except:
-    #     return HttpResponseRedirect('/hi/gitHubLogin')
-    # userDetails=requests.get("https://api.github.com/user", headers=header)
-    # #print(userDetails)
-    # userDetailsToJson=json.loads(userDetails.text)
-    #
-    # url = "https://api.github.com/user/emails"
-    #
-    # headers = {
-    #     'Authorization': "Bearer "+str(accessTokenDataToJson['access_token']),
-    #     'Host': "api.github.com"
-    #     }
-    #
-    # response = requests.request("GET", url, headers=headers)
-    #
-    # userDetailsToJson['email']=response.json()[0]
-    #
-    # concatinatingTheTwoJsonObjects={}
-    # concatinatingTheTwoJsonObjects['user_details']=userDetailsToJson
-    # concatinatingTheTwoJsonObjects['token_details']=accessTokenDataToJson
-    #
-    # gitHubCred=open('gitHubCred.json' , 'w')
-    # json.dump(concatinatingTheTwoJsonObjects, gitHubCred, indent=4)
-    # gitHubCred.close()
-    #
-    # return JsonResponse({'access_token':accessTokenDataToJson['access_token'], 'auth_login_name':userDetailsToJson['login'], 'email':userDetailsToJson['email']['email'], 'cred':json.dumps(accessTokenDataToJson),'dump':json.dumps(userDetailsToJson), 'authName': "GITHUB"})
-    # # obj=Tokens.objects.get(username=request.user)
-    # headers1={}
-    # headers1['Authorization']= 'Bearer '+obj.access_token
-    # url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
-    #
-    # response=requests.post(url, data={
-    #     'access_token':accessTokenDataToJson['access_token'],
-    #     'auth_login_name':userDetailsToJson['login'],
-    #     'email':userDetailsToJson['email']['email'],
-    #     'cred':json.dumps(accessTokenDataToJson),
-    #     'dump':json.dumps(userDetailsToJson),
-    #     'authName': "GITHUB"
-    # }, headers=headers1).json()
-    #
-    # print(response)
-    #
-    # if(response['status']=='201'):
-    #     result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
-    # else:
-    #     result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
-    # return render(request, 'testPro/gitHub.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
+    print("Code is:- ",code)
+    data={
+        'client_id':'62214c9c431303a8217c',
+        'client_secret':"2513fa09a6a01b3956bc1ace331d0c9325fa2b7e",
+        'state':'notifications,user,email,repo',
+        'code':code,
+        'redirect_uri':"https://obscure-bayou-10492.herokuapp.com/test/complete/gitHub-oauth2"
+        }
+    headers={}
+    headers['Accept']="application/json"
+    accessTokenData=requests.post("https://github.com/login/oauth/access_token", data=data, headers=headers)
+    #print(accessTokenData.text)
+    accessTokenDataToJson=json.loads(accessTokenData.text)
+    header={}
+    try:
+        header['Authorization']="Bearer "+accessTokenDataToJson['access_token']
+    except:
+        return HttpResponseRedirect('/hi/gitHubLogin')
+    userDetails=requests.get("https://api.github.com/user", headers=header)
+    #print(userDetails)
+    userDetailsToJson=json.loads(userDetails.text)
 
+    url = "https://api.github.com/user/emails"
 
+    headers = {
+        'Authorization': "Bearer "+str(accessTokenDataToJson['access_token']),
+        'Host': "api.github.com"
+        }
 
+    response = requests.request("GET", url, headers=headers)
 
-# def git_complete(request):
-#     print(request.GET)
-#     code=request.GET.get('code')
-#     print("Code is:- ",code)
-#     data={
-#         'client_id':'62214c9c431303a8217c',
-#         'client_secret':"2513fa09a6a01b3956bc1ace331d0c9325fa2b7e",
-#         'state':'notifications,user,email,repo',
-#         'code':code,
-#         'redirect_uri':"https://obscure-bayou-10492.herokuapp.com/test/complete/gitHub-oauth2"
-#         }
-#     headers={}
-#     headers['Accept']="application/json"
-#     accessTokenData=requests.post("https://github.com/login/oauth/access_token", data=data, headers=headers)
-#     #print(accessTokenData.text)
-#     accessTokenDataToJson=json.loads(accessTokenData.text)
-#     header={}
-#     try:
-#         header['Authorization']="Bearer "+accessTokenDataToJson['access_token']
-#     except:
-#         return HttpResponseRedirect('/hi/gitHubLogin')
-#     userDetails=requests.get("https://api.github.com/user", headers=header)
-#     #print(userDetails)
-#     userDetailsToJson=json.loads(userDetails.text)
-#
-#     url = "https://api.github.com/user/emails"
-#
-#     headers = {
-#         'Authorization': "Bearer "+str(accessTokenDataToJson['access_token']),
-#         'Host': "api.github.com"
-#         }
-#
-#     response = requests.request("GET", url, headers=headers)
-#
-#     userDetailsToJson['email']=response.json()[0]
-#
-#     concatinatingTheTwoJsonObjects={}
-#     concatinatingTheTwoJsonObjects['user_details']=userDetailsToJson
-#     concatinatingTheTwoJsonObjects['token_details']=accessTokenDataToJson
-#
-#     gitHubCred=open('gitHubCred.json' , 'w')
-#     json.dump(concatinatingTheTwoJsonObjects, gitHubCred, indent=4)
-#     gitHubCred.close()
-#
-#     obj=Tokens.objects.get(username=request.user)
-#     headers1={}
-#     headers1['Authorization']= 'Bearer '+obj.access_token
-#     url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
-#
-#     response=requests.post(url, data={
-#         'access_token':accessTokenDataToJson['access_token'],
-#         'auth_login_name':userDetailsToJson['login'],
-#         'email':userDetailsToJson['email']['email'],
-#         'cred':json.dumps(accessTokenDataToJson),
-#         'dump':json.dumps(userDetailsToJson),
-#         'authName': "GITHUB"
-#     }, headers=headers1).json()
-#
-#     print(response)
-#
-#     if(response['status']=='201'):
-#         result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
-#     else:
-#         result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
-#     return render(request, 'testPro/gitHub.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
-#
+    userDetailsToJson['email']=response.json()[0]
+
+    concatinatingTheTwoJsonObjects={}
+    concatinatingTheTwoJsonObjects['user_details']=userDetailsToJson
+    concatinatingTheTwoJsonObjects['token_details']=accessTokenDataToJson
+
+    gitHubCred=open('gitHubCred.json' , 'w')
+    json.dump(concatinatingTheTwoJsonObjects, gitHubCred, indent=4)
+    gitHubCred.close()
+
+    obj=Tokens.objects.get(username=request.user)
+    headers1={}
+    headers1['Authorization']= 'Bearer '+obj.access_token
+    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
+
+    response=requests.post(url, data={
+        'access_token':accessTokenDataToJson['access_token'],
+        'auth_login_name':userDetailsToJson['login'],
+        'email':userDetailsToJson['email']['email'],
+        'cred':json.dumps(accessTokenDataToJson),
+        'dump':json.dumps(userDetailsToJson),
+        'authName': "GITHUB"
+    }, headers=headers1).json()
+
+    print(response)
+
+    if(response['status']=='201'):
+        result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
+    else:
+        result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
+    return render(request, 'testPro/gitHub.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
+
 
 def network1(request):
     try:
