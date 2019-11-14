@@ -112,11 +112,12 @@ def login(request):
 
 def login1(request):
     auth_uri = flow.step1_get_authorize_url()
-    return JsonResponse({'auth_uri':auth_uri})
-    #return HttpResponseRedirect(auth_uri) 
+    return JsonResponse({'auth_uri':auth_uri, "status":"200"})
+    #return HttpResponseRedirect(auth_uri)
 
 def gd_oauth2(request):
     code=request.GET.get('code')
+    print(code)
     credentials = flow.step2_exchange(code)
     cred=vars(credentials)
     #print(cred)
