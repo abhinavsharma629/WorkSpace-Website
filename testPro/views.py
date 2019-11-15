@@ -128,6 +128,7 @@ def login(request):
     return HttpResponseRedirect(auth_uri)
 
 def gd_oauth2(request):
+    print("inside v1")
     code=request.GET.get('code')
     print(code)
     credentials = flow.step2_exchange(code)
@@ -182,6 +183,7 @@ def gd_oauth2(request):
 
 
 def gd_oauth21(request):
+    print("inside v2")
     code=request.GET.get('code')
     print(code)
     credentials = flow1.step2_exchange(code)
