@@ -10,6 +10,7 @@ urlpatterns = [
     path('clouds', views.clouds, name="clouds"),
     path('login', views.login, name="login"),
     path('complete/google-oauth2/', views.gd_oauth2, name="gd_oauth2"),
+    path('complete/google-oauth21/', views.gd_oauth21, name="gd_oauth21"),
     path('complete/dropbox-oauth2', views.drop_oauth2, name="drop_oauth2"),
     path('dropboxLogin', views.dropboxLogin, name="dropboxLogin"),
     path('personal', views.personal, name="personal"),

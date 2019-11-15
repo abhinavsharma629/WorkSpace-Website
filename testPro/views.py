@@ -96,6 +96,23 @@ flow = OAuth2WebServerFlow(client_id='484263106620-gqflub2lb8d0bvbof404133q236ut
 
                             redirect_uri='https://obscure-bayou-10492.herokuapp.com/test/complete/google-oauth2/')
 
+
+flow1 = OAuth2WebServerFlow(client_id='484263106620-gqflub2lb8d0bvbof404133q236utfkn.apps.googleusercontent.com',
+                            client_secret='7dRw6vDma4uEraS7X7xWT_7z',
+                            scope=['https://www.googleapis.com/auth/plus.login', 'openid',
+                            'https://www.googleapis.com/auth/userinfo.email',
+                            'https://www.googleapis.com/auth/drive.readonly',
+                            'https://www.googleapis.com/auth/drive.metadata',
+                            'https://www.googleapis.com/auth/drive.readonly',
+                            'https://www.googleapis.com/auth/drive.scripts',
+                            'https://www.googleapis.com/auth/drive.photos.readonly',
+                            'https://www.googleapis.com/auth/drive.file',
+                            'https://www.googleapis.com/auth/drive.appdata'
+                            ],
+
+                            redirect_uri='https://obscure-bayou-10492.herokuapp.com/test/complete/google-oauth21/')
+
+
 #JSON OBJECTS ENCODER
 class PythonObjectEncoder(JSONEncoder):
         def default(self, obj):
@@ -167,7 +184,7 @@ def gd_oauth2(request):
 def gd_oauth21(request):
     code=request.GET.get('code')
     print(code)
-    credentials = flow.step2_exchange(code)
+    credentials = flow1.step2_exchange(code)
     cred=vars(credentials)
 
     user=Temp.objects.filter(code=code)
