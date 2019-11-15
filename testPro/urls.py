@@ -9,7 +9,6 @@ urlpatterns = [
     path('network1', views.network1, name="network1"),
     path('clouds', views.clouds, name="clouds"),
     path('login', views.login, name="login"),
-    path('login1', views.login1, name="login1"),
     path('complete/google-oauth2/', views.gd_oauth2, name="gd_oauth2"),
     path('complete/dropbox-oauth2', views.drop_oauth2, name="drop_oauth2"),
     path('dropboxLogin', views.dropboxLogin, name="dropboxLogin"),
