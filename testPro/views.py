@@ -115,7 +115,7 @@ def gd_oauth2(request):
     print(code)
     credentials = flow.step2_exchange(code)
     cred=vars(credentials)
-    #print(cred)
+    print(cred)
     mainDict={}
     mainDict['id_token']=cred['id_token']
     mainDict['token_response']=cred['token_response']
