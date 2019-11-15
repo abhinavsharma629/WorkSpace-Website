@@ -120,49 +120,50 @@ def gd_oauth2(request):
     print(code)
     credentials = flow.step2_exchange(code)
     cred=vars(credentials)
+    return JsonResponse({"creds":json.dumps(vars(credentials), cls=PythonObjectEncoder), "code":code, "status":"200"})
     #print(cred)
-    mainDict={}
-    mainDict['id_token']=cred['id_token']
-    mainDict['token_response']=cred['token_response']
-
-    outfile=open('createAGoogleDrive.json', 'w')
-
-    dump=json.dumps(vars(credentials), cls=PythonObjectEncoder)
-    outfile.write(dump)
-    outfile.close()
-
-    headers={}
-    headers['Authorization']= 'Bearer '+cred['access_token']
-    userDetailsFromToken=requests.get('https://oauth2.googleapis.com/tokeninfo?id_token='+cred['id_token_jwt'], headers=headers)
-    userData=userDetailsFromToken.json()
-
-    userDetails=open('googleUserDetails.json', 'w')
-    dump=json.dumps(userData)
-    userDetails.write(dump)
-    userEmail=userData['email']
-    print(userEmail)
-
-    obj=Tokens.objects.get(username=request.user)
-    headers1={}
-    headers1['Authorization']= 'Bearer '+obj.access_token
-    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
-
-    print(cred)
-    response=requests.post(url, data={
-        'access_token':(vars(credentials)['access_token']),
-        'email':userEmail,
-        'cred':json.dumps(vars(credentials), cls=PythonObjectEncoder),
-        'dump':dump,
-        'authName': "GOOGLE DRIVE"
-    }, headers=headers1).json()
-
-    print(response)
-
-    if(response['status']=='201'):
-        result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
-    else:
-        result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
-    return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
+    # mainDict={}
+    # mainDict['id_token']=cred['id_token']
+    # mainDict['token_response']=cred['token_response']
+    #
+    # outfile=open('createAGoogleDrive.json', 'w')
+    #
+    # dump=json.dumps(vars(credentials), cls=PythonObjectEncoder)
+    # outfile.write(dump)
+    # outfile.close()
+    #
+    # headers={}
+    # headers['Authorization']= 'Bearer '+cred['access_token']
+    # userDetailsFromToken=requests.get('https://oauth2.googleapis.com/tokeninfo?id_token='+cred['id_token_jwt'], headers=headers)
+    # userData=userDetailsFromToken.json()
+    #
+    # userDetails=open('googleUserDetails.json', 'w')
+    # dump=json.dumps(userData)
+    # userDetails.write(dump)
+    # userEmail=userData['email']
+    # print(userEmail)
+    #
+    # obj=Tokens.objects.get(username=request.user)
+    # headers1={}
+    # headers1['Authorization']= 'Bearer '+obj.access_token
+    # url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
+    #
+    # print(cred)
+    # response=requests.post(url, data={
+    #     'access_token':(vars(credentials)['access_token']),
+    #     'email':userEmail,
+    #     'cred':json.dumps(vars(credentials), cls=PythonObjectEncoder),
+    #     'dump':dump,
+    #     'authName': "GOOGLE DRIVE"
+    # }, headers=headers1).json()
+    #
+    # print(response)
+    #
+    # if(response['status']=='201'):
+    #     result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
+    # else:
+    #     result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
+    # return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
 
 
 
