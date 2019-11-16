@@ -221,7 +221,7 @@ def gd_oauth21(request):
     print(cred)
     response=requests.post(url, data={
         'access_token':(vars(credentials)['access_token']),
-        'refresh_token':(vars(credentials)['refresh_token'])
+        'refresh_token':(vars(credentials)['refresh_token']),
         'email':userEmail,
         'cred':json.dumps(vars(credentials), cls=PythonObjectEncoder),
         'dump':dump,
