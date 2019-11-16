@@ -216,7 +216,7 @@ def gd_oauth21(request):
     # obj=Tokens.objects.all()
     headers1={}
     headers1['Authorization']= 'Bearer '+access_token
-    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud1"
+    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
 
     print(cred)
     response=requests.post(url, data={
