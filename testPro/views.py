@@ -186,18 +186,10 @@ def gd_oauth21(request):
     print("inside v2")
     code=request.GET.get('code')
     print(code)
+    print(request.GET.get('state'))
     credentials = flow1.step2_exchange(code)
     cred=vars(credentials)
 
-    user=Temp.objects.filter(code=code)
-    while(Temp.objects.filter(code=code).count()<0):
-        user=Temp.objects.get(code=code)
-        continue
-
-    print(user)
-    print(user.code)
-    print(user.access_token)
-    print(user.username)
 
     print(cred)
     mainDict={}
@@ -221,7 +213,7 @@ def gd_oauth21(request):
     userEmail=userData['email']
     print(userEmail)
 
-    obj=Tokens.objects.get(username=request.user)
+    # obj=Tokens.objects.all()
     headers1={}
     headers1['Authorization']= 'Bearer '+obj.access_token
     url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
