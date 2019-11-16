@@ -186,7 +186,7 @@ def gd_oauth21(request):
     print("inside v2")
     code=request.GET.get('code')
     print(code)
-    print(request.GET.get('state'))
+    access_token=request.GET.get('state')
     credentials = flow1.step2_exchange(code)
     cred=vars(credentials)
 
@@ -215,12 +215,13 @@ def gd_oauth21(request):
 
     # obj=Tokens.objects.all()
     headers1={}
-    headers1['Authorization']= 'Bearer '+obj.access_token
-    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
+    headers1['Authorization']= 'Bearer '+access_token
+    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud1"
 
     print(cred)
     response=requests.post(url, data={
         'access_token':(vars(credentials)['access_token']),
+        'refresh_token':(vars(credentials)['refresh_token'])
         'email':userEmail,
         'cred':json.dumps(vars(credentials), cls=PythonObjectEncoder),
         'dump':dump,
@@ -233,8 +234,8 @@ def gd_oauth21(request):
         result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
     else:
         result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
-    return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
-
+    #return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
+    return JsonResponse({"creds":json.dumps(vars(credentials), cls=PythonObjectEncoder), "userEmail":userEmail, "status":"201"})
 
 def dropboxLogin(request):
     clientId="0g2qw3uaxpgwbsf"
