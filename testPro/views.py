@@ -332,7 +332,7 @@ def drop_oauth21(request):
     print(code)
     url = "https://api.dropboxapi.com/oauth2/token"
 
-    payload1 = "code="+str(code)+"&grant_type=authorization_code&redirect_uri=https://obscure-bayou-10492.herokuapp.com/test/complete/dropbox-oauth2"
+    payload1 = "code="+str(code)+"&grant_type=authorization_code&redirect_uri=https://obscure-bayou-10492.herokuapp.com/test/complete/dropbox-oauth21"
     headers1 = {
         'Content-Type': "application/x-www-form-urlencoded",
         'Authorization': "Basic MGcycXczdWF4cGd3YnNmOnl4dHhhMWg0YWU0cDhmMw==",
