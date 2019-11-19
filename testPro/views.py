@@ -380,7 +380,7 @@ def drop_oauth21(request):
 
     email=response1.json()['email']
 
-    obj=Tokens.objects.get(username=request.user)
+    
     headers1={}
     headers1['Authorization']= 'Bearer '+request.GET.get('state')
     url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
