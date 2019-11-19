@@ -246,6 +246,7 @@ def dropboxLogin(request):
 #Folder Hierarchy View
 def drop_oauth2(request):
     code=request.GET.get('code')
+    print(request.GET)
 
     print(code)
     url = "https://api.dropboxapi.com/oauth2/token"
