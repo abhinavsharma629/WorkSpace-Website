@@ -321,6 +321,87 @@ def drop_oauth2(request):
     return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
 
 
+
+
+
+#Folder Hierarchy View
+def drop_oauth21(request):
+    code=request.GET.get('code')
+    print(request.GET)
+
+    print(code)
+    url = "https://api.dropboxapi.com/oauth2/token"
+
+    payload1 = "code="+str(code)+"&grant_type=authorization_code&redirect_uri=https://obscure-bayou-10492.herokuapp.com/test/complete/dropbox-oauth2"
+    headers1 = {
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Authorization': "Basic MGcycXczdWF4cGd3YnNmOnl4dHhhMWg0YWU0cDhmMw==",
+        'Accept': "*/*",
+        'Cache-Control': "no-cache",
+        'Host': "api.dropboxapi.com",
+        'accept-encoding': "gzip, deflate",
+        'content-length': "154",
+        'Connection': "keep-alive",
+        'cache-control': "no-cache"
+        }
+
+    response = requests.request("POST", url, data=payload1, headers=headers1)
+
+    response=response.json()
+    print(response)
+    try:
+        accessToken=response['access_token']
+    except Exception as e:
+        return JsonResponse({'message':"Error", "status":"500"})
+
+    print(accessToken)
+    uid=response['uid']
+    print(uid)
+    accountId=response['account_id']
+    print(accountId)
+    url = "https://api.dropboxapi.com/2/users/get_current_account"
+
+    headers = {
+            'Authorization': "Bearer "+str(accessToken)
+        }
+
+    response1 = requests.request("POST", url, headers=headers)
+    print(response1.json())
+    dropBoxDetails={}
+    dropBoxCred={}
+    dropBoxCred['access_token']=accessToken
+    dropBoxCred['uid']=uid
+    dropBoxCred['account_id']=accountId
+    dropBoxDetails['credentials']=dropBoxCred
+    dropBoxDetails['user_details']=response1.json()
+    dropBoxFile=open('dropBoxUserDetails.json', 'w')
+    json.dump(dropBoxDetails, dropBoxFile)
+    dropBoxFile.close()
+
+    email=response1.json()['email']
+
+    obj=Tokens.objects.get(username=request.user)
+    headers1={}
+    headers1['Authorization']= 'Bearer '+request.GET.get('state')
+    url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
+
+    response=requests.post(url, data={
+        'access_token':accessToken,
+        'email':email,
+        'cred':json.dumps(dropBoxCred),
+        'dump':json.dumps(dropBoxDetails),
+        'authName': "DROPBOX"
+    }, headers=headers1).json()
+
+    print(response)
+
+    if(response['status']=='201'):
+        result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
+    else:
+        result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
+    return JsonResponse({"message":"Successfully Saved", "status":"201"})
+
+
 def personal(request):
     try:
         print(request.user)
