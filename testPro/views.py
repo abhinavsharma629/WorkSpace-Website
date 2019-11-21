@@ -232,10 +232,12 @@ def gd_oauth21(request):
 
     if(response['status']=='201'):
         result="A Duplicate User With the Email Of Registered Drive Already Exists in our Database!! Please try again with that account (if its yours) or report an issue if you notice something unusual!!"
-    else:
+    elif(response['status']=="203"):
         result="Your Drive Data Will Soon Be Loaded!! We are analysing it!! Be Patient!!"
+    else:
+        result="Multiple Account Login Attempt!!"
     #return render(request, 'testPro/cloudMain.html', {'data':result, "username":request.user.username, "access_token":obj.access_token,"refresh_token":obj.refresh_token})
-    return JsonResponse({"creds":json.dumps(vars(credentials), cls=PythonObjectEncoder), "userEmail":userEmail, "status":"201"})
+    return JsonResponse({"message":"Ok", "status":"201"})
 
 def dropboxLogin(request):
     clientId="0g2qw3uaxpgwbsf"
@@ -380,7 +382,7 @@ def drop_oauth21(request):
 
     email=response1.json()['email']
 
-    
+
     headers1={}
     headers1['Authorization']= 'Bearer '+request.GET.get('state')
     url="https://shielded-dusk-55059.herokuapp.com/hi/storeCloud"
